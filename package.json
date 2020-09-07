@@ -1,0 +1,21 @@
+{
+  "name": "gapit-htmlgraphics-panel",
+  "version": "0.0.0",
+  "description": "",
+  "scripts": {
+    "build": "grafana-toolkit plugin:build",
+    "test": "grafana-toolkit plugin:test",
+    "dev": "grafana-toolkit plugin:dev",
+    "watch": "grafana-toolkit plugin:dev --watch"
+  },
+  "author": "Gapit",
+  "license": "MIT",
+  "devDependencies": {
+    "@grafana/data": "7.1.5",
+    "@grafana/runtime": "^7.1.5",
+    "@grafana/toolkit": "7.1.5",
+    "@grafana/ui": "7.1.5",
+    "@monaco-editor/react": "^3.6.2"
+  },
+  "dependencies": {}
+}
