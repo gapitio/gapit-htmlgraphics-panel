@@ -8,7 +8,14 @@
       "name": "Gapit",
       "url": "https://gapit.io/"
     },
-    "keywords": [],
+    "keywords": [
+      "html",
+      "svg",
+      "javascript",
+      "graphics",
+      "gapit",
+      "panel"
+    ],
     "logos": {
       "small": "img/logo.svg",
       "large": "img/logo.svg"
