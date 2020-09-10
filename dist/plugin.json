@@ -1,0 +1,46 @@
+{
+  "type": "panel",
+  "name": "HTML graphics",
+  "id": "gapit-htmlgraphics-panel",
+  "description": "Grafana panel for displaying metric sensitive HTML and SVG graphics",
+  "info": {
+    "description": "",
+    "author": {
+      "name": "Gapit",
+      "url": "https://gapit.io/"
+    },
+    "keywords": [
+      "html",
+      "svg",
+      "javascript",
+      "graphics",
+      "gapit",
+      "panel"
+    ],
+    "logos": {
+      "small": "img/logo.svg",
+      "large": "img/logo.svg"
+    },
+    "screenshots": [
+      {
+        "name": "In action",
+        "path": "img/screenshot-building-overview"
+      },
+      {
+        "name": "Edit view",
+        "path": "img/screenshot-building-overview-edit"
+      },
+      {
+        "name": "Text editor",
+        "path": "img/screenshot-text-editor"
+      }
+    ],
+    "version": "0.0.1",
+    "updated": "2020-09-10"
+  },
+  "dependencies": {
+    "grafanaDependency": ">=7.0.0",
+    "grafanaVersion": "7.x",
+    "plugins": []
+  }
+}
