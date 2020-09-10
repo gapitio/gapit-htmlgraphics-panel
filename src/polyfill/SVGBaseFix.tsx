@@ -7,8 +7,8 @@
 
   More info:
   - https://gist.github.com/leonderijke/c5cf7c5b2e424c0061d2
-  - http://stackoverflow.com/a/18265336/796152
-  - http://www.w3.org/TR/SVG/linking.html
+  - https://stackoverflow.com/a/18265336
+  - https://www.w3.org/TR/SVG/linking.html
 */
 
 const SVGBaseFix = (html: string) => {
