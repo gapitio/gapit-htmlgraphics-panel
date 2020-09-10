@@ -35,8 +35,8 @@
         "path": "img/screenshot-text-editor"
       }
     ],
-    "version": "0.0.0",
-    "updated": "2020-09-07"
+    "version": "0.0.1",
+    "updated": "2020-09-10"
   },
   "dependencies": {
     "grafanaDependency": ">=7.0.0",
