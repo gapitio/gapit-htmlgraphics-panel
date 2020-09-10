@@ -20,7 +20,20 @@
       "small": "img/logo.svg",
       "large": "img/logo.svg"
     },
-    "screenshots": [],
+    "screenshots": [
+      {
+        "name": "In action",
+        "path": "img/screenshot-building-overview"
+      },
+      {
+        "name": "Edit view",
+        "path": "img/screenshot-building-overview-edit"
+      },
+      {
+        "name": "Text editor",
+        "path": "img/screenshot-text-editor"
+      }
+    ],
     "version": "0.0.0",
     "updated": "2020-09-07"
   },
