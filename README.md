@@ -223,7 +223,9 @@ Open Sans is added by this plugin, with four different font weights.
 
 This makes it easier to use a font that can be used on most devices and have multiple font weights (Grafana already adds [Roboto](https://fonts.google.com/specimen/Roboto), but it doesn't have light).
 
-It doesn't mean that you can't use different fonts, just means that Open Sans is added by this plugin. If you want to make it look most like Grafana, you should use [Roboto](https://fonts.google.com/specimen/Roboto), as Grafana uses it as the default font. ![Open Sans font weights](https://raw.githubusercontent.com/gapitio/gapit-htmlgraphics-panel/master/src/img/screenshot-open-sans-font-weights.png)
+It doesn't mean that you can't use different fonts, just means that Open Sans is added by this plugin. If you want to make it look most like Grafana, you should use [Roboto](https://fonts.google.com/specimen/Roboto), as Grafana uses it as the default font.
+
+![Open Sans font weights](https://raw.githubusercontent.com/gapitio/gapit-htmlgraphics-panel/master/src/img/screenshot-open-sans-font-weights.png)
 
 ## Learn more
 
