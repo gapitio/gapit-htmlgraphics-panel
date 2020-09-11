@@ -80,7 +80,7 @@ class SimpleOption extends PureComponent<SimpleOptionProps> {
         ) : value.constructor === Boolean ? (
           <this.boolean />
         ) : value.constructor === Number ? (
-          <this.string />
+          <this.number />
         ) : value.constructor === String ? (
           <this.string />
         ) : Array.isArray(value) ? (
