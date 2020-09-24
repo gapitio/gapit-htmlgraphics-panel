@@ -29,3 +29,5 @@ e2e-results/
 # Editors
 .idea
 
+# Compiled example code
+**/public/build
