@@ -55,4 +55,6 @@ interface PanelData {
  * https://grafana.com/docs/grafana/latest/packages_api/data/paneldata/.
  */
 declare const data: PanelData;
-` + dataFrame + dataQueryRequest;
+` +
+  dataFrame +
+  dataQueryRequest;
