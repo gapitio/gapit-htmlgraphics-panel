@@ -91,7 +91,16 @@ export class HTMLPanel extends PureComponent<Props, PanelState> {
   }
 
   executeScript(script: string) {
-    const F = new Function('htmlNode', 'data', 'codeData', 'options', 'theme', 'getTemplateSrv', 'getLocationSrv', script);
+    const F = new Function(
+      'htmlNode',
+      'data',
+      'codeData',
+      'options',
+      'theme',
+      'getTemplateSrv',
+      'getLocationSrv',
+      script
+    );
     F(
       this.state.shadowContainerRef.current?.shadowRoot,
       this.props.data,
