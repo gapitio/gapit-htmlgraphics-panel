@@ -1,6 +1,6 @@
 import React, { PureComponent } from 'react';
 import { PanelProps } from '@grafana/data';
-import { config } from '@grafana/runtime';
+import { config, getTemplateSrv, getLocationSrv } from '@grafana/runtime';
 import { Alert } from '@grafana/ui';
 import { OptionsInterface, EditorCodeType } from './types';
 import { SVGBaseFix } from 'polyfill';
@@ -91,13 +91,15 @@ export class HTMLPanel extends PureComponent<Props, PanelState> {
   }
 
   executeScript(script: string) {
-    const F = new Function('htmlNode', 'data', 'codeData', 'options', 'theme', script);
+    const F = new Function('htmlNode', 'data', 'codeData', 'options', 'theme', 'getTemplateSrv', 'getLocationSrv', script);
     F(
       this.state.shadowContainerRef.current?.shadowRoot,
       this.props.data,
       this.getCodeData(),
       this.props.options,
-      config.theme
+      config.theme,
+      getTemplateSrv,
+      getLocationSrv
     );
   }
 
