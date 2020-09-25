@@ -11,11 +11,11 @@
   "author": "Gapit",
   "license": "MIT",
   "devDependencies": {
-    "@grafana/data": "7.1.5",
-    "@grafana/runtime": "^7.1.5",
-    "@grafana/toolkit": "7.1.5",
-    "@grafana/ui": "7.1.5",
-    "@monaco-editor/react": "^3.6.2"
+    "@grafana/data": "7.2.0",
+    "@grafana/runtime": "^7.2.0",
+    "@grafana/toolkit": "7.2.0",
+    "@grafana/ui": "7.2.0",
+    "@monaco-editor/react": "^3.6.3"
   },
   "dependencies": {}
 }
