@@ -1,10 +1,10 @@
 # Change Log
 
 - [Change Log](#change-log)
-  - [v0.0.1](#v001)
-  - [v0.0.0](#v000)
+  - [v0.0.1 (2020-09-10)](#v001-2020-09-10)
+  - [v0.0.0 (2020-09-07)](#v000-2020-09-07)
 
-## v0.0.1
+## v0.0.1 (2020-09-10)
 
 Readme:
   Add "Goals for this plugin" section
@@ -23,6 +23,6 @@ SVGBaseFix:
 Screenshots:
   Add open-sans-font-weight, building-overview, building-overview-edit and text-editor screenshot
 
-## v0.0.0
+## v0.0.0 (2020-09-07)
 
 Initial
