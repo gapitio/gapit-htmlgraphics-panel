@@ -1,6 +1,6 @@
 {
   "name": "gapit-htmlgraphics-panel",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Grafana panel for displaying metric sensitive HTML and SVG graphics",
   "homepage": "https://github.com/gapitio/gapit-htmlgraphics-panel#readme",
   "bugs": {
