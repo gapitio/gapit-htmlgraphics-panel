@@ -1,27 +1,17 @@
 # Change Log
 
-- [Change Log](#change-log)
-  - [v0.0.1 (2020-09-10)](#v001-2020-09-10)
-  - [v0.0.0 (2020-09-07)](#v000-2020-09-07)
-
 ## v0.0.1 (2020-09-10)
 
-Readme:
-  Add "Goals for this plugin" section
-  Add "Getting started" section
-  Add "Fonts" section
-  Change "Execution environment variables" setup
+### Features / enhancements
 
-plugin.json:
-  Fix wrong date format
-  Add author url
-  Add keywords (html, svg, javascript, graphics, gapit, and panel)
+- **Readme**: Add more information.
+- **plugin.json**: Add author url and keywords.
+- **SVGBaseFix**: Update links used in the comments.
+- **Screenshots**: Add open-sans-font-weight, building-overview, building-overview-edit and text-editor screenshot.
 
-SVGBaseFix:
-  Update the urls
+### Bug fixes
 
-Screenshots:
-  Add open-sans-font-weight, building-overview, building-overview-edit and text-editor screenshot
+- **plugin.json**: Fix wrong date format.
 
 ## v0.0.0 (2020-09-07)
 
