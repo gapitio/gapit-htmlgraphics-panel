@@ -34,6 +34,20 @@
         "path": "img/screenshot-text-editor.png"
       }
     ],
+    "links": [
+      {
+        "name": "Project site",
+        "url": "https://github.com/gapitio/gapit-htmlgraphics-panel"
+      },
+      {
+        "name": "Examples",
+        "url": "https://github.com/gapitio/gapit-htmlgraphics-panel/tree/master/examples"
+      },
+      {
+        "name": "License",
+        "url": "https://github.com/gapitio/gapit-htmlgraphics-panel/blob/master/LICENSE"
+      }
+    ],
     "version": "0.0.1",
     "updated": "2020-09-10"
   },
