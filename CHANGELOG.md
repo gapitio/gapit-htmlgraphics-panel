@@ -1,5 +1,17 @@
 # Change Log
 
+## v0.0.2 (2020-09-28)
+
+### Features / enhancements
+
+- **Examples**: Add bundle and Grafana variable example
+- **Scripts**: Add support for Grafana/template variables
+
+### Bug fixes
+
+- **SimpleOptions/codeData**: Fix number showing string option
+- **SVGBaseFix**: Fix problem with multiple href.
+
 ## v0.0.1 (2020-09-10)
 
 ### Features / enhancements
