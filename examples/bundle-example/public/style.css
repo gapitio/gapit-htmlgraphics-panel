@@ -1,0 +1,59 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: 'Open Sans';
+  background: #f7f8fa;
+  color: #464c54;
+}
+
+header {
+  height: 30px;
+  user-select: none;
+  margin: 9px;
+}
+
+#theme-selector {
+  height: 100%;
+  text-align: right;
+  letter-spacing: 6px;
+}
+
+#header-right-container {
+  text-align: right;
+}
+
+#header-right-container > div {
+  display: inline-block;
+}
+
+.dot {
+  cursor: pointer;
+  height: 30px;
+  width: 30px;
+  border-radius: 50%;
+  display: inline-block;
+  position: relative;
+}
+
+.dot.light {
+  background-color: #eee;
+}
+
+.dot.dark {
+  background-color: #333;
+}
+
+#refresh-button {
+  cursor: pointer;
+  position: relative;
+  height: 30px;
+  width: 30px;
+  margin-right: 10px;
+}
+
+#refresh-button:active svg {
+  fill: #888;
+}

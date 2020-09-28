@@ -1,21 +1,29 @@
 {
   "name": "gapit-htmlgraphics-panel",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Grafana panel for displaying metric sensitive HTML and SVG graphics",
+  "homepage": "https://github.com/gapitio/gapit-htmlgraphics-panel#readme",
+  "bugs": {
+    "url": "https://github.com/gapitio/gapit-htmlgraphics-panel/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/gapitio/gapit-htmlgraphics-panel.git"
+  },
+  "license": "MIT",
+  "author": "Gapit",
   "scripts": {
     "build": "grafana-toolkit plugin:build",
-    "test": "grafana-toolkit plugin:test",
     "dev": "grafana-toolkit plugin:dev",
+    "test": "grafana-toolkit plugin:test",
     "watch": "grafana-toolkit plugin:dev --watch"
   },
-  "author": "Gapit",
-  "license": "MIT",
+  "dependencies": {},
   "devDependencies": {
-    "@grafana/data": "7.1.5",
-    "@grafana/runtime": "^7.1.5",
-    "@grafana/toolkit": "7.1.5",
-    "@grafana/ui": "7.1.5",
-    "@monaco-editor/react": "^3.6.2"
-  },
-  "dependencies": {}
+    "@grafana/data": "7.2.0",
+    "@grafana/runtime": "^7.2.0",
+    "@grafana/toolkit": "7.2.0",
+    "@grafana/ui": "7.2.0",
+    "@monaco-editor/react": "^3.6.3"
+  }
 }

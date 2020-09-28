@@ -1,28 +1,30 @@
 # Change Log
 
-- [Change Log](#change-log)
-  - [v0.0.1](#v001)
-  - [v0.0.0](#v000)
+## v0.0.2 (2020-09-28)
 
-## v0.0.1
+### Features / enhancements
 
-Readme:
-  Add "Goals for this plugin" section
-  Add "Getting started" section
-  Add "Fonts" section
-  Change "Execution environment variables" setup
+- **Examples**: Add bundle and Grafana variable example
+- **Scripts**: Add support for Grafana/template variables
 
-plugin.json:
-  Fix wrong date format
-  Add author url
-  Add keywords (html, svg, javascript, graphics, gapit, and panel)
+### Bug fixes
 
-SVGBaseFix:
-  Update the urls
+- **SimpleOptions/codeData**: Fix number showing string option
+- **SVGBaseFix**: Fix problem with multiple href.
 
-Screenshots:
-  Add open-sans-font-weight, building-overview, building-overview-edit and text-editor screenshot
+## v0.0.1 (2020-09-10)
 
-## v0.0.0
+### Features / enhancements
+
+- **Readme**: Add more information.
+- **plugin.json**: Add author url and keywords.
+- **SVGBaseFix**: Update links used in the comments.
+- **Screenshots**: Add open-sans-font-weight, building-overview, building-overview-edit and text-editor screenshot.
+
+### Bug fixes
+
+- **plugin.json**: Fix wrong date format.
+
+## v0.0.0 (2020-09-07)
 
 Initial

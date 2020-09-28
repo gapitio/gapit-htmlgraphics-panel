@@ -3,7 +3,7 @@ import MonacoEditor, { monaco, EditorDidMount } from '@monaco-editor/react';
 import { editor } from 'monaco-editor/esm/vs/editor/editor.api';
 import { EditorLanguageType } from 'types';
 import { config } from '@grafana/runtime';
-import { PanelDefinitionsString } from './PanelDefinitionsString';
+import textEditorDeclarations from './text-editor-declarations';
 
 interface MonacoEditorProps {
   language: EditorLanguageType;
@@ -16,7 +16,7 @@ let keyS = 49;
 
 monaco.init().then(monaco => {
   // Add autocompletion for panel definitions (htmlNode, codeData, data, options, and theme)
-  monaco.languages.typescript.javascriptDefaults.addExtraLib(PanelDefinitionsString);
+  monaco.languages.typescript.javascriptDefaults.addExtraLib(textEditorDeclarations);
 
   // Override the key values (should be the same)
   keyCtrlCmd = monaco.KeyMod.CtrlCmd;

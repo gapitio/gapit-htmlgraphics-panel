@@ -17,7 +17,7 @@ const SVGBaseFix = (html: string) => {
 
   // Adds the BASE_URL between (xlink:href=") and (#")
   // xlink:href="#gradient" -> xlink:href="https://random.site/d/SoMeThInG/dashboard?orgId=1#gradient"
-  html = html.replace(/(xlink:href=")(#.*")/, `$1${BASE_URL}$2`);
+  html = html.replace(/(xlink:href=")(#[^"]*)/g, `$1${BASE_URL}$2`);
 
   // Returns the edited html string
   return html;
