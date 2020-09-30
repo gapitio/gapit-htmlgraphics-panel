@@ -29,6 +29,8 @@ This plugin is highly inspired by [marcuscalidus-svg-panel](https://github.com/M
     - [data](#data)
     - [options](#options-1)
     - [theme](#theme)
+    - [getTemplateSrv](#gettemplatesrv)
+    - [getLocationSrv](#getlocationsrv)
   - [Fonts](#fonts)
   - [Learn more](#learn-more)
 
@@ -169,7 +171,7 @@ console.log(codeData.something);
 
 The [PanelData interface](https://grafana.com/docs/grafana/latest/packages_api/data/paneldata/) passed in to the panel by Grafana. It is used to get the values from the DataFrame.
 
-Used to retrieve metric values.
+Can be used to retrieve metric values.
 
 ```javascript
 // Used in onRender as it updates every time new data is available
@@ -217,6 +219,31 @@ const darkTheme = () => {
 if (theme.isDark) {
   darkTheme();
 }
+```
+
+### getTemplateSrv
+
+Used to retrieve the [TemplateSrv](https://grafana.com/docs/grafana/latest/packages_api/runtime/templatesrv/) that can be used to fetch available template variables.
+
+```javascript
+getTemplateSrv().replace(`$randomVariable`);
+```
+
+### getLocationSrv
+
+Used to retrieve the [LocationSrv](https://grafana.com/docs/grafana/latest/packages_api/runtime/locationsrv/) that can be used to automatically navigate the user to a new place in Grafana.
+
+Can be used to update a variable in Grafana ([Example](https://github.com/gapitio/gapit-htmlgraphics-panel/tree/master/examples/update-grafana-variable-example)).
+
+```javascript
+getLocationSrv().update({
+  query: {
+    'var-randomVariable': 'randomValue',
+  },
+  partial: true,
+  replace: true,
+});
+
 ```
 
 ## Fonts
