@@ -73,7 +73,7 @@ export const plugin = new PanelPlugin<OptionsInterface>(HTMLPanel).setPanelOptio
       id: 'onRender',
       path: 'onRender',
       name: 'onRender',
-      description: `On render code is executed whenever new data is available (htmlNode, codeData, data, options, theme)`,
+      description: `On render code is executed whenever new data is available (htmlNode, codeData, data, options, theme, getTemplateSrv, getLocationSrv)`,
       editor: PanelOptionCode,
       category: ['On render  JS'],
       settings: {
@@ -84,7 +84,7 @@ export const plugin = new PanelPlugin<OptionsInterface>(HTMLPanel).setPanelOptio
       id: 'onInit',
       path: 'onInit',
       name: 'onInit',
-      description: 'On int code is executed when the panel loads (htmlNode, codeData, data, options, theme)',
+      description: 'On int code is executed when the panel loads (htmlNode, codeData, data, options, theme, getTemplateSrv, getLocationSrv)',
       editor: PanelOptionCode,
       category: ['On init JS'],
       settings: {
