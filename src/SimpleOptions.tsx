@@ -45,7 +45,10 @@ class SimpleOption extends PureComponent<SimpleOptionProps> {
   );
 
   array = () => (
-    <ControlledCollapse label={`Click to toggle (items: ${this.props.newDict[this.props.itemKey].length})`}>
+    <ControlledCollapse
+      collapsible={true}
+      label={`Click to toggle (items: ${this.props.newDict[this.props.itemKey].length})`}
+    >
       {this.props.newDict[this.props.itemKey].map((value: string, index: number) => {
         return (
           <SimpleOption
@@ -61,6 +64,7 @@ class SimpleOption extends PureComponent<SimpleOptionProps> {
 
   dict = () => (
     <ControlledCollapse
+      collapsible={true}
       label={`Click to toggle (items: ${Object.keys(this.props.newDict[this.props.itemKey]).length})`}
     >
       <SimpleOptions
