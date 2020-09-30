@@ -57,7 +57,7 @@ To update the panel, press ctrl+s inside the text editor or click outside the te
 7. Write code that you want to run once when the dashboard loads in the onInit text editor.
 8. Write code that you want to run when new data is available in the onRender text editor.
 9. Add options into the code data text editor.
-10. Make good use of the developer console (ctrl+shift+j) and console.log().
+10. Make good use of the [developer console](https://developers.google.com/web/tools/chrome-devtools) (ctrl+shift+j) and console.log().
 
 ## Options
 
@@ -233,7 +233,10 @@ getTemplateSrv().replace(`$randomVariable`);
 
 Used to retrieve the [LocationSrv](https://grafana.com/docs/grafana/latest/packages_api/runtime/locationsrv/) that can be used to automatically navigate the user to a new place in Grafana.
 
-Can be used to update a variable in Grafana ([Example](https://github.com/gapitio/gapit-htmlgraphics-panel/tree/master/examples/update-grafana-variable-example)).
+Can be used to update a variable in Grafana.
+
+- [Grafana templates and variables](https://grafana.com/docs/grafana/latest/variables/templates-and-variables/)
+- [Example](https://github.com/gapitio/gapit-htmlgraphics-panel/tree/master/examples/update-grafana-variable-example)
 
 ```javascript
 getLocationSrv().update({
@@ -243,16 +246,15 @@ getLocationSrv().update({
   partial: true,
   replace: true,
 });
-
 ```
 
 ## Fonts
 
-Open Sans is added by this plugin, with four different font weights.
+[Open Sans](https://fonts.google.com/specimen/Open+Sans) is added by this plugin, with four different font weights.
 
 This makes it easier to use a font that can be used on most devices and have multiple font weights (Grafana already adds [Roboto](https://fonts.google.com/specimen/Roboto), but it doesn't have light).
 
-It doesn't mean that you can't use different fonts, just means that Open Sans is added by this plugin. If you want to make it look most like Grafana, you should use [Roboto](https://fonts.google.com/specimen/Roboto) as Grafana uses it as the default font.
+It doesn't mean that you can't use different fonts, just means that [Open Sans](https://fonts.google.com/specimen/Open+Sans) is added by this plugin. If you want to make it look most like Grafana, you should use [Roboto](https://fonts.google.com/specimen/Roboto) as Grafana uses it as the default font.
 
 ![Open Sans font weights](https://raw.githubusercontent.com/gapitio/gapit-htmlgraphics-panel/master/src/img/screenshot-open-sans-font-weights.png)
 
@@ -261,4 +263,5 @@ It doesn't mean that you can't use different fonts, just means that Open Sans is
 - [ShadowRoot](https://developer.mozilla.org/en-US/docs/Web/API/ShadowRoot) - If you want to know how to use the htmlNode.
 - [Monaco Editor](https://microsoft.github.io/monaco-editor/) - The editor used.
 - [Grafana documentation](https://grafana.com/docs/)
+- [Grafana templates and variables](https://grafana.com/docs/grafana/latest/variables/templates-and-variables/)
 - [Font added](https://fonts.google.com/specimen/Open+Sans?sidebar.open=true&selection.family=Open+Sans:wght@300;400;600;700) - The font added by this plugin
