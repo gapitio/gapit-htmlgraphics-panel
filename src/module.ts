@@ -84,7 +84,8 @@ export const plugin = new PanelPlugin<OptionsInterface>(HTMLPanel).setPanelOptio
       id: 'onInit',
       path: 'onInit',
       name: 'onInit',
-      description: 'On int code is executed when the panel loads (htmlNode, codeData, data, options, theme, getTemplateSrv, getLocationSrv)',
+      description:
+        'On int code is executed when the panel loads (htmlNode, codeData, data, options, theme, getTemplateSrv, getLocationSrv)',
       editor: PanelOptionCode,
       category: ['On init JS'],
       settings: {
