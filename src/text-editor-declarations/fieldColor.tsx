@@ -2,7 +2,7 @@ export default `
 declare enum FieldColorMode {
   Thresholds = "thresholds",
   Scheme = "scheme",
-  Fixed = "fixed"
+  Fixed = "fixed",
 }
 interface FieldColor {
   mode: FieldColorMode;
@@ -36,6 +36,6 @@ declare enum ColorScheme {
   Greys = "Greys",
   Purples = "Purples",
   Reds = "Reds",
-  Oranges = "Oranges"
+  Oranges = "Oranges",
 }
 `;

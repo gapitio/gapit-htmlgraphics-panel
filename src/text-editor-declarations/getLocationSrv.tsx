@@ -4,7 +4,15 @@ export default `
  *
  * @public
  */
-declare type UrlQueryValue = string | number | boolean | string[] | number[] | boolean[] | undefined | null;
+declare type UrlQueryValue =
+  | string
+  | number
+  | boolean
+  | string[]
+  | number[]
+  | boolean[]
+  | undefined
+  | null;
 /**
  * Type to represent the values parsed from the query string.
  *
@@ -13,29 +21,29 @@ declare type UrlQueryValue = string | number | boolean | string[] | number[] | b
 declare type UrlQueryMap = Record<string, UrlQueryValue>;
 
 interface LocationUpdate {
-    /**
-     * Target path where you automatically wants to navigate the user.
-     */
-    path?: string;
-    /**
-     * Specify this value if you want to add values to the query string of the URL.
-     */
-    query?: UrlQueryMap;
-    /**
-     * If set to true, the query argument will be added to the existing URL.
-     */
-    partial?: boolean;
-    /**
-     * Used internally to sync the Redux state from Angular to make sure that the Redux location
-     * state is in sync when navigating using the Angular router.
-     *
-     * @remarks
-     * Do not change this unless you are the Angular router.
-     *
-     * @internal
-     */
-    routeParams?: UrlQueryMap;
-    replace?: boolean;
+  /**
+   * Target path where you automatically wants to navigate the user.
+   */
+  path?: string;
+  /**
+   * Specify this value if you want to add values to the query string of the URL.
+   */
+  query?: UrlQueryMap;
+  /**
+   * If set to true, the query argument will be added to the existing URL.
+   */
+  partial?: boolean;
+  /**
+   * Used internally to sync the Redux state from Angular to make sure that the Redux location
+   * state is in sync when navigating using the Angular router.
+   *
+   * @remarks
+   * Do not change this unless you are the Angular router.
+   *
+   * @internal
+   */
+  routeParams?: UrlQueryMap;
+  replace?: boolean;
 }
 
 /**

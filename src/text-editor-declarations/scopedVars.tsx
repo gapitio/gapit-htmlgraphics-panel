@@ -7,5 +7,4 @@ interface ScopedVar<T = any> {
 interface ScopedVars {
   [key: string]: ScopedVar;
 }
-
 `;

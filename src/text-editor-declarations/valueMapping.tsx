@@ -1,7 +1,7 @@
 export default `
 declare enum MappingType {
   ValueToText = 1,
-  RangeToText = 2
+  RangeToText = 2,
 }
 interface BaseMap {
   id: number;

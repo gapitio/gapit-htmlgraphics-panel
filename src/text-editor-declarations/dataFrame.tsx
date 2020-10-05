@@ -1,7 +1,3 @@
-import valueMapping from './valueMapping';
-import thresholds from './thresholds';
-import fieldColor from './fieldColor';
-
 export default `
 interface QueryResultBase {
   /**
@@ -11,7 +7,7 @@ interface QueryResultBase {
   /**
    * Used by some backend data sources to communicate back info about the execution (generated sql, timing)
    */
-  meta?: {[key: string]: any};
+  meta?: { [key: string]: any };
 }
 
 declare enum FieldType {
@@ -20,13 +16,22 @@ declare enum FieldType {
   string = "string",
   boolean = "boolean",
   trace = "trace",
-  other = "other"
+  other = "other",
 }
 
 declare enum NullValueMode {
   Null = "null",
   Ignore = "connected",
-  AsZero = "null as zero"
+  AsZero = "null as zero",
+}
+
+/**
+ * Callback info for DataLink click events
+ */
+interface DataLinkClickEvent<T = any> {
+  origin: T;
+  scopedVars: ScopedVars;
+  e?: any;
 }
 
 interface DataLink<T extends DataQuery = any> {
@@ -36,8 +41,8 @@ interface DataLink<T extends DataQuery = any> {
   onBuildUrl?: (event: DataLinkClickEvent) => string;
   onClick?: (event: DataLinkClickEvent) => void;
   internal?: {
-      query: T;
-      datasourceUid: string;
+    query: T;
+    datasourceUid: string;
   };
 }
 
@@ -57,7 +62,7 @@ interface FieldConfig<TOptions extends object = any> {
   custom?: TOptions;
 }
 
-interface FieldCalcs extends Record<string, any> {}
+type FieldCalcs = Record<string, any>;
 
 interface FieldState {
   /**
@@ -109,17 +114,29 @@ interface ValueLinkConfig {
   valueRowIndex?: number;
 }
 
-declare type LinkTarget = '_blank' | '_self' | undefined;
+declare type LinkTarget = "_blank" | "_self" | undefined;
 
 /**
  * Processed Link Model. The values are ready to use
  */
 interface LinkModel<T = any> {
-    href: string;
-    title: string;
-    target: LinkTarget;
-    origin: T;
-    onClick?: (e: any) => void;
+  href: string;
+  title: string;
+  target: LinkTarget;
+  origin: T;
+  onClick?: (e: any) => void;
+}
+
+interface Vector<T = any> {
+  length: number;
+  /**
+   * Access the value by index (Like an array)
+   */
+  get(index: number): T;
+  /**
+   * Get the results as an array.
+   */
+  toArray(): T[];
 }
 
 interface Field<T = any, V = Vector<T>> {
@@ -136,7 +153,7 @@ interface Field<T = any, V = Vector<T>> {
    */
   config: FieldConfig;
   values: V;
-  labels?: [key: string]: string;
+  labels?: { [key: string]: string };
   /**
    * Cached values with appropriate display and id values
    */
@@ -160,7 +177,4 @@ interface DataFrame extends QueryResultBase {
   fields: Field[];
   length: number;
 }
-` +
-  valueMapping +
-  thresholds +
-  fieldColor;
+`;

@@ -7,19 +7,21 @@ interface Threshold {
    */
   state?: string;
 }
+
 /**
-*  Display mode
-*/
+ *  Display mode
+ */
 declare enum ThresholdsMode {
   Absolute = "absolute",
   /**
    *  between 0 and 1 (based on min/max)
    */
-  Percentage = "percentage"
+  Percentage = "percentage",
 }
+
 /**
-*  Config that is passed to the ThresholdsEditor
-*/
+ *  Config that is passed to the ThresholdsEditor
+ */
 interface ThresholdsConfig {
   mode: ThresholdsMode;
   /**

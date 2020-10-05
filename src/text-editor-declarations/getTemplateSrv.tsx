@@ -1,10 +1,18 @@
 export default `
-declare type VariableType = 'query' | 'adhoc' | 'constant' | 'datasource' | 'interval' | 'textbox' | 'custom' | 'system';
+declare type VariableType =
+  | "query"
+  | "adhoc"
+  | "constant"
+  | "datasource"
+  | "interval"
+  | "textbox"
+  | "custom"
+  | "system";
 
 interface VariableModel {
-    type: VariableType;
-    name: string;
-    label: string | null;
+  type: VariableType;
+  name: string;
+  label: string | null;
 }
 
 /**
@@ -15,14 +23,18 @@ interface VariableModel {
  * @public
  */
 interface TemplateSrv {
-    /**
-     * List the dashboard variables
-     */
-    getVariables(): VariableModel[];
-    /**
-     * Replace the values within the target string.  See also {@link InterpolateFunction}
-     */
-    replace(target?: string, scopedVars?: ScopedVars, format?: string | Function): string;
+  /**
+   * List the dashboard variables
+   */
+  getVariables(): VariableModel[];
+  /**
+   * Replace the values within the target string.  See also {@link InterpolateFunction}
+   */
+  replace(
+    target?: string,
+    scopedVars?: ScopedVars,
+    format?: string | Function
+  ): string;
 }
 
 /**

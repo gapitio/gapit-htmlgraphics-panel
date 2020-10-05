@@ -1,16 +1,13 @@
-import dataFrame from './dataFrame';
-import dataQueryRequest from './dataQueryRequest';
-
 export default `
 /**
  * Represent panel data loading state.
  */
 declare enum LoadingState {
-    NotStarted = "NotStarted",
-    Loading = "Loading",
-    Streaming = "Streaming",
-    Done = "Done",
-    Error = "Error"
+  NotStarted = "NotStarted",
+  Loading = "Loading",
+  Streaming = "Streaming",
+  Done = "Done",
+  Error = "Error",
 }
 
 interface DataQueryTimings {
@@ -20,13 +17,13 @@ interface DataQueryTimings {
 declare enum DataQueryErrorType {
   Cancelled = "cancelled",
   Timeout = "timeout",
-  Unknown = "unknown"
+  Unknown = "unknown",
 }
 
 interface DataQueryError {
   data?: {
-      message?: string;
-      error?: string;
+    message?: string;
+    error?: string;
   };
   message?: string;
   status?: string;
@@ -55,6 +52,4 @@ interface PanelData {
  * https://grafana.com/docs/grafana/latest/packages_api/data/paneldata/.
  */
 declare const data: PanelData;
-` +
-  dataFrame +
-  dataQueryRequest;
+`;
