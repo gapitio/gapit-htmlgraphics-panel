@@ -11,6 +11,10 @@ This plugin is highly inspired by [marcuscalidus-svg-panel](https://github.com/M
 - [HTML graphics](#html-graphics)
   - [Table of contents](#table-of-contents)
   - [Goals for this plugin](#goals-for-this-plugin)
+  - [Installation](#installation)
+    - [Grafana-cli (recommended)](#grafana-cli-recommended)
+    - [Docker compose file](#docker-compose-file)
+    - [Manual](#manual)
   - [Getting started](#getting-started)
   - [Options](#options)
     - [Display](#display)
@@ -41,6 +45,54 @@ Display metric sensitive HTML and SVG graphics.
 Give the user/programmer the ability to use the new [Grafana API](https://grafana.com/docs/grafana/latest/packages_api/).
 
 Make it easy for the user/programmer to change values and repeat code (with the addition of code data).
+
+## Installation
+
+You can get all the releases [here](https://github.com/gapitio/gapit-htmlgraphics-panel/releases).
+The version is written at the left side with the following format `vX.X.X`.
+
+> **WARNING**: Examples used is written with `{version}` instead of the version number and needs to be replaced with a version number.
+
+### Grafana-cli (recommended)
+
+```bash
+grafana-cli --pluginUrl https://github.com/gapitio/gapit-htmlgraphics-panel/archive/{version}.zip plugins install gapit-htmlgraphics-plugin
+```
+
+To install v0.0.2
+
+```bash
+grafana-cli --pluginUrl https://github.com/gapitio/gapit-htmlgraphics-panel/archive/v0.0.2.zip plugins install gapit-htmlgraphics-plugin
+```
+
+### Docker compose file
+
+```docker
+version: '2'
+services:
+
+  grafana:
+    image: grafana/grafana:7.2.0
+    container_name: grafana
+    restart: always
+    networks:
+      - grafana
+    ports:
+      - 3000:3000
+    environment:
+      - GF_INSTALL_PLUGINS=https://github.com/gapitio/gapit-htmlgraphics-panel/archive/{version};gapit-htmlgraphics-panel
+
+networks:
+    grafana:
+      external:
+            name: grafana
+```
+
+### Manual
+
+1. Go to <https://github.com/gapitio/gapit-htmlgraphics-panel/releases>.
+2. Download the zip file.
+3. Uncompress the file into the Grafana plugins directory.
 
 ## Getting started
 
