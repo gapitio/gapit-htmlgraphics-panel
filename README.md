@@ -59,10 +59,10 @@ The version is written at the left side with the following format `vX.X.X`.
 grafana-cli --pluginUrl https://github.com/gapitio/gapit-htmlgraphics-panel/archive/{version}.zip plugins install gapit-htmlgraphics-plugin
 ```
 
-To install v0.0.2
+To install v0.0.3
 
 ```bash
-grafana-cli --pluginUrl https://github.com/gapitio/gapit-htmlgraphics-panel/archive/v0.0.2.zip plugins install gapit-htmlgraphics-plugin
+grafana-cli --pluginUrl https://github.com/gapitio/gapit-htmlgraphics-panel/archive/v0.0.3.zip plugins install gapit-htmlgraphics-plugin
 ```
 
 ### Docker compose file

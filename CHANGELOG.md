@@ -1,5 +1,12 @@
 # Change Log
 
+## v0.0.3 (2020-10-06)
+
+### Features / enhancements
+
+- **Text editor**: Better Grafana types for autocompletion
+- **codeData**: Add a collapse header icon
+
 ## v0.0.2 (2020-09-28)
 
 ### Features / enhancements
