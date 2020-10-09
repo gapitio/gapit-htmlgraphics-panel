@@ -287,7 +287,7 @@ Used to retrieve the [LocationSrv](https://grafana.com/docs/grafana/latest/packa
 
 Can be used to update a variable in Grafana.
 
-- [Grafana templates and variables](https://grafana.com/docs/grafana/latest/variables/templates-and-variables/)
+- [Grafana templates and variables](https://grafana.com/docs/grafana/latest/developers/plugins/add-support-for-variables/)
 - [Example](https://github.com/gapitio/gapit-htmlgraphics-panel/tree/master/examples/update-grafana-variable-example)
 
 ```javascript
@@ -315,5 +315,5 @@ It doesn't mean that you can't use different fonts, just means that [Open Sans](
 - [ShadowRoot](https://developer.mozilla.org/en-US/docs/Web/API/ShadowRoot) - If you want to know how to use the htmlNode.
 - [Monaco Editor](https://microsoft.github.io/monaco-editor/) - The editor used.
 - [Grafana documentation](https://grafana.com/docs/)
-- [Grafana templates and variables](https://grafana.com/docs/grafana/latest/variables/templates-and-variables/)
+- [Grafana templates and variables](https://grafana.com/docs/grafana/latest/developers/plugins/add-support-for-variables/)
 - [Font added](https://fonts.google.com/specimen/Open+Sans?sidebar.open=true&selection.family=Open+Sans:wght@300;400;600;700) - The font added by this plugin
