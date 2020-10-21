@@ -14,6 +14,11 @@ interface MonacoEditorProps {
 let keyCtrlCmd = 2048;
 let keyS = 49;
 
+monaco.config({
+  paths: {
+    vs: '/public/plugins/gapit-htmlgraphics-panel/vs',
+  },
+});
 monaco.init().then(monaco => {
   // Add autocompletion for panel definitions (htmlNode, codeData, data, options, and theme)
   monaco.languages.typescript.javascriptDefaults.addExtraLib(textEditorDeclarations);
