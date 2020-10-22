@@ -6,7 +6,7 @@ module.exports.getWebpackConfig = (config, options) => ({
   plugins: [
     ...config.plugins,
     new CopyWebpackPlugin({
-      patterns: [{ from: path.resolve('node_modules/monaco-editor/min/vs/'), to: 'vs' }],
+      patterns: [{ from: path.resolve('node_modules/monaco-editor/min/'), to: 'lib' }],
     }),
   ],
 });

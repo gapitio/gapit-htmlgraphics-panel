@@ -16,7 +16,7 @@ let keyS = 49;
 
 monaco.config({
   paths: {
-    vs: '/public/plugins/gapit-htmlgraphics-panel/vs',
+    vs: '/public/plugins/gapit-htmlgraphics-panel/lib/vs',
   },
 });
 monaco.init().then(monaco => {
