@@ -1,5 +1,11 @@
 # Change Log
 
+## v0.0.4 (2020-10-22)
+
+### Features / enhancements
+
+- **Text editor**: Fully support offline
+
 ## v0.0.3 (2020-10-06)
 
 ### Features / enhancements

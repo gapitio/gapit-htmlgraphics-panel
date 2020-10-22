@@ -59,10 +59,10 @@ The version is written at the left side with the following format `vX.X.X`.
 grafana-cli --pluginUrl https://github.com/gapitio/gapit-htmlgraphics-panel/archive/{version}.zip plugins install gapit-htmlgraphics-plugin
 ```
 
-To install v0.0.3
+To install v0.0.4
 
 ```bash
-grafana-cli --pluginUrl https://github.com/gapitio/gapit-htmlgraphics-panel/archive/v0.0.3.zip plugins install gapit-htmlgraphics-plugin
+grafana-cli --pluginUrl https://github.com/gapitio/gapit-htmlgraphics-panel/archive/v0.0.4.zip plugins install gapit-htmlgraphics-plugin
 ```
 
 ### Docker compose file
@@ -153,13 +153,12 @@ Gets added next to the html document.
 
 ```html
 #shadow-root
-  <style>
-    /* The CSS */
-  </style>
-  <div>
-    HTML/SVG document
-  </div>
-
+<style>
+  /* The CSS */
+</style>
+<div>
+  HTML/SVG document
+</div>
 ```
 
 ### HTML/SVG document
@@ -201,7 +200,7 @@ randomTextElt.style.fill = '#08f';
 
 ### codeData
 
-The parsed json object (*also available as a JSON string in options.codeData*) from the Code data option.
+The parsed json object (_also available as a JSON string in options.codeData_) from the Code data option.
 
 Used to get the json object values.
 
@@ -287,7 +286,7 @@ Used to retrieve the [LocationSrv](https://grafana.com/docs/grafana/latest/packa
 
 Can be used to update a variable in Grafana.
 
-- [Grafana templates and variables](https://grafana.com/docs/grafana/latest/variables/templates-and-variables/)
+- [Grafana templates and variables](https://grafana.com/docs/grafana/latest/developers/plugins/add-support-for-variables/)
 - [Example](https://github.com/gapitio/gapit-htmlgraphics-panel/tree/master/examples/update-grafana-variable-example)
 
 ```javascript
@@ -315,5 +314,5 @@ It doesn't mean that you can't use different fonts, just means that [Open Sans](
 - [ShadowRoot](https://developer.mozilla.org/en-US/docs/Web/API/ShadowRoot) - If you want to know how to use the htmlNode.
 - [Monaco Editor](https://microsoft.github.io/monaco-editor/) - The editor used.
 - [Grafana documentation](https://grafana.com/docs/)
-- [Grafana templates and variables](https://grafana.com/docs/grafana/latest/variables/templates-and-variables/)
+- [Grafana templates and variables](https://grafana.com/docs/grafana/latest/developers/plugins/add-support-for-variables/)
 - [Font added](https://fonts.google.com/specimen/Open+Sans?sidebar.open=true&selection.family=Open+Sans:wght@300;400;600;700) - The font added by this plugin
