@@ -20,11 +20,11 @@
   },
   "dependencies": {},
   "devDependencies": {
-    "@grafana/data": "7.2.2",
-    "@grafana/runtime": "^7.2.2",
-    "@grafana/toolkit": "7.2.2",
-    "@grafana/ui": "7.2.2",
-    "@monaco-editor/react": "^3.6.3",
-    "copy-webpack-plugin": "^6.2.1"
+    "@grafana/data": "7.3.3",
+    "@grafana/runtime": "^7.3.3",
+    "@grafana/toolkit": "7.3.3",
+    "@grafana/ui": "7.3.3",
+    "@monaco-editor/react": "^3.7.0",
+    "copy-webpack-plugin": "^6.3.1"
   }
 }
