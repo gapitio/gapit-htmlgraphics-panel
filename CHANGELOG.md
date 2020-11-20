@@ -1,10 +1,21 @@
 # Change Log
 
+## v1.0.0 (2020-11-20)
+
+### Features / enhancements
+
+- **Repo**: Use the new [package format](https://grafana.com/docs/grafana/latest/developers/plugins/package-a-plugin/)
+- **Repo**: [Sign the plugin](https://grafana.com/docs/grafana/latest/developers/plugins/sign-a-plugin/)
+
+### Breaking changes
+
+Since the new package format, there might be problems unpacking it.
+
 ## v0.0.4 (2020-10-22)
 
 ### Features / enhancements
 
-- **Text editor**: Fully support offline
+- **Text editor**: Support offline
 
 ## v0.0.3 (2020-10-06)
 
