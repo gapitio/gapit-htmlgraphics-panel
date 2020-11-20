@@ -8,14 +8,7 @@
       "name": "Gapit",
       "url": "https://gapit.io/"
     },
-    "keywords": [
-      "html",
-      "svg",
-      "javascript",
-      "graphics",
-      "gapit",
-      "panel"
-    ],
+    "keywords": ["html", "svg", "javascript", "graphics", "gapit", "panel"],
     "logos": {
       "small": "img/logo.svg",
       "large": "img/logo.svg"
@@ -48,7 +41,7 @@
         "url": "https://github.com/gapitio/gapit-htmlgraphics-panel/blob/master/LICENSE"
       }
     ],
-    "version": "0.0.3",
+    "version": "1.0.0",
     "updated": "2020-10-06"
   },
   "dependencies": {
