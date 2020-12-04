@@ -40,15 +40,15 @@ const SimpleCodeData = ({ value, onChange }: { value: EditorCodeType; onChange: 
 };
 
 export const PanelOptionCodeData: React.FC<Props> = ({ value, item, onChange }) => {
-  const [advancedMode, setAdvancedMode] = useState(false);
+  const [jsonView, setJsonView] = useState(false);
 
   return (
     <div>
       <br />
-      <Label description={'Show the json code editor'}>Advanced mode</Label>
-      <Switch value={advancedMode} onChange={() => setAdvancedMode(!advancedMode)} css={{}}></Switch>
+      <Label>Edit as JSON</Label>
+      <Switch value={jsonView} onChange={() => setJsonView(!jsonView)} css={{}}></Switch>
       <br />
-      {advancedMode ? (
+      {jsonView ? (
         <TextPanelEditor
           language={item.settings?.language}
           value={value}

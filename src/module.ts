@@ -8,9 +8,8 @@ export const plugin = new PanelPlugin<OptionsInterface>(HTMLPanel).setPanelOptio
   return builder
     .addBooleanSwitch({
       path: 'add100Percentage',
-      name: 'Add 100%',
+      name: 'Fit content to panel',
       description: `
-        This is mostly for SVG, as it will scale the content based on the size of the panel.
         Adds 100% height and width attribute to the document.
       `,
       defaultValue: true,
@@ -19,8 +18,7 @@ export const plugin = new PanelPlugin<OptionsInterface>(HTMLPanel).setPanelOptio
       path: 'centerAlignContent',
       name: 'Center align content',
       description: `
-        Vertically and horizontally aligns the panel content to the center.
-        Adds "display: flex; justify-content: center; align-items: center" to the shadow root container.
+        Vertically and horizontally aligns the content to the center.
       `,
       defaultValue: true,
     })
