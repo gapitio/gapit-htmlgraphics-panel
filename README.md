@@ -18,17 +18,18 @@ This plugin is highly inspired by [marcuscalidus-svg-panel](https://github.com/M
   - [Getting started](#getting-started)
   - [Options](#options)
     - [Display](#display)
-      - [Add 100%](#add-100)
+      - [Fit content to panel](#fit-content-to-panel)
       - [Center align content](#center-align-content)
     - [Polyfill](#polyfill)
       - [SVG base fix](#svg-base-fix)
-    - [Code data](#code-data)
+    - [Custom properties](#custom-properties)
     - [CSS](#css)
     - [HTML/SVG document](#htmlsvg-document)
     - [On render JS](#on-render-js)
     - [On init JS](#on-init-js)
   - [Execution Environment Interfaces](#execution-environment-interfaces)
     - [htmlNode](#htmlnode)
+    - [customProperties](#customproperties)
     - [codeData](#codedata)
     - [data](#data)
     - [options](#options-1)
@@ -44,7 +45,7 @@ Display metric sensitive HTML and SVG graphics.
 
 Give the user/programmer the ability to use the new [Grafana API](https://grafana.com/docs/grafana/latest/packages_api/).
 
-Make it easy for the user/programmer to change values and repeat code (with the addition of code data).
+Make it easy for the user/programmer to change values and repeat code (with the addition of Custom properties).
 
 ## Installation
 
@@ -108,14 +109,14 @@ To update the panel, press ctrl+s inside the text editor or click outside the te
 6. Paste the HTML/SVG code into the HTML/SVG document text editor.
 7. Write code that you want to run once when the dashboard loads in the onInit text editor.
 8. Write code that you want to run when new data is available in the onRender text editor.
-9. Add options into the code data text editor.
+9. Add options into the Custom properties text editor.
 10. Make good use of the [developer console](https://developers.google.com/web/tools/chrome-devtools) (ctrl+shift+j) and console.log().
 
 ## Options
 
 ### Display
 
-#### Add 100%
+#### Fit content to panel
 
 This is mostly for SVG, as it will scale the content based on the size of the panel.
 Adds 100% height and width attribute to the document.
@@ -133,9 +134,9 @@ Fixes an issue in Firefox where xlink:href needs the url to be able to find the 
 <https://stackoverflow.com/a/18265336>
 <https://www.w3.org/TR/SVG/linking.html>
 
-### Code data
+### Custom properties
 
-Code data can be used to easily change values when multiple people are working on it. E.g.
+Custom properties can be used to easily change values when multiple people are working on it. E.g.
 
 - Change the range of a color.
 - Toggle between showcase and production mode, to show how it would look if there were values there.
@@ -144,7 +145,7 @@ Code data can be used to easily change values when multiple people are working o
 
 Having a json file sort of as a configuration file makes it much easier to copy a panel and change some values in the json file instead of going through the javascripts for it.
 
-Think of this scenario: You have three dashboards with similar graphics. The only difference is a value range. You can create one code for all three panels, and have a configuration file (code data) with the ranges. Also makes it much easier to change later on (bugs, changes and additions) when the code is similar on all the panels.
+Think of this scenario: You have three dashboards with similar graphics. The only difference is a value range. You can create one code for all three panels, and have a configuration file (Custom properties) with the ranges. Also makes it much easier to change later on (bugs, changes and additions) when the code is similar on all the panels.
 
 ### CSS
 
@@ -180,7 +181,7 @@ The plugin makes several interfaces to the HTML/SVG document and Grafana in the 
 ```javascript
 // Log this in onRender or onInit, and look at developer console (ctrl+shift+j).
 console.log('htmlNode', htmlNode);
-console.log('codeData', codeData);
+console.log('customProperties', customProperties);
 console.log('data', data);
 console.log('options', options);
 console.log('theme', theme);
@@ -198,9 +199,31 @@ randomTextElt.textContent = 'Something';
 randomTextElt.style.fill = '#08f';
 ```
 
+### customProperties
+
+The parsed json object (_also available as a JSON string in options.codeData_) from the Custom properties (named codeData for backwards compatibility) option.
+
+Used to get the json object values.
+
+```json
+customProperties (remember, comments are not allowed in json)
+
+{
+  "something": false
+}
+```
+
+```javascript
+// onRender or onInit
+
+console.log(customProperties.something);
+```
+
 ### codeData
 
-The parsed json object (_also available as a JSON string in options.codeData_) from the Code data option.
+**Note**: codeData is here for backwards compatibility. Please use customProperties instead.
+
+The parsed json object (_also available as a JSON string in options.codeData_) from the Custom properties (named codeData for backwards compatibility) option.
 
 Used to get the json object values.
 
