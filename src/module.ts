@@ -47,7 +47,6 @@ export const plugin = new PanelPlugin<OptionsInterface>(HTMLPanel).setPanelOptio
       name: 'CSS',
       description: '',
       editor: PanelOptionCode,
-      category: ['CSS'],
       settings: {
         language: 'css',
       },
@@ -62,7 +61,6 @@ export const plugin = new PanelPlugin<OptionsInterface>(HTMLPanel).setPanelOptio
         This is to keep a copy of the code and not lose your work if the browser crashes.
       `,
       editor: PanelOptionCode,
-      category: ['HTML/SVG'],
       settings: {
         language: 'html',
       },
@@ -73,7 +71,6 @@ export const plugin = new PanelPlugin<OptionsInterface>(HTMLPanel).setPanelOptio
       name: 'onRender',
       description: `On render code is executed whenever new data is available (htmlNode, codeData, data, options, theme, getTemplateSrv, getLocationSrv)`,
       editor: PanelOptionCode,
-      category: ['On render  JS'],
       settings: {
         language: 'javascript',
       },
@@ -85,7 +82,6 @@ export const plugin = new PanelPlugin<OptionsInterface>(HTMLPanel).setPanelOptio
       description:
         'On int code is executed when the panel loads (htmlNode, codeData, data, options, theme, getTemplateSrv, getLocationSrv)',
       editor: PanelOptionCode,
-      category: ['On init JS'],
       settings: {
         language: 'javascript',
       },
