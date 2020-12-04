@@ -75,10 +75,12 @@ export class HTMLPanel extends PureComponent<Props, PanelState> {
 
         htmlNode.innerHTML = `<style>${CSSCode}</style>${htmlCode}`;
 
-        const htmlDocument = htmlNode.children[1];
+        const htmlDocument = htmlNode.children[1] as HTMLElement | (HTMLElement & SVGElement) | undefined;
         if (this.props.options.add100Percentage && htmlDocument) {
           htmlDocument.setAttribute('height', '100%');
           htmlDocument.setAttribute('width', '100%');
+          htmlDocument.style.height = '100%';
+          htmlDocument.style.width = '100%';
         }
       } catch (e) {
         isError = true;
