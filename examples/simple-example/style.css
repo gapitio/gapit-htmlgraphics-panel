@@ -1,0 +1,9 @@
+* {
+  font-family: Open Sans;
+}
+
+.box {
+  border: solid #555 2px;
+  border-radius: 10px;
+  padding: 10px 20px;
+}
