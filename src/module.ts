@@ -32,10 +32,10 @@ export const plugin = new PanelPlugin<OptionsInterface>(HTMLPanel).setPanelOptio
     .addCustomEditor({
       id: 'codeData',
       path: 'codeData',
-      name: 'Code data',
-      description: 'This is the codeData, which can be accessed by onInit and onRender',
+      name: 'Custom properties',
+      description: 'This is the customProperties (codeData), which can be accessed by onInit and onRender',
       editor: PanelOptionCodeData,
-      category: ['Code data'],
+      category: ['Custom properties'],
       defaultValue: '{"randomKey": "randomValue"}',
       settings: {
         language: 'json',
@@ -69,7 +69,7 @@ export const plugin = new PanelPlugin<OptionsInterface>(HTMLPanel).setPanelOptio
       id: 'onRender',
       path: 'onRender',
       name: 'onRender',
-      description: `On render code is executed whenever new data is available (htmlNode, codeData, data, options, theme, getTemplateSrv, getLocationSrv)`,
+      description: `On render code is executed whenever new data is available (htmlNode, customProperties/codeData, data, options, theme, getTemplateSrv, getLocationSrv)`,
       editor: PanelOptionCode,
       settings: {
         language: 'javascript',
@@ -80,7 +80,7 @@ export const plugin = new PanelPlugin<OptionsInterface>(HTMLPanel).setPanelOptio
       path: 'onInit',
       name: 'onInit',
       description:
-        'On int code is executed when the panel loads (htmlNode, codeData, data, options, theme, getTemplateSrv, getLocationSrv)',
+        'On int code is executed when the panel loads (htmlNode, customProperties/codeData, data, options, theme, getTemplateSrv, getLocationSrv)',
       editor: PanelOptionCode,
       settings: {
         language: 'javascript',

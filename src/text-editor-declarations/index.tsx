@@ -1,4 +1,5 @@
 import codeData from './codeData';
+import customProperties from './customProperties';
 import data from './data';
 import dataFrame from './dataFrame';
 import dataQuery from './dataQuery';
@@ -15,6 +16,7 @@ import timeRanges from './timeRanges';
 import valueMapping from './valueMapping';
 
 export default codeData +
+  customProperties +
   data +
   dataFrame +
   dataQuery +

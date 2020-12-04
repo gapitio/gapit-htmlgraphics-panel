@@ -94,6 +94,7 @@ export class HTMLPanel extends PureComponent<Props, PanelState> {
     const F = new Function(
       'htmlNode',
       'data',
+      'customProperties',
       'codeData',
       'options',
       'theme',
@@ -104,6 +105,7 @@ export class HTMLPanel extends PureComponent<Props, PanelState> {
     F(
       this.state.shadowContainerRef.current?.shadowRoot,
       this.props.data,
+      this.getCodeData(),
       this.getCodeData(),
       this.props.options,
       config.theme,
