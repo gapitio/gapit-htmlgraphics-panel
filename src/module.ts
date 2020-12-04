@@ -8,9 +8,8 @@ export const plugin = new PanelPlugin<OptionsInterface>(HTMLPanel).setPanelOptio
   return builder
     .addBooleanSwitch({
       path: 'add100Percentage',
-      name: 'Add 100%',
+      name: 'Fit content to panel',
       description: `
-        This is mostly for SVG, as it will scale the content based on the size of the panel.
         Adds 100% height and width attribute to the document.
       `,
       defaultValue: true,
@@ -19,8 +18,7 @@ export const plugin = new PanelPlugin<OptionsInterface>(HTMLPanel).setPanelOptio
       path: 'centerAlignContent',
       name: 'Center align content',
       description: `
-        Vertically and horizontally aligns the panel content to the center.
-        Adds "display: flex; justify-content: center; align-items: center" to the shadow root container.
+        Vertically and horizontally aligns the content to the center.
       `,
       defaultValue: true,
     })
@@ -34,10 +32,10 @@ export const plugin = new PanelPlugin<OptionsInterface>(HTMLPanel).setPanelOptio
     .addCustomEditor({
       id: 'codeData',
       path: 'codeData',
-      name: 'Code data',
-      description: 'This is the codeData, which can be accessed by onInit and onRender',
+      name: 'Custom properties',
+      description: 'This is the customProperties (codeData), which can be accessed by onInit and onRender',
       editor: PanelOptionCodeData,
-      category: ['Code data'],
+      category: ['Custom properties'],
       defaultValue: '{"randomKey": "randomValue"}',
       settings: {
         language: 'json',
@@ -49,7 +47,6 @@ export const plugin = new PanelPlugin<OptionsInterface>(HTMLPanel).setPanelOptio
       name: 'CSS',
       description: '',
       editor: PanelOptionCode,
-      category: ['CSS'],
       settings: {
         language: 'css',
       },
@@ -64,7 +61,6 @@ export const plugin = new PanelPlugin<OptionsInterface>(HTMLPanel).setPanelOptio
         This is to keep a copy of the code and not lose your work if the browser crashes.
       `,
       editor: PanelOptionCode,
-      category: ['HTML/SVG'],
       settings: {
         language: 'html',
       },
@@ -73,9 +69,8 @@ export const plugin = new PanelPlugin<OptionsInterface>(HTMLPanel).setPanelOptio
       id: 'onRender',
       path: 'onRender',
       name: 'onRender',
-      description: `On render code is executed whenever new data is available (htmlNode, codeData, data, options, theme, getTemplateSrv, getLocationSrv)`,
+      description: `On render code is executed whenever new data is available (htmlNode, customProperties/codeData, data, options, theme, getTemplateSrv, getLocationSrv)`,
       editor: PanelOptionCode,
-      category: ['On render  JS'],
       settings: {
         language: 'javascript',
       },
@@ -85,9 +80,8 @@ export const plugin = new PanelPlugin<OptionsInterface>(HTMLPanel).setPanelOptio
       path: 'onInit',
       name: 'onInit',
       description:
-        'On int code is executed when the panel loads (htmlNode, codeData, data, options, theme, getTemplateSrv, getLocationSrv)',
+        'On int code is executed when the panel loads (htmlNode, customProperties/codeData, data, options, theme, getTemplateSrv, getLocationSrv)',
       editor: PanelOptionCode,
-      category: ['On init JS'],
       settings: {
         language: 'javascript',
       },
