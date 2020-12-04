@@ -1,5 +1,19 @@
 # Change Log
 
+## v1.1.0 (2020-12-4)
+
+### Features / enhancements
+
+- **Repo**: Add default configuration to show how to connect CSS, HTML, JS, and customProperties.
+- **Repo**: codeData has been renamed customProperties. codeData is still available, and most of the internal code still uses codeData for backwards compatibility.
+- **Options**: Simplify field names and description.
+- **Options**: Move CSS, HTML, onRender, and onInit to the Display category.
+
+### Bug fixes
+
+- **HTML/SVG document**: Fix html not updating after removing all code
+- **Fit content to panel**: Fix html elements not fitting to panel
+
 ## v1.0.0 (2020-11-20)
 
 ### Features / enhancements
