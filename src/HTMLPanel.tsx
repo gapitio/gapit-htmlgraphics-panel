@@ -62,22 +62,23 @@ export class HTMLPanel extends PureComponent<Props, PanelState> {
     const htmlNode = this.state.shadowContainerRef.current?.shadowRoot;
     let isError = false;
 
-    if (htmlNode && this.props.options.html) {
+    if (htmlNode) {
       try {
         // Create a new variable to not mutate/override the current html code
         let htmlCode = this.props.options.html;
         let CSSCode = this.props.options.css;
 
-        if (this.props.options.SVGBaseFix) {
+        if (this.props.options.SVGBaseFix && htmlCode) {
           // Fix references to inline SVG elements when the <base> tag is in use.
           htmlCode = SVGBaseFix(htmlCode);
         }
 
         htmlNode.innerHTML = `<style>${CSSCode}</style>${htmlCode}`;
 
-        if (this.props.options.add100Percentage) {
-          htmlNode.children[1].setAttribute('height', '100%');
-          htmlNode.children[1].setAttribute('width', '100%');
+        const htmlDocument = htmlNode.children[1];
+        if (this.props.options.add100Percentage && htmlDocument) {
+          htmlDocument.setAttribute('height', '100%');
+          htmlDocument.setAttribute('width', '100%');
         }
       } catch (e) {
         isError = true;
