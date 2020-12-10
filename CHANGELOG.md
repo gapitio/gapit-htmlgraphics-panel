@@ -14,6 +14,10 @@
 - **HTML/SVG document**: Fix html not updating after removing all code
 - **Fit content to panel**: Fix html elements not fitting to panel
 
+### Breaking changes
+
+- Panels made from older versions will add default values to CSS, HTML/SVG document, onInit, onRender, and customProperties if they are unchanged (If the field/option has been changed, they will not be overridden by the default value).
+
 ## v1.0.0 (2020-11-20)
 
 ### Features / enhancements
