@@ -27,7 +27,7 @@
 
 ### Breaking changes
 
-Since the new package format, there might be problems unpacking it.
+- Since the new package format, there might be problems unpacking it.
 
 ## v0.0.4 (2020-10-22)
 
