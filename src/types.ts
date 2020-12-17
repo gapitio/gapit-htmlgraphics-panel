@@ -5,6 +5,7 @@ type setErrorStatusType = React.Dispatch<React.SetStateAction<boolean>>;
 interface OptionsInterface {
   add100Percentage: boolean;
   centerAlignContent: boolean;
+  overflow: 'Visible' | 'Auto' | 'Overlay' | 'Hidden';
   SVGBaseFix: boolean;
   css: EditorCodeType;
   html: EditorCodeType;

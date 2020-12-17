@@ -22,6 +22,33 @@ export const plugin = new PanelPlugin<OptionsInterface>(HTMLPanel).setPanelOptio
       `,
       defaultValue: true,
     })
+    .addRadio({
+      path: 'overflow',
+      name: 'Overflow',
+      description:
+        'Chooses what happens if content overflows outside the panel. "Fit content to panel" is recommended to turn on with some of these options.',
+      settings: {
+        options: [
+          {
+            label: 'Visible',
+            value: 'visible',
+          },
+          {
+            label: 'Auto',
+            value: 'auto',
+          },
+          {
+            label: 'Scroll',
+            value: 'scroll',
+          },
+          {
+            label: 'Hidden',
+            value: 'hidden',
+          },
+        ],
+      },
+      defaultValue: 'visible',
+    })
     .addBooleanSwitch({
       path: 'SVGBaseFix',
       name: 'SVG base fix',
