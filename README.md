@@ -20,6 +20,7 @@ This plugin is highly inspired by [marcuscalidus-svg-panel](https://github.com/M
     - [Display](#display)
       - [Fit content to panel](#fit-content-to-panel)
       - [Center align content](#center-align-content)
+      - [Overflow](#overflow)
     - [Polyfill](#polyfill)
       - [SVG base fix](#svg-base-fix)
     - [Custom properties](#custom-properties)
@@ -125,6 +126,11 @@ Adds 100% height and width attribute to the document.
 
 Vertically and horizontally aligns the panel content to the center.
 Adds "display: flex; justify-content: center; align-items: center" to the shadow root container.
+
+#### Overflow
+
+Chooses what happens if content overflows outside the panel.
+"Fit content to panel" is recommended to turn on with some of these options, as some of these won't work without it.
 
 ### Polyfill
 
