@@ -132,6 +132,8 @@ Adds "display: flex; justify-content: center; align-items: center" to the shadow
 Chooses what happens if content overflows outside the panel.
 "Fit content to panel" is recommended to turn on with some of these options, as some of these won't work without it.
 
+![Overflow options](https://raw.githubusercontent.com/gapitio/gapit-htmlgraphics-panel/master/src/img/screenshot-overflow.png)
+
 ### Polyfill
 
 #### SVG base fix
