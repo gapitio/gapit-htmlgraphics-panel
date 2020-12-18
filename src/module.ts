@@ -3,7 +3,7 @@ import { OptionsInterface } from './types';
 import { HTMLPanel } from './HTMLPanel';
 import { PanelOptionCodeData } from 'PanelOptionCodeData';
 import { PanelOptionCode } from 'PanelOptionCode';
-import { PanelOptionImportedPanelOptions } from './PanelOptionImportExport';
+import { PanelOptionImportedPanelOptions } from './PanelOptionImportedPanelOptions';
 
 export const plugin = new PanelPlugin<OptionsInterface>(HTMLPanel).setPanelOptions(builder => {
   return builder
