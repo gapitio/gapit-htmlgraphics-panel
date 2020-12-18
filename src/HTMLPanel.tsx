@@ -187,10 +187,28 @@ export class HTMLPanel extends PureComponent<Props, PanelState> {
     return true;
   }
 
+  /*
+    Override the current options with the imported json code
+
+    This is not ideal as it changes the props instead of returning the changed value,
+    but there currently no way to return the changed value.
+  */
+  overrideOptionsWithImport() {
+    if (this.props.options.importedPanelOptions && this.state.options.importedPanelOptions != this.props.options.importedPanelOptions) {
+      try {
+        const parsedImportedPanelOptions = JSON.parse(this.props.options.importedPanelOptions);
+        Object.assign(this.props.options, parsedImportedPanelOptions);
+      } catch (e) {
+        console.error(`importedPanelOptions:`, e);
+      }
+    }
+  }
+
   componentDidUpdate() {
     const HAS_CHANGED = !this.compareShallow(this.state.options, this.props.options);
 
     if (HAS_CHANGED) {
+      this.overrideOptionsWithImport();
       this.initialize();
       this.setState({
         options: this.props.options,
