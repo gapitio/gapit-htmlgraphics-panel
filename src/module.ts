@@ -3,6 +3,7 @@ import { OptionsInterface } from './types';
 import { HTMLPanel } from './HTMLPanel';
 import { PanelOptionCodeData } from 'PanelOptionCodeData';
 import { PanelOptionCode } from 'PanelOptionCode';
+import { PanelOptionImportedPanelOptions } from './PanelOptionImportedPanelOptions';
 
 export const plugin = new PanelPlugin<OptionsInterface>(HTMLPanel).setPanelOptions(builder => {
   return builder
@@ -119,6 +120,17 @@ export const plugin = new PanelPlugin<OptionsInterface>(HTMLPanel).setPanelOptio
         "// Sets the text from customProperties\nconst htmlgraphicsText = htmlNode.getElementById('htmlgraphics-text');\nhtmlgraphicsText.textContent = customProperties.text;\n\n// Change the text color based on the theme\nif (theme.isDark) {\n  htmlgraphicsText.style.color = 'green';\n} else {\n  htmlgraphicsText.style.color = 'red';\n}\n",
       settings: {
         language: 'javascript',
+      },
+    })
+    .addCustomEditor({
+      id: 'importedPanelOptions',
+      path: 'importedPanelOptions',
+      name: 'Panel options',
+      description: 'Easily copy all options to a different panel which uses the gapit-htmlgraphics-panel.',
+      editor: PanelOptionImportedPanelOptions,
+      category: ['Import/export'],
+      settings: {
+        language: 'json',
       },
     });
 });

@@ -28,6 +28,8 @@ This plugin is highly inspired by [marcuscalidus-svg-panel](https://github.com/M
     - [HTML/SVG document](#htmlsvg-document)
     - [On render JS](#on-render-js)
     - [On init JS](#on-init-js)
+    - [Import/export](#importexport)
+      - [Panel options (importedPanelOptions)](#panel-options-importedpaneloptions)
   - [Execution Environment Interfaces](#execution-environment-interfaces)
     - [htmlNode](#htmlnode)
     - [customProperties](#customproperties)
@@ -181,6 +183,16 @@ Executes the code every render (when new data is available).
 ### On init JS
 
 Executes when the panel loads
+
+### Import/export
+
+#### Panel options (importedPanelOptions)
+
+Easily copy all options to a different panel which uses the gapit-htmlgraphics-panel.
+
+You are able to copy the Panel JSON, but as it can break some queries. This will be the safer way to copy a gapit-htmlgraphics-panel panel.
+
+Press "ctrl"+"s" or outside the editor to save the options to the panel.
 
 ## Execution Environment Interfaces
 

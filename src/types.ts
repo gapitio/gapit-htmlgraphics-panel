@@ -12,6 +12,7 @@ interface OptionsInterface {
   onRender: EditorCodeType;
   onInit: EditorCodeType;
   codeData: EditorCodeType;
+  importedPanelOptions: EditorCodeType;
 }
 
 export { EditorCodeType, EditorLanguageType, setErrorStatusType, OptionsInterface };
