@@ -41,8 +41,8 @@
         "url": "https://github.com/gapitio/gapit-htmlgraphics-panel/blob/master/LICENSE"
       }
     ],
-    "version": "1.1.0",
-    "updated": "2020-10-06"
+    "version": "1.2.0",
+    "updated": "2020-12-18"
   },
   "dependencies": {
     "grafanaDependency": ">=7.0.0",

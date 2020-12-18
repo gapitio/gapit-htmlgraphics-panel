@@ -1,5 +1,12 @@
 # Change Log
 
+## v1.2.0 (2020-12-4)
+
+### Features / enhancements
+
+- **Options**: Add overflow radio option [#8](https://github.com/gapitio/gapit-htmlgraphics-panel/pull/8)
+- **Options**: Add import and export of panel options [#9](https://github.com/gapitio/gapit-htmlgraphics-panel/pull/9)
+
 ## v1.1.0 (2020-12-4)
 
 ### Features / enhancements
