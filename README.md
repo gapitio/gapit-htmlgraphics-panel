@@ -188,7 +188,7 @@ Executes when the panel loads
 
 #### Panel options (importedPanelOptions)
 
-This is the options used in this panel. Easily copy the used options to a different panel which uses the gapit-htmlgraphics-panel.
+Easily copy all options to a different panel which uses the gapit-htmlgraphics-panel.
 
 You are able to copy the Panel JSON, but as it can break some queries. This will be the safer way to copy a gapit-htmlgraphics-panel panel.
 

@@ -126,8 +126,7 @@ export const plugin = new PanelPlugin<OptionsInterface>(HTMLPanel).setPanelOptio
       id: 'importedPanelOptions',
       path: 'importedPanelOptions',
       name: 'Panel options',
-      description:
-        'This is the options used in this panel. Easily copy the used options to a different panel which uses the gapit-htmlgraphics-panel.',
+      description: 'Easily copy all options to a different panel which uses the gapit-htmlgraphics-panel.',
       editor: PanelOptionImportedPanelOptions,
       category: ['Import/export'],
       settings: {
