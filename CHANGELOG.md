@@ -1,6 +1,6 @@
 # Change Log
 
-## v1.2.0 (2020-12-4)
+## v1.2.0 (2020-12-18)
 
 ### Features / enhancements
 
