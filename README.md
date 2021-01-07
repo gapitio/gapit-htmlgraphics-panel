@@ -12,8 +12,12 @@ This plugin is highly inspired by [marcuscalidus-svg-panel](https://github.com/M
   - [Table of contents](#table-of-contents)
   - [Goals for this plugin](#goals-for-this-plugin)
   - [Installation](#installation)
-    - [Grafana-cli (recommended)](#grafana-cli-recommended)
-    - [Docker compose file](#docker-compose-file)
+    - [Installing latest version](#installing-latest-version)
+      - [Grafana-cli (latest)](#grafana-cli-latest)
+      - [Docker compose file (latest)](#docker-compose-file-latest)
+    - [Installing a specific version](#installing-a-specific-version)
+      - [Grafana-cli (specific version)](#grafana-cli-specific-version)
+      - [Docker compose file (specific version)](#docker-compose-file-specific-version)
     - [Manual](#manual)
   - [Getting started](#getting-started)
   - [Options](#options)
@@ -52,31 +56,22 @@ Make it easy for the user/programmer to change values and repeat code (with the 
 
 ## Installation
 
-You can get all the releases [here](https://github.com/gapitio/gapit-htmlgraphics-panel/releases).
-The version is written at the left side with the following format `vX.X.X`.
+### Installing latest version
 
-> **WARNING**: Examples used is written with `{version}` instead of the version number and needs to be replaced with a version number.
-
-### Grafana-cli (recommended)
+#### Grafana-cli (latest)
 
 ```bash
-grafana-cli --pluginUrl https://github.com/gapitio/gapit-htmlgraphics-panel/archive/{version}.zip plugins install gapit-htmlgraphics-plugin
+grafana-cli plugins install gapit-htmlgraphics-panel
 ```
 
-To install v0.0.4
-
-```bash
-grafana-cli --pluginUrl https://github.com/gapitio/gapit-htmlgraphics-panel/archive/v0.0.4.zip plugins install gapit-htmlgraphics-plugin
-```
-
-### Docker compose file
+#### Docker compose file (latest)
 
 ```docker
 version: '2'
 services:
 
   grafana:
-    image: grafana/grafana:7.2.0
+    image: grafana/grafana:7.3.0
     container_name: grafana
     restart: always
     networks:
@@ -84,7 +79,83 @@ services:
     ports:
       - 3000:3000
     environment:
-      - GF_INSTALL_PLUGINS=https://github.com/gapitio/gapit-htmlgraphics-panel/archive/{version};gapit-htmlgraphics-panel
+      - GF_INSTALL_PLUGINS=gapit-htmlgraphics-panel
+
+networks:
+    grafana:
+      external:
+            name: grafana
+```
+
+### Installing a specific version
+
+You can get all the releases [here](https://github.com/gapitio/gapit-htmlgraphics-panel/releases).
+
+To get the url to use.
+
+1. Go to [releases](https://github.com/gapitio/gapit-htmlgraphics-panel/releases).
+2. Find the desired version.
+3. Right click the top asset `gapit-htmlgraphics-panel-1.2.0.zip` for v1.2.0 (for v0.0.3 and below `Source code (zip)`)
+4. Click "copy link address".
+
+v1.2.0: `https://github.com/gapitio/gapit-htmlgraphics-panel/releases/download/v1.2.0/gapit-htmlgraphics-panel-1.2.0.zip`
+v0.3.0: `https://github.com/gapitio/gapit-htmlgraphics-panel/archive/v0.0.3.zip`
+
+#### Grafana-cli (specific version)
+
+To install v1.2.0
+
+```bash
+grafana-cli --pluginUrl https://github.com/gapitio/gapit-htmlgraphics-panel/releases/download/v1.2.0/gapit-htmlgraphics-panel-1.2.0.zip plugins install gapit-htmlgraphics-plugin
+```
+
+To install versions before v0.0.3
+
+```bash
+grafana-cli --pluginUrl https://github.com/gapitio/gapit-htmlgraphics-panel/archive/v0.0.3.zip plugins install gapit-htmlgraphics-plugin
+```
+
+#### Docker compose file (specific version)
+
+To install v1.2.0
+
+```docker
+version: '2'
+services:
+
+  grafana:
+    image: grafana/grafana:7.3.0
+    container_name: grafana
+    restart: always
+    networks:
+      - grafana
+    ports:
+      - 3000:3000
+    environment:
+      - GF_INSTALL_PLUGINS=https://github.com/gapitio/gapit-htmlgraphics-panel/releases/download/v1.2.0/gapit-htmlgraphics-panel-1.2.0.zip;gapit-htmlgraphics-panel
+
+networks:
+    grafana:
+      external:
+            name: grafana
+```
+
+To install versions before v0.0.3
+
+```docker
+version: '2'
+services:
+
+  grafana:
+    image: grafana/grafana:7.3.0
+    container_name: grafana
+    restart: always
+    networks:
+      - grafana
+    ports:
+      - 3000:3000
+    environment:
+      - GF_INSTALL_PLUGINS=https://github.com/gapitio/gapit-htmlgraphics-panel/archive/v0.0.3.zip;gapit-htmlgraphics-panel
 
 networks:
     grafana:
