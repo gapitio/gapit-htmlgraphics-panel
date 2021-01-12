@@ -2,17 +2,12 @@ import React, { PureComponent } from 'react';
 import { PanelProps } from '@grafana/data';
 import { config, getTemplateSrv, getLocationSrv } from '@grafana/runtime';
 import { Alert } from '@grafana/ui';
-import { OptionsInterface, EditorCodeType } from './types';
+import { OptionsInterface } from './types';
 import { SVGBaseFix } from 'polyfill';
 import 'fonts.scss';
 
 interface Props extends PanelProps<OptionsInterface> {}
 interface PanelState {
-  css: EditorCodeType;
-  html: EditorCodeType;
-  onRender: EditorCodeType;
-  onInit: EditorCodeType;
-  codeData: EditorCodeType;
   shadowContainerRef: React.RefObject<HTMLDivElement>;
   htmlNode: ShadowRoot | null;
   htmlErrorStatus: boolean;
@@ -24,11 +19,6 @@ interface PanelState {
 
 export class HTMLPanel extends PureComponent<Props, PanelState> {
   state: PanelState = {
-    css: this.props.options.css,
-    html: this.props.options.html,
-    onRender: this.props.options.onRender,
-    onInit: this.props.options.onInit,
-    codeData: this.props.options.codeData,
     shadowContainerRef: React.createRef<HTMLDivElement>(),
     htmlNode: null,
     htmlErrorStatus: false,
