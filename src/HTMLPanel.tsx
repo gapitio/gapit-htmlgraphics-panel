@@ -6,10 +6,13 @@ import { OptionsInterface } from './types';
 import { SVGBaseFix } from 'polyfill';
 import 'fonts.scss';
 
+interface HTMLNodeElement extends ShadowRoot {
+  panelUpdated: () => void;
+}
+
 interface Props extends PanelProps<OptionsInterface> {}
 interface PanelState {
   shadowContainerRef: React.RefObject<HTMLDivElement>;
-  htmlNode: ShadowRoot | null;
   htmlErrorStatus: boolean;
   onInitErrorStatus: boolean;
   onRenderErrorStatus: boolean;
@@ -20,13 +23,14 @@ interface PanelState {
 export class HTMLPanel extends PureComponent<Props, PanelState> {
   state: PanelState = {
     shadowContainerRef: React.createRef<HTMLDivElement>(),
-    htmlNode: null,
     htmlErrorStatus: false,
     onInitErrorStatus: false,
     onRenderErrorStatus: false,
     codeDataErrorStatus: false,
     options: this.props.options,
   };
+
+  data = this.props.data;
 
   getCodeData() {
     let codeDataParsed = {};
@@ -49,11 +53,13 @@ export class HTMLPanel extends PureComponent<Props, PanelState> {
   }
 
   setHTML() {
-    const htmlNode = this.state.shadowContainerRef.current?.shadowRoot;
+    const htmlNode = this.state.shadowContainerRef.current?.shadowRoot as HTMLNodeElement;
     let isError = false;
 
     if (htmlNode) {
       try {
+        htmlNode.panelUpdated = () => {};
+
         // Create a new variable to not mutate/override the current html code
         let htmlCode = this.props.options.html;
         let CSSCode = this.props.options.css;
@@ -88,7 +94,9 @@ export class HTMLPanel extends PureComponent<Props, PanelState> {
     }
   }
 
-  executeScript(script: string) {
+  executeScript(script: string, dynamic = false) {
+    const data = dynamic ? this.data : this.props.data;
+
     const F = new Function(
       'htmlNode',
       'data',
@@ -102,7 +110,7 @@ export class HTMLPanel extends PureComponent<Props, PanelState> {
     );
     F(
       this.state.shadowContainerRef.current?.shadowRoot,
-      this.props.data,
+      data,
       this.getCodeData(),
       this.getCodeData(),
       this.props.options,
@@ -134,7 +142,7 @@ export class HTMLPanel extends PureComponent<Props, PanelState> {
 
     if (this.props.options.onInit) {
       try {
-        this.executeScript(this.props.options.onInit);
+        this.executeScript(this.props.options.onInit, this.props.options.dynamicData);
       } catch (e) {
         isError = true;
         console.error(`onInit:`, e);
@@ -156,7 +164,6 @@ export class HTMLPanel extends PureComponent<Props, PanelState> {
 
     if (shadowContainerElt) {
       shadowContainerElt.attachShadow({ mode: 'open' });
-      this.setState({ htmlNode: shadowContainerElt.shadowRoot });
     }
   }
 
@@ -198,6 +205,11 @@ export class HTMLPanel extends PureComponent<Props, PanelState> {
   }
 
   componentDidUpdate() {
+    // Update this.data with the new data
+    if (this.props.options.dynamicData) {
+      Object.assign(this.data, this.props.data);
+    }
+
     const HAS_CHANGED = !this.compareShallow(this.state.options, this.props.options);
 
     if (HAS_CHANGED) {
@@ -207,6 +219,12 @@ export class HTMLPanel extends PureComponent<Props, PanelState> {
         options: this.props.options,
       });
     } else {
+      // Update panelUpdated to notify a change has happened
+      const htmlNode = this.state.shadowContainerRef.current?.shadowRoot as HTMLNodeElement;
+      if (htmlNode && htmlNode.panelUpdated) {
+        htmlNode.panelUpdated();
+      }
+
       this.onRender();
     }
   }

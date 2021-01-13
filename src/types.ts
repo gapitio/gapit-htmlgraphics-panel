@@ -10,6 +10,7 @@ interface OptionsInterface {
   css: EditorCodeType;
   html: EditorCodeType;
   onRender: EditorCodeType;
+  dynamicData: boolean;
   onInit: EditorCodeType;
   codeData: EditorCodeType;
   importedPanelOptions: EditorCodeType;

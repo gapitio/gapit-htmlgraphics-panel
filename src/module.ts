@@ -109,6 +109,13 @@ export const plugin = new PanelPlugin<OptionsInterface>(HTMLPanel).setPanelOptio
         language: 'javascript',
       },
     })
+    .addBooleanSwitch({
+      path: 'dynamicData',
+      name: 'Dynamic data object',
+      description:
+        'Update the data object when new data is available. The code will not execute again, it will only update the data object. This is only for onInit, onRender will update like normal.',
+      defaultValue: false,
+    })
     .addCustomEditor({
       id: 'onInit',
       path: 'onInit',
