@@ -69,7 +69,7 @@ export class HTMLPanel extends PureComponent<Props, PanelState> {
           htmlCode = SVGBaseFix(htmlCode);
         }
 
-        htmlNode.innerHTML = `<style>${CSSCode}</style>${htmlCode}`;
+        htmlNode.innerHTML = `<style>${CSSCode}</style>${htmlCode ? htmlCode : '<div></div>'}`;
 
         const htmlDocument = htmlNode.children[1] as HTMLElement | (HTMLElement & SVGElement) | undefined;
 
