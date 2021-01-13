@@ -114,7 +114,7 @@ export const plugin = new PanelPlugin<OptionsInterface>(HTMLPanel).setPanelOptio
       path: 'onInit',
       name: 'onInit',
       description:
-        'On int code is executed when the panel loads (htmlNode, customProperties/codeData, data, options, theme, getTemplateSrv, getLocationSrv)',
+        'On init code is executed when the panel loads (htmlNode, customProperties/codeData, data, options, theme, getTemplateSrv, getLocationSrv)',
       editor: PanelOptionCode,
       defaultValue:
         "// Sets the text from customProperties\nconst htmlgraphicsText = htmlNode.getElementById('htmlgraphics-text');\nhtmlgraphicsText.textContent = customProperties.text;\n\n// Change the text color based on the theme\nif (theme.isDark) {\n  htmlgraphicsText.style.color = 'green';\n} else {\n  htmlgraphicsText.style.color = 'red';\n}\n",
