@@ -31,6 +31,7 @@ export class HTMLPanel extends PureComponent<Props, PanelState> {
   };
 
   data = this.props.data;
+  panelUpdatedEvent = new CustomEvent('panelupdated');
 
   getCodeData() {
     let codeDataParsed = {};
@@ -59,6 +60,7 @@ export class HTMLPanel extends PureComponent<Props, PanelState> {
     if (htmlNode) {
       try {
         htmlNode.panelUpdated = () => {};
+        htmlNode.dispatchEvent(this.panelUpdatedEvent);
 
         // Create a new variable to not mutate/override the current html code
         let htmlCode = this.props.options.html;
@@ -244,6 +246,7 @@ export class HTMLPanel extends PureComponent<Props, PanelState> {
       const htmlNode = this.state.shadowContainerRef.current?.firstElementChild?.shadowRoot as HTMLNodeElement;
       if (htmlNode && htmlNode.panelUpdated) {
         htmlNode.panelUpdated();
+        htmlNode.dispatchEvent(this.panelUpdatedEvent);
       }
 
       this.onRender();
