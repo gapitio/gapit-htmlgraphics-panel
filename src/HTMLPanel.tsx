@@ -53,7 +53,7 @@ export class HTMLPanel extends PureComponent<Props, PanelState> {
   }
 
   setHTML() {
-    const htmlNode = this.state.shadowContainerRef.current?.shadowRoot as HTMLNodeElement;
+    const htmlNode = this.state.shadowContainerRef.current?.firstElementChild?.shadowRoot as HTMLNodeElement;
     let isError = false;
 
     if (htmlNode) {
@@ -109,7 +109,7 @@ export class HTMLPanel extends PureComponent<Props, PanelState> {
       script
     );
     F(
-      this.state.shadowContainerRef.current?.shadowRoot,
+      this.state.shadowContainerRef.current?.firstElementChild?.shadowRoot,
       data,
       this.getCodeData(),
       this.getCodeData(),
@@ -155,20 +155,41 @@ export class HTMLPanel extends PureComponent<Props, PanelState> {
   }
 
   initialize() {
+    this.addShadowRoot();
     this.setHTML();
     this.onInit();
+  }
+
+  createShadowRootElement() {
+    const shadowElt = document.createElement('div');
+    shadowElt.attachShadow({ mode: 'open' });
+
+    shadowElt.style.width = `100%`;
+    shadowElt.style.height = `100%`;
+    shadowElt.style.position = 'absolute';
+
+    if (this.props.options.centerAlignContent) {
+      shadowElt.style.display = 'flex';
+      shadowElt.style.justifyContent = 'center';
+      shadowElt.style.alignItems = 'center';
+    }
+
+    return shadowElt;
   }
 
   addShadowRoot() {
     const shadowContainerElt = this.state.shadowContainerRef.current;
 
     if (shadowContainerElt) {
-      shadowContainerElt.attachShadow({ mode: 'open' });
+      if (shadowContainerElt.firstChild) {
+        shadowContainerElt.removeChild(shadowContainerElt.firstChild);
+      }
+
+      shadowContainerElt.appendChild(this.createShadowRootElement());
     }
   }
 
   componentDidMount() {
-    this.addShadowRoot();
     this.initialize();
   }
 
@@ -220,7 +241,7 @@ export class HTMLPanel extends PureComponent<Props, PanelState> {
       });
     } else {
       // Update panelUpdated to notify a change has happened
-      const htmlNode = this.state.shadowContainerRef.current?.shadowRoot as HTMLNodeElement;
+      const htmlNode = this.state.shadowContainerRef.current?.firstElementChild?.shadowRoot as HTMLNodeElement;
       if (htmlNode && htmlNode.panelUpdated) {
         htmlNode.panelUpdated();
       }
@@ -252,12 +273,6 @@ export class HTMLPanel extends PureComponent<Props, PanelState> {
       height: `${this.props.height}px`,
       position: 'absolute',
     };
-
-    if (this.props.options.centerAlignContent) {
-      style.display = 'flex';
-      style.justifyContent = 'center';
-      style.alignItems = 'center';
-    }
 
     return style;
   };
