@@ -7,7 +7,7 @@ import { SVGBaseFix } from 'polyfill';
 import 'fonts.scss';
 
 interface HTMLNodeElement extends ShadowRoot {
-  onpanelupdated: () => void;
+  onpanelupdate: () => void;
 }
 
 interface Props extends PanelProps<OptionsInterface> {}
@@ -31,7 +31,7 @@ export class HTMLPanel extends PureComponent<Props, PanelState> {
   };
 
   data = this.props.data;
-  panelUpdateEvent = new CustomEvent('panelupdated');
+  panelUpdateEvent = new CustomEvent('panelupdate');
 
   getCodeData() {
     let codeDataParsed = {};
@@ -59,7 +59,7 @@ export class HTMLPanel extends PureComponent<Props, PanelState> {
 
     if (htmlNode) {
       try {
-        htmlNode.onpanelupdated = () => {};
+        htmlNode.onpanelupdate = () => {};
         htmlNode.dispatchEvent(this.panelUpdateEvent);
 
         // Create a new variable to not mutate/override the current html code
@@ -242,10 +242,10 @@ export class HTMLPanel extends PureComponent<Props, PanelState> {
         options: this.props.options,
       });
     } else {
-      // Update panelUpdated to notify a change has happened
+      // Update panelUpdate to notify a change has happened
       const htmlNode = this.state.shadowContainerRef.current?.firstElementChild?.shadowRoot as HTMLNodeElement;
-      if (htmlNode && htmlNode.onpanelupdated) {
-        htmlNode.onpanelupdated();
+      if (htmlNode && htmlNode.onpanelupdate) {
+        htmlNode.onpanelupdate();
         htmlNode.dispatchEvent(this.panelUpdateEvent);
       }
 
