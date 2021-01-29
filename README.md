@@ -181,7 +181,7 @@ To update the panel, press ctrl+s inside the text editor or click outside the te
 2. Read what the [Execution Environment Interfaces](#execution-environment-interfaces) are and how to use them.
 3. Check out the [Examples](https://github.com/gapitio/gapit-htmlgraphics-panel/tree/master/examples).
 4. Create a graphical drawing in HTML or SVG. Creating SVG graphic is easiest to do in a vector graphics software like [Inkscape](https://inkscape.org/) and [Adobe Illustrator](https://www.adobe.com/products/illustrator.html).
-5. Create a bew panel and select HTML Graphics in the visualization option.
+5. Create a new panel and select HTML Graphics in the visualization option.
 6. Paste the HTML/SVG code into the HTML/SVG document text editor.
 7. Write code that you want to run once when the dashboard loads in the onInit text editor.
 8. Write code that you want to run when new data is available in the onRender text editor.
