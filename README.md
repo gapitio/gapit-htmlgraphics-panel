@@ -36,6 +36,8 @@ This plugin is highly inspired by [marcuscalidus-svg-panel](https://github.com/M
       - [Panel options (importedPanelOptions)](#panel-options-importedpaneloptions)
   - [Execution Environment Interfaces](#execution-environment-interfaces)
     - [htmlNode](#htmlnode)
+      - [panelupdate event](#panelupdate-event)
+        - [React](#react)
     - [customProperties](#customproperties)
     - [codeData](#codedata)
     - [data](#data)
@@ -289,6 +291,27 @@ const randomTextElt = htmlNode.getElementById('random-text-elt');
 randomTextElt.textContent = 'Something';
 randomTextElt.style.fill = '#08f';
 ```
+
+#### panelupdate event
+
+htmlNode also has one event, `panelupdate`, which triggers when new data is available (like onRender).
+
+```js
+function onPanelUpdate() {
+  console.log(data);
+}
+
+htmlNode.addEventListener('panelupdate', onPanelUpdate); // Triggers when new data is available (like onRender)
+htmlNode.onpanelupdate = onPanelUpdate;
+```
+
+Because of the panelupdate event, frameworks like [React](https://reactjs.org/), [Svelte](https://svelte.dev/), ETC are easier to work with.
+
+##### React
+
+There is a template for building a panel with React [htmlgraphics-react-bundler-template](https://github.com/gapitio/htmlgraphics-react-bundler-template)
+
+The main thing is that it needs to be bundled into a single js file which can be copied to the onInit option in the panel.
 
 ### customProperties
 
