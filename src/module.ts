@@ -103,13 +103,6 @@ export const plugin = new PanelPlugin<OptionsInterface>(HTMLPanel).setPanelOptio
       description: 'Run onRender when the panel is first loaded (in most cases, this should be true)',
       defaultValue: true,
     })
-    .addBooleanSwitch({
-      path: 'panelupdateOnMount',
-      name: 'Trigger panelupdate when mounted',
-      description:
-        'Trigger the panelupdate event (htmlNode.onpanelupdate) when the panel is first loaded (in most cases, this should be true)',
-      defaultValue: true,
-    })
     .addCustomEditor({
       id: 'onRender',
       path: 'onRender',
@@ -128,6 +121,13 @@ export const plugin = new PanelPlugin<OptionsInterface>(HTMLPanel).setPanelOptio
       description:
         'Update the data object when new data is available. The code will not execute again, it will only update the data object. This is only for onInit, onRender will update like normal.',
       defaultValue: false,
+    })
+    .addBooleanSwitch({
+      path: 'panelupdateOnMount',
+      name: 'Trigger panelupdate when mounted',
+      description:
+        'Trigger the panelupdate event (htmlNode.onpanelupdate) when the panel is first loaded (in most cases, this should be true)',
+      defaultValue: true,
     })
     .addCustomEditor({
       id: 'onInit',
