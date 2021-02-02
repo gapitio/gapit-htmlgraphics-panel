@@ -191,8 +191,25 @@ export class HTMLPanel extends PureComponent<Props, PanelState> {
     }
   }
 
+  // Update panelUpdate to notify a change has happened
+  panelupdate() {
+    const htmlNode = this.state.shadowContainerRef.current?.firstElementChild?.shadowRoot as HTMLNodeElement;
+    if (htmlNode && htmlNode.onpanelupdate) {
+      htmlNode.onpanelupdate();
+      htmlNode.dispatchEvent(this.panelUpdateEvent);
+    }
+  }
+
   componentDidMount() {
     this.initialize();
+
+    if (this.props.options.renderOnMount) {
+      this.onRender();
+    }
+
+    if (this.props.options.panelupdateOnMount) {
+      this.panelupdate();
+    }
   }
 
   /*
@@ -242,13 +259,7 @@ export class HTMLPanel extends PureComponent<Props, PanelState> {
         options: this.props.options,
       });
     } else {
-      // Update panelUpdate to notify a change has happened
-      const htmlNode = this.state.shadowContainerRef.current?.firstElementChild?.shadowRoot as HTMLNodeElement;
-      if (htmlNode && htmlNode.onpanelupdate) {
-        htmlNode.onpanelupdate();
-        htmlNode.dispatchEvent(this.panelUpdateEvent);
-      }
-
+      this.panelupdate();
       this.onRender();
     }
   }

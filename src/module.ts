@@ -97,6 +97,19 @@ export const plugin = new PanelPlugin<OptionsInterface>(HTMLPanel).setPanelOptio
         language: 'html',
       },
     })
+    .addBooleanSwitch({
+      path: 'renderOnMount',
+      name: 'Run onRender when mounted',
+      description: 'Run onRender when the panel is first loaded (in most cases, this should be true)',
+      defaultValue: true,
+    })
+    .addBooleanSwitch({
+      path: 'panelupdateOnMount',
+      name: 'Trigger panelupdate when mounted',
+      description:
+        'Trigger the panelupdate event (htmlNode.onpanelupdate) when the panel is first loaded (in most cases, this should be true)',
+      defaultValue: true,
+    })
     .addCustomEditor({
       id: 'onRender',
       path: 'onRender',
