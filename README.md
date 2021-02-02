@@ -33,8 +33,10 @@ This plugin is highly inspired by [marcuscalidus-svg-panel](https://github.com/M
     - [Custom properties](#custom-properties)
     - [CSS](#css)
     - [HTML/SVG document](#htmlsvg-document)
+    - [Run onRender when mounted](#run-onrender-when-mounted)
     - [On render JS](#on-render-js)
     - [Dynamic data](#dynamic-data)
+    - [Trigger panelupdate when mounted](#trigger-panelupdate-when-mounted)
     - [On init JS](#on-init-js)
     - [Import/export](#importexport)
       - [Panel options (importedPanelOptions)](#panel-options-importedpaneloptions)
@@ -269,6 +271,10 @@ Gets added next to the html document.
 
 The html/svg code which is displayed on the panel.
 
+### Run onRender when mounted
+
+Run onRender when the panel is first loaded (in most cases, this should be true)
+
 ### On render JS
 
 Executes the code every render (when new data is available).
@@ -276,6 +282,10 @@ Executes the code every render (when new data is available).
 ### Dynamic data
 
 Update the data object when new data is available. The code will not execute again, it will only update the data object. This is only for onInit, onRender will update like normal.
+
+### Trigger panelupdate when mounted
+
+Trigger the panelupdate event (htmlNode.onpanelupdate) when the panel is first loaded (in most cases, this should be true)
 
 ### On init JS
 
