@@ -20,6 +20,9 @@ This plugin is highly inspired by [marcuscalidus-svg-panel](https://github.com/M
       - [Docker compose file (specific version)](#docker-compose-file-specific-version)
     - [Manual](#manual)
   - [Getting started](#getting-started)
+    - [Bundler](#bundler)
+    - [React](#react)
+    - [Svelte](#svelte)
   - [Options](#options)
     - [Display](#display)
       - [Fit content to panel](#fit-content-to-panel)
@@ -37,7 +40,7 @@ This plugin is highly inspired by [marcuscalidus-svg-panel](https://github.com/M
   - [Execution Environment Interfaces](#execution-environment-interfaces)
     - [htmlNode](#htmlnode)
       - [panelupdate event](#panelupdate-event)
-        - [React](#react)
+        - [React](#react-1)
     - [customProperties](#customproperties)
     - [codeData](#codedata)
     - [data](#data)
@@ -187,6 +190,22 @@ To update the panel, press ctrl+s inside the text editor or click outside the te
 8. Write code that you want to run when new data is available in the onRender text editor.
 9. Add options into the Custom properties text editor.
 10. Make good use of the [developer console](https://developers.google.com/web/tools/chrome-devtools) (ctrl+shift+j) and console.log().
+
+### Bundler
+
+There is a [htmlgraphics svg bundler template](https://github.com/gapitio/htmlgraphics-svg-bundler-template) and an [example](https://github.com/gapitio/htmlgraphics-svg-bundler-example).
+
+The example contains a [panel-options.json](https://github.com/gapitio/htmlgraphics-svg-bundler-example/blob/master/dist/panel-options.json) file which contains the bundled code. This can be imported to the panel in the import/export option.
+
+### React
+
+There is a [htmlgraphics react bundler template](https://github.com/gapitio/htmlgraphics-react-bundler-template).
+
+The main difference between the svg bundler and react bundler is how and where the data is used. In the svg bundler the data is used in onRender, which updated when new data is available. In the react bundler the data is used inside the react components (onInit) and updates when the panelupdate event is triggered.
+
+### Svelte
+
+There is a [htmlgraphics svelte bundler template](https://github.com/gapitio/htmlgraphics-svelte-bundler-template).
 
 ## Options
 
