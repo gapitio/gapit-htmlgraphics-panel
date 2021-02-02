@@ -34,6 +34,7 @@ This plugin is highly inspired by [marcuscalidus-svg-panel](https://github.com/M
     - [CSS](#css)
     - [HTML/SVG document](#htmlsvg-document)
     - [On render JS](#on-render-js)
+    - [Dynamic data](#dynamic-data)
     - [On init JS](#on-init-js)
     - [Import/export](#importexport)
       - [Panel options (importedPanelOptions)](#panel-options-importedpaneloptions)
@@ -271,6 +272,10 @@ The html/svg code which is displayed on the panel.
 ### On render JS
 
 Executes the code every render (when new data is available).
+
+### Dynamic data
+
+Update the data object when new data is available. The code will not execute again, it will only update the data object. This is only for onInit, onRender will update like normal.
 
 ### On init JS
 
