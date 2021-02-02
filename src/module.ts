@@ -97,6 +97,12 @@ export const plugin = new PanelPlugin<OptionsInterface>(HTMLPanel).setPanelOptio
         language: 'html',
       },
     })
+    .addBooleanSwitch({
+      path: 'renderOnMount',
+      name: 'Run onRender when mounted',
+      description: 'Run onRender when the panel is first loaded (in most cases, this should be true)',
+      defaultValue: true,
+    })
     .addCustomEditor({
       id: 'onRender',
       path: 'onRender',
@@ -109,12 +115,26 @@ export const plugin = new PanelPlugin<OptionsInterface>(HTMLPanel).setPanelOptio
         language: 'javascript',
       },
     })
+    .addBooleanSwitch({
+      path: 'dynamicData',
+      name: 'Dynamic data object',
+      description:
+        'Update the data object when new data is available. The code will not execute again, it will only update the data object. This is only for onInit, onRender will update like normal.',
+      defaultValue: false,
+    })
+    .addBooleanSwitch({
+      path: 'panelupdateOnMount',
+      name: 'Trigger panelupdate when mounted',
+      description:
+        'Trigger the panelupdate event (htmlNode.onpanelupdate) when the panel is first loaded (in most cases, this should be true)',
+      defaultValue: true,
+    })
     .addCustomEditor({
       id: 'onInit',
       path: 'onInit',
       name: 'onInit',
       description:
-        'On int code is executed when the panel loads (htmlNode, customProperties/codeData, data, options, theme, getTemplateSrv, getLocationSrv)',
+        'On init code is executed when the panel loads (htmlNode, customProperties/codeData, data, options, theme, getTemplateSrv, getLocationSrv)',
       editor: PanelOptionCode,
       defaultValue:
         "// Sets the text from customProperties\nconst htmlgraphicsText = htmlNode.getElementById('htmlgraphics-text');\nhtmlgraphicsText.textContent = customProperties.text;\n\n// Change the text color based on the theme\nif (theme.isDark) {\n  htmlgraphicsText.style.color = 'green';\n} else {\n  htmlgraphicsText.style.color = 'red';\n}\n",

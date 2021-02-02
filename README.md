@@ -27,6 +27,9 @@ This plugin is highly inspired by [marcuscalidus-svg-panel](https://github.com/M
       - [Docker compose file (specific version)](#docker-compose-file-specific-version)
     - [Manual](#manual)
   - [Getting started](#getting-started)
+    - [Bundler](#bundler)
+    - [React](#react)
+    - [Svelte](#svelte)
   - [Options](#options)
     - [Display](#display)
       - [Fit content to panel](#fit-content-to-panel)
@@ -37,12 +40,17 @@ This plugin is highly inspired by [marcuscalidus-svg-panel](https://github.com/M
     - [Custom properties](#custom-properties)
     - [CSS](#css)
     - [HTML/SVG document](#htmlsvg-document)
+    - [Run onRender when mounted](#run-onrender-when-mounted)
     - [On render JS](#on-render-js)
+    - [Dynamic data](#dynamic-data)
+    - [Trigger panelupdate when mounted](#trigger-panelupdate-when-mounted)
     - [On init JS](#on-init-js)
     - [Import/export](#importexport)
       - [Panel options (importedPanelOptions)](#panel-options-importedpaneloptions)
   - [Execution Environment Interfaces](#execution-environment-interfaces)
     - [htmlNode](#htmlnode)
+      - [panelupdate event](#panelupdate-event)
+        - [React](#react-1)
     - [customProperties](#customproperties)
     - [codeData](#codedata)
     - [data](#data)
@@ -186,12 +194,28 @@ To update the panel, press ctrl+s inside the text editor or click outside the te
 2. Read what the [Execution Environment Interfaces](#execution-environment-interfaces) are and how to use them.
 3. Check out the [Examples](https://github.com/gapitio/gapit-htmlgraphics-panel/tree/master/examples).
 4. Create a graphical drawing in HTML or SVG. Creating SVG graphic is easiest to do in a vector graphics software like [Inkscape](https://inkscape.org/) and [Adobe Illustrator](https://www.adobe.com/products/illustrator.html).
-5. Create a bew panel and select HTML Graphics in the visualization option.
+5. Create a new panel and select HTML Graphics in the visualization option.
 6. Paste the HTML/SVG code into the HTML/SVG document text editor.
 7. Write code that you want to run once when the dashboard loads in the onInit text editor.
 8. Write code that you want to run when new data is available in the onRender text editor.
 9. Add options into the Custom properties text editor.
 10. Make good use of the [developer console](https://developers.google.com/web/tools/chrome-devtools) (ctrl+shift+j) and console.log().
+
+### Bundler
+
+There is a [htmlgraphics svg bundler template](https://github.com/gapitio/htmlgraphics-svg-bundler-template) and an [example](https://github.com/gapitio/htmlgraphics-svg-bundler-example).
+
+The example contains a [panel-options.json](https://github.com/gapitio/htmlgraphics-svg-bundler-example/blob/master/dist/panel-options.json) file which contains the bundled code. This can be imported to the panel in the import/export option.
+
+### React
+
+There is a [htmlgraphics react bundler template](https://github.com/gapitio/htmlgraphics-react-bundler-template).
+
+The main difference between the svg bundler and react bundler is how and where the data is used. In the svg bundler the data is used in onRender, which updated when new data is available. In the react bundler the data is used inside the react components (onInit) and updates when the panelupdate event is triggered.
+
+### Svelte
+
+There is a [htmlgraphics svelte bundler template](https://github.com/gapitio/htmlgraphics-svelte-bundler-template).
 
 ## Options
 
@@ -254,9 +278,21 @@ Gets added next to the html document.
 
 The html/svg code which is displayed on the panel.
 
+### Run onRender when mounted
+
+Run onRender when the panel is first loaded (in most cases, this should be true)
+
 ### On render JS
 
 Executes the code every render (when new data is available).
+
+### Dynamic data
+
+Update the data object when new data is available. The code will not execute again, it will only update the data object. This is only for onInit, onRender will update like normal.
+
+### Trigger panelupdate when mounted
+
+Trigger the panelupdate event (htmlNode.onpanelupdate) when the panel is first loaded (in most cases, this should be true)
 
 ### On init JS
 
@@ -296,6 +332,27 @@ const randomTextElt = htmlNode.getElementById('random-text-elt');
 randomTextElt.textContent = 'Something';
 randomTextElt.style.fill = '#08f';
 ```
+
+#### panelupdate event
+
+htmlNode also has one event, `panelupdate`, which triggers when new data is available (like onRender).
+
+```js
+function onPanelUpdate() {
+  console.log(data);
+}
+
+htmlNode.addEventListener('panelupdate', onPanelUpdate); // Triggers when new data is available (like onRender)
+htmlNode.onpanelupdate = onPanelUpdate;
+```
+
+Because of the panelupdate event, frameworks like [React](https://reactjs.org/), [Svelte](https://svelte.dev/), ETC are easier to work with.
+
+##### React
+
+There is a template for building a panel with React [htmlgraphics-react-bundler-template](https://github.com/gapitio/htmlgraphics-react-bundler-template)
+
+The main thing is that it needs to be bundled into a single js file which can be copied to the onInit option in the panel.
 
 ### customProperties
 

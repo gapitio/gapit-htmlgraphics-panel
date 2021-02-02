@@ -9,7 +9,10 @@ interface OptionsInterface {
   SVGBaseFix: boolean;
   css: EditorCodeType;
   html: EditorCodeType;
+  renderOnMount: boolean;
+  panelupdateOnMount: boolean;
   onRender: EditorCodeType;
+  dynamicData: boolean;
   onInit: EditorCodeType;
   codeData: EditorCodeType;
   importedPanelOptions: EditorCodeType;
