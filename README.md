@@ -51,7 +51,6 @@ This plugin is highly inspired by [marcuscalidus-svg-panel](https://github.com/M
   - [Execution Environment Interfaces](#execution-environment-interfaces)
     - [htmlNode](#htmlnode)
       - [panelupdate event](#panelupdate-event)
-        - [React](#react-1)
     - [customProperties](#customproperties)
     - [codeData](#codedata)
     - [data](#data)
@@ -347,13 +346,7 @@ htmlNode.addEventListener('panelupdate', onPanelUpdate); // Triggers when new da
 htmlNode.onpanelupdate = onPanelUpdate;
 ```
 
-Because of the panelupdate event, frameworks like [React](https://reactjs.org/), [Svelte](https://svelte.dev/), ETC are easier to work with.
-
-##### React
-
-There is a template for building a panel with React [htmlgraphics-react-bundler-template](https://github.com/gapitio/htmlgraphics-react-bundler-template)
-
-The main thing is that it needs to be bundled into a single js file which can be copied to the onInit option in the panel.
+Because of the panelupdate event, frameworks like [React](https://reactjs.org/), [Svelte](https://svelte.dev/), ETC are easier to work with. Check out [Bundler](#bundler) for more information.
 
 ### customProperties
 
