@@ -1,70 +1,63 @@
-import React, { PureComponent } from 'react';
-import MonacoEditor, { monaco, EditorDidMount } from '@monaco-editor/react';
+import React, { Component } from 'react';
+import MonacoEditor, { BeforeMount, loader, OnMount } from '@monaco-editor/react';
 import { editor } from 'monaco-editor/esm/vs/editor/editor.api';
 import { EditorLanguageType } from 'types';
 import { config } from '@grafana/runtime';
 import textEditorDeclarations from './text-editor-declarations';
 
-interface MonacoEditorProps {
+// Load the monaco files locally
+// https://github.com/suren-atoyan/monaco-react#loader-config
+loader.config({
+  paths: {
+    vs: '/public/plugins/gapit-htmlgraphics-panel/lib/vs',
+  },
+});
+
+interface Props {
   language: EditorLanguageType;
   value: string | undefined;
   onChange: (value?: string) => void;
 }
 
-let keyCtrlCmd = 2048;
-let keyS = 49;
+interface State {
+  editor?: editor.IStandaloneCodeEditor;
+}
 
-monaco.config({
-  paths: {
-    vs: '/public/plugins/gapit-htmlgraphics-panel/lib/vs',
-  },
-});
-monaco.init().then(monaco => {
-  // Add autocompletion for panel definitions (htmlNode, codeData, data, options, and theme)
-  monaco.languages.typescript.javascriptDefaults.addExtraLib(textEditorDeclarations);
-
-  // Override the key values (should be the same)
-  keyCtrlCmd = monaco.KeyMod.CtrlCmd;
-  keyS = monaco.KeyCode.KEY_S;
-});
-
-class TextPanelEditor extends PureComponent<MonacoEditorProps> {
-  getEditorValue: (() => string) | undefined;
-  editorInstance: editor.IStandaloneCodeEditor | undefined;
-
-  onSourceChange = () => {
-    if (this.getEditorValue) {
-      this.props.onChange(this.getEditorValue());
+class TextPanelEditor extends Component<Props, State> {
+  editorWillMount: BeforeMount = monaco => {
+    if (this.props.language == 'javascript') {
+      // Add autocompletion for panel definitions (htmlNode, codeData, data, options, and theme)
+      monaco.languages.typescript.javascriptDefaults.addExtraLib(textEditorDeclarations);
     }
   };
 
-  onEditorDidMount: EditorDidMount = (getEditorValue, editorInstance) => {
-    this.getEditorValue = getEditorValue;
-    this.editorInstance = editorInstance;
-    editorInstance.addCommand(keyCtrlCmd | keyS, () => {
-      this.onSourceChange();
-      this.render();
+  editorOnMount: OnMount = (editor, monaco) => {
+    // Save editor value when CTRL+S are pressed inside the editor
+    editor.addCommand(monaco.KeyMod.CtrlCmd | monaco.KeyCode.KEY_S, () => {
+      this.saveEditorValue();
+    });
+
+    this.setState({
+      editor: editor,
     });
   };
 
-  updateDimensions = () => {
-    this.editorInstance?.layout();
+  saveEditorValue = () => {
+    if (this.state.editor) {
+      this.props.onChange(this.state.editor.getValue());
+    }
   };
 
   render = () => {
-    // Updates the layout (width) of the text editor
-    if (this.editorInstance) {
-      this.editorInstance.layout();
-    }
-
     return (
-      <div onBlur={this.onSourceChange}>
+      <div onBlur={this.saveEditorValue}>
         <MonacoEditor
           height={'33vh'}
           language={this.props.language}
           theme={config.theme.isDark ? 'vs-dark' : 'vs-light'}
           value={this.props.value}
-          editorDidMount={this.onEditorDidMount}
+          beforeMount={this.editorWillMount}
+          onMount={this.editorOnMount}
           options={{ fontSize: 12 }}
         />
       </div>
