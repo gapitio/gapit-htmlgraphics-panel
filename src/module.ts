@@ -110,7 +110,7 @@ export const plugin = new PanelPlugin<OptionsInterface>(HTMLPanel).setPanelOptio
       description: `On render code is executed whenever new data is available (htmlNode, customProperties/codeData, data, options, theme, getTemplateSrv, getLocationSrv)`,
       editor: PanelOptionCode,
       defaultValue:
-        "// Sets the value from the first series on every refresh\nhtmlNode.getElementById('htmlgraphics-value').textContent = data.series[0].fields[1].state.calcs.last\n",
+        "// Sets the value from the first series on every refresh\nconst htmlgraphicsValue = htmlNode.getElementById('htmlgraphics-value');\n\nif (htmlgraphicsValue) {\n  htmlgraphicsValue.textContent = data.series[0].fields[1].state.calcs.last;\n}\n",
       settings: {
         language: 'javascript',
       },
@@ -137,7 +137,7 @@ export const plugin = new PanelPlugin<OptionsInterface>(HTMLPanel).setPanelOptio
         'On init code is executed when the panel loads (htmlNode, customProperties/codeData, data, options, theme, getTemplateSrv, getLocationSrv)',
       editor: PanelOptionCode,
       defaultValue:
-        "// Sets the text from customProperties\nconst htmlgraphicsText = htmlNode.getElementById('htmlgraphics-text');\nhtmlgraphicsText.textContent = customProperties.text;\n\n// Change the text color based on the theme\nif (theme.isDark) {\n  htmlgraphicsText.style.color = 'green';\n} else {\n  htmlgraphicsText.style.color = 'red';\n}\n",
+        "// Sets the text from customProperties\nconst htmlgraphicsText = htmlNode.getElementById('htmlgraphics-text');\n\nif (htmlgraphicsText) {\n  htmlgraphicsText.textContent = customProperties.text;\n\n  // Change the text color based on the theme\n  if (theme.isDark) {\n    htmlgraphicsText.style.color = 'green';\n  } else {\n    htmlgraphicsText.style.color = 'red';\n  }\n}\n",
       settings: {
         language: 'javascript',
       },
