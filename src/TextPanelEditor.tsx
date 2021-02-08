@@ -24,6 +24,16 @@ interface State {
 }
 
 class TextPanelEditor extends Component<Props, State> {
+  constructor(props: Props) {
+    super(props);
+
+    this.state = {};
+  }
+
+  componentDidUpdate() {
+    this.state.editor?.layout();
+  }
+
   editorWillMount: BeforeMount = monaco => {
     if (this.props.language == 'javascript') {
       // Add autocompletion for panel definitions (htmlNode, codeData, data, options, and theme)
