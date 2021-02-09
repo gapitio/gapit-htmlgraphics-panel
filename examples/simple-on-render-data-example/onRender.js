@@ -3,7 +3,7 @@ const getSeries = (alias, calc = 'last') => {
     Get the series with the correct alias.
     series.name is overwritten by the alias written in the alias section of the metric/query
   */
-  const filteredAliasSeries = data.series.filter(series => series.name == alias);
+  const filteredAliasSeries = data.series.filter((series) => series.name == alias);
   // Check if it found any series with the alias
   if (filteredAliasSeries.length > 0) {
     // calc is default to last (in this function), which gets the last metric in the query

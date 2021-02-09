@@ -62,7 +62,7 @@ const metricHandler = () => {
 
   const client = new XMLHttpRequest();
   client.open('GET', onRenderPath);
-  client.onreadystatechange = function() {
+  client.onreadystatechange = function () {
     if (client.readyState == 4 && client.status == 200) {
       /*
         If the generated code is being evaluated as a string with the eval() function or via new Function(),
@@ -78,7 +78,7 @@ const metricHandler = () => {
   };
   client.send();
 
-  document.getElementById('refresh-button').onclick = function() {
+  document.getElementById('refresh-button').onclick = function () {
     onRender();
   };
 };

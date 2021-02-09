@@ -1,13 +1,13 @@
 const UNIT_PREFIXES = {
-  '24': 'Y',
-  '21': 'Z',
-  '18': 'E',
-  '15': 'P',
-  '12': 'T',
-  '9': 'G',
-  '6': 'M',
-  '3': 'k',
-  '0': '',
+  24: 'Y',
+  21: 'Z',
+  18: 'E',
+  15: 'P',
+  12: 'T',
+  9: 'G',
+  6: 'M',
+  3: 'k',
+  0: '',
   '-3': 'm',
   '-6': 'µ',
   '-9': 'n',
@@ -67,7 +67,7 @@ const formatSI = (num, digits = 1, unit = codeData.unit, precision = false) => {
  * @param {string} url
  * @return {string} url with autofitpanels parameter
  */
-const addAutofitpanelsParam = url => {
+const addAutofitpanelsParam = (url) => {
   if (!url.includes('?')) {
     url += '?autofitpanels';
   } else if (!url.includes('autofitpanels')) {
@@ -98,7 +98,7 @@ const linkHandler = (url, clickEltId, textEltId, fontWeights = [200, 400]) => {
     const clickElt = htmlNode.getElementById(clickEltId);
     const textElt = htmlNode.getElementById(textEltId);
 
-    clickElt.onclick = event => window.open(url, event.ctrlKey ? '_blank' : '_self');
+    clickElt.onclick = (event) => window.open(url, event.ctrlKey ? '_blank' : '_self');
     clickElt.onmouseenter = () => (textElt.style.fontWeight = fontWeights[1]);
     clickElt.onmouseleave = () => (textElt.style.fontWeight = fontWeights[0]);
     clickElt.style.cursor = 'pointer';
@@ -159,8 +159,8 @@ const setLoadRange = () => {
   const loadRangeMinSI = formatSI(loadRange[0]);
   const loadRangeMaxSI = formatSI(loadRange[1]);
 
-  const loadRangeMinFormatted = `${loadRangeMinSI[0]} ${loadRangeMinSI[1]}`
-  const loadRangeMaxFormatted = `${loadRangeMaxSI[0]} ${loadRangeMaxSI[1]}`
+  const loadRangeMinFormatted = `${loadRangeMinSI[0]} ${loadRangeMinSI[1]}`;
+  const loadRangeMaxFormatted = `${loadRangeMaxSI[0]} ${loadRangeMaxSI[1]}`;
 
   htmlNode.getElementById('load-bar-range-low').textContent = `< ${loadRangeMinFormatted}`;
   htmlNode.getElementById('load-bar-range-mid').textContent = `${loadRangeMinFormatted} - ${loadRangeMaxFormatted}`;
@@ -200,7 +200,7 @@ const setElementColorById = (eltId, fill = false, stroke = false) => {
  */
 const setGroupElementColorById = (groupId, fill = false, stroke = false) => {
   const groupElt = htmlNode.getElementById(groupId);
-  [...groupElt.children].forEach(elt => {
+  [...groupElt.children].forEach((elt) => {
     setElementColor(elt, fill, stroke);
   });
 };
@@ -210,10 +210,10 @@ const setGroupElementColorById = (groupId, fill = false, stroke = false) => {
  *
  * @param {string} buttonId
  */
-const setButtonElementColorById = buttonId => {
+const setButtonElementColorById = (buttonId) => {
   const elt = htmlNode.getElementById(buttonId);
   elt.children[0].style.fill = '#fff';
-  elt.children[1].children.forEach(elt => (elt.style.stroke = '#fff'));
+  elt.children[1].children.forEach((elt) => (elt.style.stroke = '#fff'));
 };
 
 /**

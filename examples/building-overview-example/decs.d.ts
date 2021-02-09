@@ -16,18 +16,18 @@ declare const htmlNode: ShadowRoot;
 /**
  * The codeData as a dictionary.
  */
-declare const codeData: {[key: string]: any};
+declare const codeData: { [key: string]: any };
 
 /**
  * PanelData for the panel.
  * https://grafana.com/docs/grafana/latest/packages_api/data/paneldata/.
  */
-declare const data: {[key: string]: any};
+declare const data: { [key: string]: any };
 
 /**
  * The panel options you've set (codeData, SVGBaseFix, onInit, ETC).
  */
-declare const options: {[key: string]: any};
+declare const options: { [key: string]: any };
 
 /**
  * Grafana theme.
@@ -35,4 +35,4 @@ declare const options: {[key: string]: any};
  *
  * https://grafana.com/docs/grafana/latest/packages_api/data/grafanatheme/
  */
-declare const theme: {[key: string]: any; isDark: boolean; isLight: boolean};
+declare const theme: { [key: string]: any; isDark: boolean; isLight: boolean };

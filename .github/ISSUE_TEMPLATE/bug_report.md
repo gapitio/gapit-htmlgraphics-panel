@@ -4,7 +4,6 @@ about: Create a report to help us improve
 title: ''
 labels: ''
 assignees: ''
-
 ---
 
 <!--
@@ -22,6 +21,7 @@ PROTIP: record your screen and attach it as a gif to showcase the issue.
 **Anything else we need to know?**:
 
 **Environment**:
+
 - Grafana version:
 - Data source type & version:
 - OS Grafana is installed on:

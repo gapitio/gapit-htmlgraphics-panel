@@ -34,7 +34,7 @@ const getCalculationMetric = (metricCalculationString: string) => {
  */
 const getMetricByName = (metricName: string, noDataValue: string) => {
   const filteredSeries = data.series.filter(
-    series => series.name == metricName
+    (series) => series.name == metricName
   );
   if (filteredSeries.length > 0) {
     return filteredSeries[0].fields[1].state.calcs.last;

@@ -10,5 +10,5 @@ interface Settings {
 interface Props extends StandardEditorProps<EditorCodeType, Settings> {}
 
 export const PanelOptionCode: React.FC<Props> = ({ value, item, onChange }) => {
-  return <TextPanelEditor language={item.settings?.language} value={value} onChange={code => onChange(code)} />;
+  return <TextPanelEditor language={item.settings?.language} value={value} onChange={(code) => onChange(code)} />;
 };

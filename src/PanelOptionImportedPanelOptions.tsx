@@ -44,12 +44,12 @@ export const PanelOptionImportedPanelOptions: React.FC<Props> = ({ value, item, 
 
   return (
     <div>
-      <Input css={{}} type="file" onChange={e => importPanelOptions(e.currentTarget.files, onChange)} />
+      <Input css={{}} type="file" onChange={(e) => importPanelOptions(e.currentTarget.files, onChange)} />
       <Spacer />
       <TextPanelEditor
         language={item.settings?.language}
         value={value}
-        onChange={code => {
+        onChange={(code) => {
           onChange(code);
         }}
       />

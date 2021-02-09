@@ -16,17 +16,17 @@ Bundler example to make developing code easier and scalable.
 
 1. Scalable
 
-    It is much easier to split the code up in files and components, and let the bundler combine/merge them into one file. Which makes it much more scalable.
+   It is much easier to split the code up in files and components, and let the bundler combine/merge them into one file. Which makes it much more scalable.
 
 2. No need for internet
 
-    If someone uses Grafana on a different computer/server, and they are on the same network, they can still use the graphics used. *Same for closed networks*
+   If someone uses Grafana on a different computer/server, and they are on the same network, they can still use the graphics used. _Same for closed networks_
 
-    Since all the code is bundled together, the code don't need internet to use a module. E.g [svg.js](https://svgjs.com/docs/3.0/), [vue](https://vuejs.org/), custom created modules (like format-si.ts used in this example), ETC
+   Since all the code is bundled together, the code don't need internet to use a module. E.g [svg.js](https://svgjs.com/docs/3.0/), [vue](https://vuejs.org/), custom created modules (like format-si.ts used in this example), ETC
 
 3. Reusable
 
-    By making it component based, it's a lot easier to create a central location, like github and npm, for all the components and update them independently. This will remove the part where you have to try and find the code in a different project, and you can instead look for the component you need in the central location.
+   By making it component based, it's a lot easier to create a central location, like github and npm, for all the components and update them independently. This will remove the part where you have to try and find the code in a different project, and you can instead look for the component you need in the central location.
 
 ## Usage
 
@@ -42,7 +42,7 @@ Then you start the development script
 yarn run dev
 ```
 
-Go to <http://localhost:5000>. Change some code in `./src/on-init.ts`,  `./src/on-render.ts`, and `./src/svg-data-inkscape.svg`, and the website will update.
+Go to <http://localhost:5000>. Change some code in `./src/on-init.ts`, `./src/on-render.ts`, and `./src/svg-data-inkscape.svg`, and the website will update.
 
 When the code is ready to be uploaded to Grafana, start the build script
 

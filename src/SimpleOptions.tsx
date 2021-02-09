@@ -23,7 +23,7 @@ class SimpleOption extends PureComponent<SimpleOptionProps> {
   number = () => (
     <Input
       defaultValue={this.props.newDict[this.props.itemKey]}
-      onChange={e => {
+      onChange={(e) => {
         this.props.newDict[this.props.itemKey] = parseFloat(e.currentTarget.value) || 0;
         this.props.update(this.props.dict);
       }}
@@ -35,7 +35,7 @@ class SimpleOption extends PureComponent<SimpleOptionProps> {
   string = () => (
     <Input
       defaultValue={this.props.newDict[this.props.itemKey]}
-      onChange={e => {
+      onChange={(e) => {
         this.props.newDict[this.props.itemKey] = e.currentTarget.value || '';
         this.props.update(this.props.dict);
       }}

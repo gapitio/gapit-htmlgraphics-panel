@@ -5,7 +5,7 @@ import { PanelOptionCodeData } from 'PanelOptionCodeData';
 import { PanelOptionCode } from 'PanelOptionCode';
 import { PanelOptionImportedPanelOptions } from './PanelOptionImportedPanelOptions';
 
-export const plugin = new PanelPlugin<OptionsInterface>(HTMLPanel).setPanelOptions(builder => {
+export const plugin = new PanelPlugin<OptionsInterface>(HTMLPanel).setPanelOptions((builder) => {
   return builder
     .addBooleanSwitch({
       path: 'add100Percentage',

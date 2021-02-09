@@ -25,7 +25,7 @@ function updateButtonText() {
   buttonElt.textContent = `${VARIABLE_NAME}'s current value is: ${getGrafanaVariableValue(VARIABLE_NAME)}`;
 }
 
-buttonElt.onclick = function() {
+buttonElt.onclick = function () {
   updateGrafanaVariable(VARIABLE_NAME, getGrafanaVariableValue(VARIABLE_NAME) == 'b' ? 'a' : 'b');
   updateButtonText();
 };

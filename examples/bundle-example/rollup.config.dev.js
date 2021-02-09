@@ -25,7 +25,7 @@ export default [
       }),
       typescript({
         check: false,
-        typescript: require("typescript")
+        typescript: require('typescript')
       }),
       nodeResolve({
         browser: true
@@ -43,7 +43,7 @@ export default [
     plugins: [
       typescript({
         check: false,
-        typescript: require("typescript")
+        typescript: require('typescript')
       }),
       nodeResolve({
         browser: true
@@ -60,7 +60,7 @@ export default [
     plugins: [
       typescript({
         check: false,
-        typescript: require("typescript")
+        typescript: require('typescript')
       }),
       nodeResolve({
         browser: true

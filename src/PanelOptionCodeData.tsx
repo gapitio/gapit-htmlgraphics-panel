@@ -52,7 +52,7 @@ export const PanelOptionCodeData: React.FC<Props> = ({ value, item, onChange }) 
         <TextPanelEditor
           language={item.settings?.language}
           value={value}
-          onChange={code => {
+          onChange={(code) => {
             onChange(code);
           }}
         />

@@ -1,13 +1,13 @@
 const UNIT_PREFIXES = {
-  '24': 'Y',
-  '21': 'Z',
-  '18': 'E',
-  '15': 'P',
-  '12': 'T',
-  '9': 'G',
-  '6': 'M',
-  '3': 'k',
-  '0': '',
+  24: 'Y',
+  21: 'Z',
+  18: 'E',
+  15: 'P',
+  12: 'T',
+  9: 'G',
+  6: 'M',
+  3: 'k',
+  0: '',
   '-3': 'm',
   '-6': 'µ',
   '-9': 'n',
@@ -65,7 +65,7 @@ const formatSI = (num, digits = 1, unit = codeData.unit, precision = false) => {
  * @param {string} string - Calculation string ("10+3*5")
  * @return {number} Calculated string value
  */
-const calculateString = string => {
+const calculateString = (string) => {
   return new Function('return ' + string)();
 };
 
@@ -85,9 +85,9 @@ const getShowcaseMetric = () => {
  * @param {string} metricCalculationString - The metric calculation string E.g "random-metric-1"+"random-metric-2"
  * @return {number} Calculated string
  */
-const getCalculationMetric = metricCalculationString => {
+const getCalculationMetric = (metricCalculationString) => {
   // Replace the metric names the metric value
-  const splitMetricCalculation = metricCalculationString.replace(/["']([^"']*)["']/g, metricName => {
+  const splitMetricCalculation = metricCalculationString.replace(/["']([^"']*)["']/g, (metricName) => {
     return getMetric(metricName.replace(/["']/g, ''), 0);
   });
   return calculateString(splitMetricCalculation);
@@ -101,7 +101,7 @@ const getCalculationMetric = metricCalculationString => {
  * @return {any} - Metric value
  */
 const getMetricByName = (metricName, noDataValue) => {
-  const filteredSeries = data.series.filter(series => series.name == metricName);
+  const filteredSeries = data.series.filter((series) => series.name == metricName);
   if (filteredSeries.length > 0) {
     return filteredSeries[0].fields[1].state.calcs.last;
   }
@@ -123,7 +123,7 @@ const getMetric = (metric, noDataValue = 'No data') => {
 
   if (codeData.showcase) {
     return getShowcaseMetric();
-  } else if (metric.includes('"') || metric.includes('\'')) {
+  } else if (metric.includes('"') || metric.includes("'")) {
     return getCalculationMetric(metric);
   }
 

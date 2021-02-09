@@ -269,9 +269,7 @@ Gets added next to the html document.
 <style>
   /* The CSS */
 </style>
-<div>
-  HTML/SVG document
-</div>
+<div>HTML/SVG document</div>
 ```
 
 ### HTML/SVG document
@@ -399,7 +397,7 @@ Can be used to retrieve metric values.
 ```javascript
 // Used in onRender as it updates every time new data is available
 const getMetricByName = (metricName, noDataValue = 'No data') => {
-  const filteredSeries = data.series.filter(series => series.name == metricName);
+  const filteredSeries = data.series.filter((series) => series.name == metricName);
   if (filteredSeries.length > 0) {
     return filteredSeries[0].fields[1].state.calcs.last;
   }

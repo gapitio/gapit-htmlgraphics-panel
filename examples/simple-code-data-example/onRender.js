@@ -4,7 +4,7 @@ const getShowcaseMetric = () => {
 };
 
 const getMetricByName = (alias) => {
-  const filteredAliasSeries = data.series.filter(series => series.name == alias);
+  const filteredAliasSeries = data.series.filter((series) => series.name == alias);
   if (filteredAliasSeries.length > 0) {
     return filteredAliasSeries[0].fields[1].state.calcs.last;
   }
