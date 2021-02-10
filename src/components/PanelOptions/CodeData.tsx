@@ -18,10 +18,7 @@ const SimpleCodeData = ({ value, onChange }: { value: EditorCodeType; onChange: 
 
     return (
       <div>
-        <SimpleOptions
-          dict={codeData ?? {}}
-          update={(value: { [key: string]: any }) => onChange(JSON.stringify(value, null, 2))}
-        ></SimpleOptions>
+        <SimpleOptions dict={codeData ?? {}} update={() => onChange(JSON.stringify(codeData, null, 2))}></SimpleOptions>
       </div>
     );
   }

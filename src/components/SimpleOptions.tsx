@@ -16,7 +16,7 @@ export const BooleanOption = ({ dict, update, itemKey }: SimpleOptionProps) => {
       value={dict[itemKey]}
       onChange={() => {
         dict[itemKey] = !dict[itemKey];
-        update(dict);
+        update();
       }}
       css={{}}
     ></Switch>
@@ -29,7 +29,7 @@ export const NumberOption = ({ dict, update, itemKey }: SimpleOptionProps) => {
       value={dict[itemKey]}
       onChange={(e) => {
         dict[itemKey] = parseFloat(e.currentTarget.value) || 0;
-        update(dict);
+        update();
       }}
       css={{}}
       type={'number'}
@@ -43,7 +43,7 @@ export const StringOption = ({ dict, update, itemKey }: SimpleOptionProps) => {
       value={dict[itemKey]}
       onChange={(e) => {
         dict[itemKey] = e.currentTarget.value || '';
-        update(dict);
+        update();
       }}
       css={{}}
       type={'string'}
