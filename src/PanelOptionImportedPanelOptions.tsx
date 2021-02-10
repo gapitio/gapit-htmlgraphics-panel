@@ -21,12 +21,12 @@ function downloadJsonFile(panelOptionString: EditorCodeType) {
   }
 }
 
-async function importPanelOptions(files: FileList | null, onChange: (value?: EditorCodeType) => void) {
+async function importPanelOptions(files: FileList | null, updatePanelOptions: (value?: EditorCodeType) => void) {
   const file = files ? files.item(0) : null;
 
   if (file) {
     const panelOptionsString = await readFile(file);
-    onChange(panelOptionsString);
+    updatePanelOptions(panelOptionsString);
   }
 }
 
@@ -42,17 +42,17 @@ export const PanelOptionImportedPanelOptions: React.FC<Props> = ({ value, item, 
     value = optionsString;
   }
 
+  const updatePanelOptions = (code: EditorCodeType) => {
+    // Update the options dict before requesting a change
+    if (code) Object.assign(context.options, JSON.parse(code));
+    onChange(code);
+  };
+
   return (
     <div>
-      <Input css={{}} type="file" onChange={(e) => importPanelOptions(e.currentTarget.files, onChange)} />
+      <Input css={{}} type="file" onChange={(e) => importPanelOptions(e.currentTarget.files, updatePanelOptions)} />
       <Spacer />
-      <TextPanelEditor
-        language={item.settings?.language}
-        value={value}
-        onChange={(code) => {
-          onChange(code);
-        }}
-      />
+      <TextPanelEditor language={item.settings?.language} value={value} onChange={updatePanelOptions} />
       <Spacer />
       <Button onClick={() => downloadJsonFile(value)}>Download as JSON file</Button>
     </div>
