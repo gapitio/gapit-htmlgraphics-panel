@@ -5,6 +5,8 @@ import { Alert } from '@grafana/ui';
 import { OptionsInterface } from 'types';
 import { SVGBaseFix } from 'utils/polyfill';
 import 'fonts.scss';
+import { parseJSON } from 'utils/parseJSON';
+import { shallowCompare } from 'utils/shallowCompare';
 
 interface HTMLNodeElement extends ShadowRoot {
   onpanelupdate: () => void;
@@ -30,27 +32,19 @@ export class HTMLPanel extends PureComponent<Props, PanelState> {
     options: this.props.options,
   };
 
-  data = this.props.data;
+  data = this.props.data; // Used for dynamic data
   panelUpdateEvent = new CustomEvent('panelupdate');
 
   getCodeData() {
-    let codeDataParsed = {};
-    let isError = false;
-
-    if (this.props.options.codeData) {
-      try {
-        codeDataParsed = JSON.parse(this.props.options.codeData);
-      } catch (e) {
-        isError = true;
-        console.error(`codeData:`, e);
-      }
-    }
+    const { json: codeData, isError } = parseJSON<OptionsInterface>(this.props.options.codeData, {
+      namespace: 'codeData',
+    });
 
     if (this.state.codeDataErrorStatus !== isError) {
       this.setState({ codeDataErrorStatus: isError });
     }
 
-    return codeDataParsed;
+    return codeData ?? {};
   }
 
   setHTML() {
@@ -98,6 +92,7 @@ export class HTMLPanel extends PureComponent<Props, PanelState> {
 
   executeScript(script: string, dynamic = false) {
     const data = dynamic ? this.data : this.props.data;
+    const codeData = this.getCodeData();
 
     const F = new Function(
       'htmlNode',
@@ -113,8 +108,8 @@ export class HTMLPanel extends PureComponent<Props, PanelState> {
     F(
       this.state.shadowContainerRef.current?.firstElementChild?.shadowRoot,
       data,
-      this.getCodeData(),
-      this.getCodeData(),
+      codeData,
+      codeData,
       this.props.options,
       config.theme,
       getTemplateSrv,
@@ -212,25 +207,13 @@ export class HTMLPanel extends PureComponent<Props, PanelState> {
     }
   }
 
-  /*
-    Shallow compares obj1 and obj2 and returns true if they are equal
-  */
-  compareShallow(obj1: { [key: string]: any }, obj2: { [key: string]: any }) {
-    for (const key in obj1) {
-      if (obj1[key] !== obj2[key]) {
-        return false;
-      }
-    }
-    return true;
-  }
-
   componentDidUpdate() {
     // Update this.data with the new data
     if (this.props.options.dynamicData) {
       Object.assign(this.data, this.props.data);
     }
 
-    const HAS_CHANGED = !this.compareShallow(this.state.options, this.props.options);
+    const HAS_CHANGED = !shallowCompare(this.state.options, this.props.options);
 
     if (HAS_CHANGED) {
       this.initialize();
@@ -243,22 +226,23 @@ export class HTMLPanel extends PureComponent<Props, PanelState> {
     }
   }
 
-  Error = () => (
-    <div>
-      {this.state.onRenderErrorStatus ? (
-        <Alert title={'Error executing onRender'}>Check the console for further information</Alert>
-      ) : null}
-      {this.state.onInitErrorStatus ? (
-        <Alert title={'Error executing onInit'}>Check the console for further information</Alert>
-      ) : null}
-      {this.state.codeDataErrorStatus ? (
-        <Alert title={'Error parsing codeData'}>Check the console for further information</Alert>
-      ) : null}
-      {this.state.htmlErrorStatus ? (
-        <Alert title={'Error parsing html'}>Check the console for further information</Alert>
-      ) : null}
-    </div>
-  );
+  Error = () => {
+    const { onRenderErrorStatus, onInitErrorStatus, codeDataErrorStatus, htmlErrorStatus } = this.state;
+    return (
+      <div>
+        {[
+          { status: onRenderErrorStatus, name: 'onRender' },
+          { status: onInitErrorStatus, name: 'onInit' },
+          { status: codeDataErrorStatus, name: 'codeData' },
+          { status: htmlErrorStatus, name: 'html' },
+        ].map((errorStatus) =>
+          errorStatus.status ? (
+            <Alert title={`Error executing ${errorStatus.name}`}>Check the console for further information</Alert>
+          ) : null
+        )}
+      </div>
+    );
+  };
 
   shadowContainerStyle = () => {
     const style: React.CSSProperties = {

@@ -30,9 +30,7 @@ async function importPanelOptions(files: FileList | null, updatePanelOptions: (v
   }
 }
 
-const Spacer: React.FC = () => {
-  return <div style={{ marginBottom: '6px' }}></div>;
-};
+const Spacer: React.FC = () => <div style={{ marginBottom: '6px' }}></div>;
 
 export const ImportExportOption: React.FC<Props> = ({ value, item, onChange, context }) => {
   if (context.options) {
