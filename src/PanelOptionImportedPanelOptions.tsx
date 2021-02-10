@@ -3,8 +3,8 @@ import { StandardEditorProps } from '@grafana/data';
 import { OptionsInterface, EditorLanguageType } from './types';
 import { TextPanelEditor } from './TextPanelEditor';
 import { Button, Input } from '@grafana/ui';
-import { exportFile, contentType } from 'components/exportFile';
-import { readFile } from 'components/readFile';
+import { exportFile, contentType } from 'utils/exportFile';
+import { readFile } from 'utils/readFile';
 import { EditorCodeType } from 'types';
 
 interface Settings {
