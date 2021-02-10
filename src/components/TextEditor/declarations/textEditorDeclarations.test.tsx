@@ -1,4 +1,4 @@
-import textEditorDeclarations from './';
+import textEditorDeclarations from '.';
 
 describe('Text editor declarations', () => {
   it('is a valid string', () => {

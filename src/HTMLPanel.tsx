@@ -2,8 +2,8 @@ import React, { PureComponent } from 'react';
 import { PanelProps } from '@grafana/data';
 import { config, getTemplateSrv, getLocationSrv } from '@grafana/runtime';
 import { Alert } from '@grafana/ui';
-import { OptionsInterface } from './types';
-import { SVGBaseFix } from 'polyfill';
+import { OptionsInterface } from 'types';
+import { SVGBaseFix } from 'utils/polyfill';
 import 'fonts.scss';
 
 interface HTMLNodeElement extends ShadowRoot {

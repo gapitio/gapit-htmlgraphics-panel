@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import { StandardEditorProps } from '@grafana/data';
-import { OptionsInterface, EditorLanguageType, EditorCodeType } from './types';
-import { TextPanelEditor } from './TextPanelEditor';
+import { OptionsInterface, EditorLanguageType, EditorCodeType } from 'types';
+import { TextEditor } from 'components/TextEditor';
 import { Switch, Label } from '@grafana/ui';
-import { SimpleOptions } from './SimpleOptions';
+import { SimpleOptions } from 'components/SimpleOptions';
 
 interface Settings {
   language: EditorLanguageType;
@@ -39,7 +39,7 @@ const SimpleCodeData = ({ value, onChange }: { value: EditorCodeType; onChange: 
   return <></>;
 };
 
-export const PanelOptionCodeData: React.FC<Props> = ({ value, item, onChange }) => {
+export const CodeDataOption: React.FC<Props> = ({ value, item, onChange }) => {
   const [jsonView, setJsonView] = useState(false);
 
   return (
@@ -49,7 +49,7 @@ export const PanelOptionCodeData: React.FC<Props> = ({ value, item, onChange }) 
       <Switch value={jsonView} onChange={() => setJsonView(!jsonView)} css={{}}></Switch>
       <br />
       {jsonView ? (
-        <TextPanelEditor
+        <TextEditor
           language={item.settings?.language}
           value={value}
           onChange={(code) => {

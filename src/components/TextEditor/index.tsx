@@ -3,7 +3,7 @@ import MonacoEditor, { BeforeMount, loader, OnMount } from '@monaco-editor/react
 import { editor } from 'monaco-editor/esm/vs/editor/editor.api';
 import { EditorLanguageType } from 'types';
 import { config } from '@grafana/runtime';
-import textEditorDeclarations from './text-editor-declarations';
+import textEditorDeclarations from './declarations';
 
 // Load the monaco files locally
 // https://github.com/suren-atoyan/monaco-react#loader-config
@@ -23,7 +23,7 @@ interface State {
   editor?: editor.IStandaloneCodeEditor;
 }
 
-class TextPanelEditor extends Component<Props, State> {
+export class TextEditor extends Component<Props, State> {
   constructor(props: Props) {
     super(props);
 
@@ -74,5 +74,3 @@ class TextPanelEditor extends Component<Props, State> {
     );
   };
 }
-
-export { TextPanelEditor };

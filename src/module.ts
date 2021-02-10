@@ -1,9 +1,9 @@
 import { PanelPlugin } from '@grafana/data';
-import { OptionsInterface } from './types';
-import { HTMLPanel } from './HTMLPanel';
-import { PanelOptionCodeData } from 'PanelOptionCodeData';
-import { PanelOptionCode } from 'PanelOptionCode';
-import { PanelOptionImportedPanelOptions } from './PanelOptionImportedPanelOptions';
+import { OptionsInterface } from 'types';
+import { HTMLPanel } from 'HTMLPanel';
+import { CodeDataOption } from 'components/PanelOptions/CodeData';
+import { TextEditorOption } from 'components/PanelOptions/TextEditor';
+import { ImportExportOption } from 'components/PanelOptions/ImportExport';
 
 export const plugin = new PanelPlugin<OptionsInterface>(HTMLPanel).setPanelOptions((builder) => {
   return builder
@@ -62,7 +62,7 @@ export const plugin = new PanelPlugin<OptionsInterface>(HTMLPanel).setPanelOptio
       path: 'codeData',
       name: 'Custom properties',
       description: 'This is the customProperties (codeData), which can be accessed by onInit and onRender',
-      editor: PanelOptionCodeData,
+      editor: CodeDataOption,
       category: ['Custom properties'],
       defaultValue: '{\n  "text": "Random text"\n}',
       settings: {
@@ -74,7 +74,7 @@ export const plugin = new PanelPlugin<OptionsInterface>(HTMLPanel).setPanelOptio
       path: 'css',
       name: 'CSS',
       description: '',
-      editor: PanelOptionCode,
+      editor: TextEditorOption,
       defaultValue:
         '* {\n  font-family: Open Sans;\n}\n\n.box {\n  border: solid #555 2px;\n  border-radius: 10px;\n  padding: 10px 20px;\n}\n',
       settings: {
@@ -90,7 +90,7 @@ export const plugin = new PanelPlugin<OptionsInterface>(HTMLPanel).setPanelOptio
         It is recommended to write your code in an editor and paste the code here.
         This is to keep a copy of the code and not lose your work if the browser crashes.
     `,
-      editor: PanelOptionCode,
+      editor: TextEditorOption,
       defaultValue:
         '<div style="text-align: center;">\n  <div class="box" id="htmlgraphics-text"></div>\n  <br />\n  <div class="box" id="htmlgraphics-value"></div>\n</div>\n',
       settings: {
@@ -108,7 +108,7 @@ export const plugin = new PanelPlugin<OptionsInterface>(HTMLPanel).setPanelOptio
       path: 'onRender',
       name: 'onRender',
       description: `On render code is executed whenever new data is available (htmlNode, customProperties/codeData, data, options, theme, getTemplateSrv, getLocationSrv)`,
-      editor: PanelOptionCode,
+      editor: TextEditorOption,
       defaultValue:
         "// Sets the value from the first series on every refresh\nconst htmlgraphicsValue = htmlNode.getElementById('htmlgraphics-value');\n\nif (htmlgraphicsValue) {\n  htmlgraphicsValue.textContent = data.series[0].fields[1].state.calcs.last;\n}\n",
       settings: {
@@ -135,7 +135,7 @@ export const plugin = new PanelPlugin<OptionsInterface>(HTMLPanel).setPanelOptio
       name: 'onInit',
       description:
         'On init code is executed when the panel loads (htmlNode, customProperties/codeData, data, options, theme, getTemplateSrv, getLocationSrv)',
-      editor: PanelOptionCode,
+      editor: TextEditorOption,
       defaultValue:
         "// Sets the text from customProperties\nconst htmlgraphicsText = htmlNode.getElementById('htmlgraphics-text');\n\nif (htmlgraphicsText) {\n  htmlgraphicsText.textContent = customProperties.text;\n\n  // Change the text color based on the theme\n  if (theme.isDark) {\n    htmlgraphicsText.style.color = 'green';\n  } else {\n    htmlgraphicsText.style.color = 'red';\n  }\n}\n",
       settings: {
@@ -147,7 +147,7 @@ export const plugin = new PanelPlugin<OptionsInterface>(HTMLPanel).setPanelOptio
       path: 'importedPanelOptions',
       name: 'Panel options',
       description: 'Easily copy all options to a different panel which uses the gapit-htmlgraphics-panel.',
-      editor: PanelOptionImportedPanelOptions,
+      editor: ImportExportOption,
       category: ['Import/export'],
       settings: {
         language: 'json',
