@@ -1,127 +1,110 @@
-import React, { PureComponent } from 'react';
+import React from 'react';
 import { Switch, Input, ControlledCollapse, Label } from '@grafana/ui';
 
-interface SimpleOptionProps {
+interface SimpleOptionsProps {
   dict: { [key: string]: any };
-  newDict: { [key: string]: any };
   update: Function;
+}
+
+interface SimpleOptionProps extends SimpleOptionsProps {
   itemKey: string | number;
 }
 
-class SimpleOption extends PureComponent<SimpleOptionProps> {
-  boolean = () => (
+export const BooleanOption = ({ dict, update, itemKey }: SimpleOptionProps) => {
+  return (
     <Switch
-      value={this.props.newDict[this.props.itemKey]}
+      value={dict[itemKey]}
       onChange={() => {
-        this.props.newDict[this.props.itemKey] = !this.props.newDict[this.props.itemKey];
-        this.props.update(this.props.dict);
+        dict[itemKey] = !dict[itemKey];
+        update(dict);
       }}
       css={{}}
     ></Switch>
   );
+};
 
-  number = () => (
+export const NumberOption = ({ dict, update, itemKey }: SimpleOptionProps) => {
+  return (
     <Input
-      defaultValue={this.props.newDict[this.props.itemKey]}
+      value={dict[itemKey]}
       onChange={(e) => {
-        this.props.newDict[this.props.itemKey] = parseFloat(e.currentTarget.value) || 0;
-        this.props.update(this.props.dict);
+        dict[itemKey] = parseFloat(e.currentTarget.value) || 0;
+        update(dict);
       }}
       css={{}}
       type={'number'}
     ></Input>
   );
+};
 
-  string = () => (
+export const StringOption = ({ dict, update, itemKey }: SimpleOptionProps) => {
+  return (
     <Input
-      defaultValue={this.props.newDict[this.props.itemKey]}
+      value={dict[itemKey]}
       onChange={(e) => {
-        this.props.newDict[this.props.itemKey] = e.currentTarget.value || '';
-        this.props.update(this.props.dict);
+        dict[itemKey] = e.currentTarget.value || '';
+        update(dict);
       }}
       css={{}}
       type={'string'}
     ></Input>
   );
+};
 
-  array = () => (
-    <ControlledCollapse
-      collapsible={true}
-      label={`Click to toggle (items: ${this.props.newDict[this.props.itemKey].length})`}
-    >
-      {this.props.newDict[this.props.itemKey].map((value: string, index: number) => {
-        return (
-          <SimpleOption
-            dict={this.props.dict}
-            newDict={this.props.newDict[this.props.itemKey]}
-            update={this.props.update}
-            itemKey={index}
-          ></SimpleOption>
-        );
+export const ArrayOption = ({ dict, update, itemKey }: SimpleOptionProps) => {
+  return (
+    <ControlledCollapse collapsible={true} label={`Click to toggle (items: ${dict[itemKey].length})`}>
+      {dict[itemKey].map((_value: string, index: number) => {
+        return <SimpleOption dict={dict[itemKey]} update={update} itemKey={index}></SimpleOption>;
       })}
     </ControlledCollapse>
   );
+};
 
-  dict = () => (
-    <ControlledCollapse
-      collapsible={true}
-      label={`Click to toggle (items: ${Object.keys(this.props.newDict[this.props.itemKey]).length})`}
-    >
-      <SimpleOptions
-        dict={this.props.dict}
-        newDict={this.props.newDict[this.props.itemKey]}
-        update={this.props.update}
-      ></SimpleOptions>
+export const DictOption = ({ dict, update, itemKey }: SimpleOptionProps) => {
+  return (
+    <ControlledCollapse collapsible={true} label={`Click to toggle (items: ${Object.keys(dict[itemKey]).length})`}>
+      <SimpleOptions dict={dict[itemKey]} update={update}></SimpleOptions>
     </ControlledCollapse>
   );
+};
 
-  render() {
-    const value = this.props.newDict[this.props.itemKey];
-    return (
-      <>
-        {value === null ? (
-          'This value is null'
-        ) : value.constructor === Boolean ? (
-          <this.boolean />
-        ) : value.constructor === Number ? (
-          <this.number />
-        ) : value.constructor === String ? (
-          <this.string />
-        ) : Array.isArray(value) ? (
-          <this.array />
-        ) : value.constructor === Object ? (
-          <this.dict />
-        ) : (
-          'Type not implemented'
-        )}
-      </>
-    );
-  }
-}
-
-const SimpleOptions = ({
-  dict,
-  newDict,
-  update,
-}: {
-  dict: { [key: string]: any };
-  newDict: { [key: string]: any };
-  update: Function;
-}) => {
+export const SimpleOption = ({ dict, update, itemKey }: SimpleOptionProps) => {
+  const value = dict[itemKey];
   return (
     <>
-      {Object.keys(newDict).map((key: string, index: number) => {
+      {value === null ? (
+        'This value is null'
+      ) : value.constructor === Boolean ? (
+        <BooleanOption dict={dict} update={update} itemKey={itemKey} />
+      ) : value.constructor === Number ? (
+        <NumberOption dict={dict} update={update} itemKey={itemKey} />
+      ) : value.constructor === String ? (
+        <StringOption dict={dict} update={update} itemKey={itemKey} />
+      ) : Array.isArray(value) ? (
+        <ArrayOption dict={dict} update={update} itemKey={itemKey} />
+      ) : value.constructor === Object ? (
+        <DictOption dict={dict} update={update} itemKey={itemKey} />
+      ) : (
+        'Type not implemented'
+      )}
+    </>
+  );
+};
+
+export const SimpleOptions = ({ dict, update }: SimpleOptionsProps) => {
+  return (
+    <>
+      {Object.keys(dict).map((itemKey: string, index: number) => {
         return (
           <div>
-            <Label>{key}</Label>
-            <SimpleOption dict={dict} newDict={newDict} update={update} itemKey={key}></SimpleOption>
+            <Label>{itemKey}</Label>
+            <SimpleOption dict={dict} update={update} itemKey={itemKey}></SimpleOption>
             {/* Add a newline between each options */}
-            {Object.keys(newDict).length > index + 1 ? <br /> : null}
+            {Object.keys(dict).length > index + 1 ? <br /> : null}
           </div>
         );
       })}
     </>
   );
 };
-
-export { SimpleOption, SimpleOptions };
