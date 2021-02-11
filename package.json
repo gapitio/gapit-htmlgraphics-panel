@@ -16,7 +16,8 @@
     "build": "grafana-toolkit plugin:build",
     "dev": "grafana-toolkit plugin:dev",
     "test": "grafana-toolkit plugin:test",
-    "watch": "grafana-toolkit plugin:dev --watch"
+    "watch": "grafana-toolkit plugin:dev --watch",
+    "sign": "grafana-toolkit plugin:sign"
   },
   "dependencies": {},
   "devDependencies": {
