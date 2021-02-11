@@ -1,5 +1,13 @@
 # Change Log
 
+## v1.3.0 (2021-02-11)
+
+- **onInit**: Add onpanelupdate events, dynamicData option, and "Trigger panelupdate when mounted" option [#10](https://github.com/gapitio/gapit-htmlgraphics-panel/pull/10)
+
+### Bug fixes
+
+- **Import/Export**: Fix panel options not updating when importing/changing values in the import option [#13](https://github.com/gapitio/gapit-htmlgraphics-panel/pull/13)
+
 ## v1.2.0 (2020-12-18)
 
 ### Features / enhancements
