@@ -1,8 +1,8 @@
-enum contentType {
+export enum contentType {
   json = 'application/json;charset=utf-8;',
 }
 
-function exportFile(string: string, filename: string, contentType: contentType) {
+export function exportFile(string: string, filename: string, contentType: contentType) {
   if (window.navigator && window.navigator.msSaveOrOpenBlob) {
     var blob = new Blob([decodeURIComponent(encodeURI(string))], { type: contentType });
     navigator.msSaveOrOpenBlob(blob, filename);
@@ -16,5 +16,3 @@ function exportFile(string: string, filename: string, contentType: contentType) 
     document.body.removeChild(a);
   }
 }
-
-export { exportFile, contentType };

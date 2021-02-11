@@ -11,7 +11,7 @@
   - https://www.w3.org/TR/SVG/linking.html
 */
 
-const SVGBaseFix = (html: string) => {
+export function SVGBaseFix(html: string) {
   // Current URL, without the hash
   const BASE_URL = window.location.href.replace(window.location.hash, '');
 
@@ -21,6 +21,4 @@ const SVGBaseFix = (html: string) => {
 
   // Returns the edited html string
   return html;
-};
-
-export { SVGBaseFix };
+}
