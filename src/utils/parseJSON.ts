@@ -36,7 +36,9 @@ export function parseJSON<Output = {}>(
     try {
       return { json: JSON.parse(jsonString), isError: false };
     } catch (e) {
-      if (logError) console.error(`${namespace}:`, e);
+      if (logError) {
+        console.error(`${namespace}:`, e);
+      }
       return { json: null, isError: true };
     }
   }

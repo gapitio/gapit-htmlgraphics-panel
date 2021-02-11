@@ -35,7 +35,7 @@ export class TextEditor extends Component<Props, State> {
   }
 
   editorWillMount: BeforeMount = (monaco) => {
-    if (this.props.language == 'javascript') {
+    if (this.props.language === 'javascript') {
       // Add autocompletion for panel definitions (htmlNode, codeData, data, options, and theme)
       monaco.languages.typescript.javascriptDefaults.addExtraLib(textEditorDeclarations);
     }

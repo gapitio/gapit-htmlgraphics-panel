@@ -56,7 +56,9 @@ export const ArrayOption = ({ dict, update, itemKey }: SimpleOptionProps) => {
   return (
     <ControlledCollapse collapsible={true} label={`Click to toggle (items: ${dict[itemKey].length})`}>
       {dict[itemKey].map((_value: string, index: number) => {
-        return <SimpleOption dict={dict[itemKey]} update={update} itemKey={index}></SimpleOption>;
+        return (
+          <SimpleOption key={`${itemKey}-${index}`} dict={dict[itemKey]} update={update} itemKey={index}></SimpleOption>
+        );
       })}
     </ControlledCollapse>
   );
@@ -84,7 +86,9 @@ export const SimpleOption = ({ dict, update, itemKey }: SimpleOptionProps) => {
     Object: <ObjectOption {...optionParams} />,
   };
 
-  if (!(valueType in options)) return <p>'Type not implemented'</p>;
+  if (!(valueType in options)) {
+    return <p>Type not implemented</p>;
+  }
 
   return options[valueType as keyof typeof options];
 };
@@ -94,7 +98,7 @@ export const SimpleOptions = ({ dict, update }: SimpleOptionsProps) => {
     <>
       {Object.keys(dict).map((itemKey: string, index: number) => {
         return (
-          <div>
+          <div key={`${itemKey}-${index}`}>
             <Label>{itemKey}</Label>
             <SimpleOption dict={dict} update={update} itemKey={itemKey}></SimpleOption>
             {/* Add a newline between each options */}

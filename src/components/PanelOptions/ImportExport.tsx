@@ -42,7 +42,9 @@ export const ImportExportOption: React.FC<Props> = ({ value, item, onChange, con
 
   const updatePanelOptions = (code: EditorCodeType) => {
     // Update the options dict before requesting a change
-    if (code) Object.assign(context.options, JSON.parse(code));
+    if (code) {
+      Object.assign(context.options, JSON.parse(code));
+    }
     onChange(code);
   };
 
