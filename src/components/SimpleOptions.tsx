@@ -1,5 +1,6 @@
 import React from 'react';
 import { Switch, Input, ControlledCollapse, Label } from '@grafana/ui';
+import { getType } from 'utils/getType';
 
 interface SimpleOptionsProps {
   dict: { [key: string]: any };
@@ -61,7 +62,7 @@ export const ArrayOption = ({ dict, update, itemKey }: SimpleOptionProps) => {
   );
 };
 
-export const DictOption = ({ dict, update, itemKey }: SimpleOptionProps) => {
+export const ObjectOption = ({ dict, update, itemKey }: SimpleOptionProps) => {
   return (
     <ControlledCollapse collapsible={true} label={`Click to toggle (items: ${Object.keys(dict[itemKey]).length})`}>
       <SimpleOptions dict={dict[itemKey]} update={update}></SimpleOptions>
@@ -71,25 +72,21 @@ export const DictOption = ({ dict, update, itemKey }: SimpleOptionProps) => {
 
 export const SimpleOption = ({ dict, update, itemKey }: SimpleOptionProps) => {
   const value = dict[itemKey];
-  return (
-    <>
-      {value === null ? (
-        'This value is null'
-      ) : value.constructor === Boolean ? (
-        <BooleanOption dict={dict} update={update} itemKey={itemKey} />
-      ) : value.constructor === Number ? (
-        <NumberOption dict={dict} update={update} itemKey={itemKey} />
-      ) : value.constructor === String ? (
-        <StringOption dict={dict} update={update} itemKey={itemKey} />
-      ) : Array.isArray(value) ? (
-        <ArrayOption dict={dict} update={update} itemKey={itemKey} />
-      ) : value.constructor === Object ? (
-        <DictOption dict={dict} update={update} itemKey={itemKey} />
-      ) : (
-        'Type not implemented'
-      )}
-    </>
-  );
+  const optionParams = { dict, update, itemKey };
+  const valueType = getType(value);
+
+  const options = {
+    Null: <p>Value is null</p>,
+    Boolean: <BooleanOption {...optionParams} />,
+    Number: <NumberOption {...optionParams} />,
+    String: <StringOption {...optionParams} />,
+    Array: <ArrayOption {...optionParams} />,
+    Object: <ObjectOption {...optionParams} />,
+  };
+
+  if (!(valueType in options)) return <p>'Type not implemented'</p>;
+
+  return options[valueType as keyof typeof options];
 };
 
 export const SimpleOptions = ({ dict, update }: SimpleOptionsProps) => {
