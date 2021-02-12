@@ -1,6 +1,14 @@
 # Change Log
 
+## v1.3.1 (2021-02-12)
+
+### Features / enhancements
+
+- **Repo**: Change the grafana version to the earliest working for this plugin (7.1.0)
+
 ## v1.3.0 (2021-02-11)
+
+### Features / enhancements
 
 - **onInit**: Add onpanelupdate events, dynamicData option, and "Trigger panelupdate when mounted" option [#10](https://github.com/gapitio/gapit-htmlgraphics-panel/pull/10)
 
