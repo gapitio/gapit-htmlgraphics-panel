@@ -27,7 +27,8 @@ function updateButtonText() {
 
 buttonElt.onclick = function () {
   updateGrafanaVariable(VARIABLE_NAME, getGrafanaVariableValue(VARIABLE_NAME) == 'b' ? 'a' : 'b');
-  updateButtonText();
 };
 
-updateButtonText();
+htmlNode.addEventListener("panelupdate", () => {
+  updateButtonText();
+});
