@@ -1,5 +1,11 @@
 # Change Log
 
+## v1.3.2 (2021-04-07)
+
+### Bug fixes
+
+- **Repo**: Fix editor not loading with sub path [#20](https://github.com/gapitio/gapit-htmlgraphics-panel/pull/20)
+
 ## v1.3.1 (2021-02-12)
 
 ### Features / enhancements
