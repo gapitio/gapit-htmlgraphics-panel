@@ -9,7 +9,7 @@ import textEditorDeclarations from './declarations';
 // https://github.com/suren-atoyan/monaco-react#loader-config
 loader.config({
   paths: {
-    vs: '/public/plugins/gapit-htmlgraphics-panel/lib/vs',
+    vs: 'public/plugins/gapit-htmlgraphics-panel/lib/vs',
   },
 });
 
