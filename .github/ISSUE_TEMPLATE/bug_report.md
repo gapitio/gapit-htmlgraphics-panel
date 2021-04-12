@@ -23,6 +23,7 @@ PROTIP: record your screen and attach it as a gif to showcase the issue.
 **Environment**:
 
 - Grafana version:
+- Plugin (gapit-htmlgraphics-panel) version:
 - Data source type & version:
 - OS Grafana is installed on:
 - User OS & Browser:
