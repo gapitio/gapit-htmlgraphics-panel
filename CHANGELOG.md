@@ -1,5 +1,11 @@
 # Change Log
 
+## v1.3.3 (2021-04-12)
+
+### Bug fixes
+
+- **Repo**: Fix errors not logged in the console [#22](https://github.com/gapitio/gapit-htmlgraphics-panel/pull/22)
+
 ## v1.3.2 (2021-04-07)
 
 ### Bug fixes
