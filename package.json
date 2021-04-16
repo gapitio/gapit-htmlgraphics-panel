@@ -22,7 +22,7 @@
   "dependencies": {},
   "devDependencies": {
     "@grafana/data": "7.1.0",
-    "@grafana/runtime": "^7.1.0",
+    "@grafana/runtime": "7.1.0",
     "@grafana/toolkit": "7.4.0",
     "@grafana/ui": "7.1.0",
     "@monaco-editor/react": "^4.0.9",
