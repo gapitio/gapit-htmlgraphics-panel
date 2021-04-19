@@ -5,7 +5,7 @@ import { CodeDataOption } from 'components/PanelOptions/CodeData';
 import { TextEditorOption } from 'components/PanelOptions/TextEditor';
 import { ImportExportOption } from 'components/PanelOptions/ImportExport';
 
-export const plugin = new PanelPlugin<OptionsInterface>(HTMLPanel).setPanelOptions((builder) => {
+export const plugin = new PanelPlugin<OptionsInterface>(HTMLPanel).useFieldConfig().setPanelOptions((builder) => {
   return builder
     .addBooleanSwitch({
       path: 'add100Percentage',
