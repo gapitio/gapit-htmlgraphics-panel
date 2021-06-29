@@ -1,11 +1,10 @@
 import React from 'react';
 import { StandardEditorProps } from '@grafana/data';
-import { OptionsInterface, EditorLanguageType } from 'types';
+import { OptionsInterface, EditorLanguageType, EditorCodeType } from 'types';
 import { TextEditor } from 'components/TextEditor';
 import { Button, Input } from '@grafana/ui';
 import { exportFile, contentType } from 'utils/exportFile';
 import { readFile } from 'utils/readFile';
-import { EditorCodeType } from 'types';
 
 interface Settings {
   language: EditorLanguageType;
