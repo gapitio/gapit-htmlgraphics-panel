@@ -213,9 +213,9 @@ export class HTMLPanel extends PureComponent<Props, PanelState> {
       Object.assign(this.data, this.props.data);
     }
 
-    const HAS_CHANGED = !shallowCompare(this.state.options, this.props.options);
+    const isChanged = !shallowCompare(this.state.options, this.props.options);
 
-    if (HAS_CHANGED) {
+    if (isChanged) {
       this.initialize();
       this.setState({
         options: this.props.options,
