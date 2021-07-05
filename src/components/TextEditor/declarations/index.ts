@@ -7,6 +7,7 @@ import dataQueryRequest from './dataQueryRequest';
 import fieldColor from './fieldColor';
 import getLocationSrv from './getLocationSrv';
 import getTemplateSrv from './getTemplateSrv';
+import htmlGraphics from './htmlGraphics';
 import htmlNode from './htmlNode';
 import options from './options';
 import scopedVars from './scopedVars';
@@ -30,4 +31,5 @@ export default codeData +
   theme +
   thresholds +
   timeRanges +
-  valueMapping;
+  valueMapping +
+  htmlGraphics;

@@ -94,6 +94,21 @@ export class HTMLPanel extends PureComponent<Props, PanelState> {
     const data = dynamic ? this.data : this.props.data;
     const codeData = this.getCodeData();
 
+    const htmlNode = this.state.shadowContainerRef.current?.firstElementChild?.shadowRoot as HTMLNodeElement;
+    const options = this.props.options;
+    const theme = config.theme;
+
+    const htmlGraphics = {
+      htmlNode,
+      data,
+      customProperties: codeData,
+      codeData,
+      options,
+      theme,
+      getTemplateSrv,
+      getLocationSrv,
+    };
+
     const F = new Function(
       'htmlNode',
       'data',
@@ -103,18 +118,10 @@ export class HTMLPanel extends PureComponent<Props, PanelState> {
       'theme',
       'getTemplateSrv',
       'getLocationSrv',
+      'htmlGraphics',
       script
     );
-    F(
-      this.state.shadowContainerRef.current?.firstElementChild?.shadowRoot,
-      data,
-      codeData,
-      codeData,
-      this.props.options,
-      config.theme,
-      getTemplateSrv,
-      getLocationSrv
-    );
+    F(htmlNode, data, codeData, codeData, options, theme, getTemplateSrv, getLocationSrv, htmlGraphics);
   }
 
   onRender() {
