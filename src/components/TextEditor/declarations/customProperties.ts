@@ -1,6 +1,6 @@
 export default `
 /**
- * The codeData as a dictionary.
+ * Custom properties as a dictionary.
  */
 declare const customProperties: typeof codeData
 `;
