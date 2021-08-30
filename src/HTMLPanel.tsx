@@ -10,6 +10,7 @@ import { shallowCompare } from 'utils/shallowCompare';
 
 interface HTMLNodeElement extends ShadowRoot {
   onpanelupdate: () => void;
+  onpanelwillunmount: () => void;
 }
 
 interface Props extends PanelProps<OptionsInterface> {}
@@ -34,6 +35,7 @@ export class HTMLPanel extends PureComponent<Props, PanelState> {
 
   data = this.props.data; // Used for dynamic data
   panelUpdateEvent = new CustomEvent('panelupdate');
+  panelWillUnmountEvent = new CustomEvent('panelwillunmount');
 
   getCodeData() {
     const { json: codeData, isError } = parseJSON<OptionsInterface>(this.props.options.codeData, {
@@ -54,6 +56,7 @@ export class HTMLPanel extends PureComponent<Props, PanelState> {
     if (htmlNode) {
       try {
         htmlNode.onpanelupdate = () => {};
+        htmlNode.onpanelwillunmount = () => {};
         htmlNode.dispatchEvent(this.panelUpdateEvent);
 
         // Create a new variable to not mutate/override the current html code
@@ -234,6 +237,12 @@ export class HTMLPanel extends PureComponent<Props, PanelState> {
       this.panelupdate();
       this.onRender();
     }
+  }
+
+  componentWillUnmount() {
+    const htmlNode = this.state.shadowContainerRef.current?.firstElementChild?.shadowRoot as HTMLNodeElement;
+    htmlNode.onpanelwillunmount();
+    htmlNode.dispatchEvent(this.panelWillUnmountEvent);
   }
 
   Error = () => {
