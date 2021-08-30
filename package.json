@@ -24,8 +24,6 @@
     "@grafana/data": "8.0.1",
     "@grafana/runtime": "8.0.1",
     "@grafana/toolkit": "8.0.1",
-    "@grafana/ui": "8.0.1",
-    "@monaco-editor/react": "^4.0.9",
-    "copy-webpack-plugin": "^6.4.1"
+    "@grafana/ui": "8.0.1"
   }
 }
