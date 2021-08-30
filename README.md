@@ -49,15 +49,27 @@ This plugin is highly inspired by [marcuscalidus-svg-panel](https://github.com/M
     - [Import/export](#importexport)
       - [Panel options (importedPanelOptions)](#panel-options-importedpaneloptions)
   - [Execution Environment Interfaces](#execution-environment-interfaces)
-    - [htmlNode](#htmlnode)
+    - [htmlGraphics (global)](#htmlgraphics-global)
+      - [htmlNode](#htmlnode)
+      - [data](#data)
+      - [customProperties](#customproperties)
+      - [codeData](#codedata)
+      - [options](#options-1)
+      - [theme](#theme)
+      - [getTemplateSrv](#gettemplatesrv)
+      - [getLocationSrv](#getlocationsrv)
+      - [props](#props)
+      - [width](#width)
+      - [height](#height)
+    - [htmlNode (global)](#htmlnode-global)
       - [panelupdate event](#panelupdate-event)
-    - [customProperties](#customproperties)
-    - [codeData](#codedata)
-    - [data](#data)
-    - [options](#options-1)
-    - [theme](#theme)
-    - [getTemplateSrv](#gettemplatesrv)
-    - [getLocationSrv](#getlocationsrv)
+    - [customProperties (global)](#customproperties-global)
+    - [codeData (global)](#codedata-global)
+    - [data (global)](#data-global)
+    - [options (global)](#options-global)
+    - [theme (global)](#theme-global)
+    - [getTemplateSrv (global)](#gettemplatesrv-global)
+    - [getLocationSrv (global)](#getlocationsrv-global)
   - [Fonts](#fonts)
   - [Learn more](#learn-more)
 
@@ -312,14 +324,60 @@ The plugin makes several interfaces to the HTML/SVG document and Grafana in the 
 
 ```javascript
 // Log this in onRender or onInit, and look at developer console (ctrl+shift+j).
-console.log('htmlNode', htmlNode);
-console.log('customProperties', customProperties);
-console.log('data', data);
-console.log('options', options);
-console.log('theme', theme);
+console.log('htmlGraphics', htmlGraphics);
 ```
 
-### htmlNode
+Some variables are global variables (htmlNode, data, customProperties, codeData, options, theme, getTemplateSrv, getLocationSrv), but are also in the htmlGraphics object. _All new variables will be added to htmlGraphics and will not be added as a global variable._
+
+### htmlGraphics (global)
+
+An object (dict) containing all the variables.
+
+#### htmlNode
+
+Same as [htmlNode](#htmlnode-global)
+
+#### data
+
+Same as [data](#data-global)
+
+#### customProperties
+
+Same as [customProperties](#customproperties-global)
+
+#### codeData
+
+Same as [codeData](#codedata-global)
+
+#### options
+
+Same as [options](#options-global)
+
+#### theme
+
+Same as [theme](#theme-global)
+
+#### getTemplateSrv
+
+Same as [getTemplateSrv](#gettemplatesrv-global)
+
+#### getLocationSrv
+
+Same as [getLocationSrv](#getlocationsrv-global)
+
+#### props
+
+Containing all the props from the panel [panelprops](https://grafana.com/docs/grafana/latest/packages_api/data/panelprops/)
+
+#### width
+
+The width of the panel
+
+#### height
+
+The height of the panel
+
+### htmlNode (global)
 
 The [shadow root](https://developer.mozilla.org/en-US/docs/Web/API/ShadowRoot) which contains the elements added in the HTML/SVG document (works similarly to document).
 
@@ -346,7 +404,7 @@ htmlNode.onpanelupdate = onPanelUpdate; // A function that triggers at the same 
 
 Because of the panelupdate event, frameworks like [React](https://reactjs.org/), [Svelte](https://svelte.dev/), ETC are easier to work with. Check out [Bundler](#bundler) for more information.
 
-### customProperties
+### customProperties (global)
 
 The parsed json object (_also available as a JSON string in options.codeData_) from the Custom properties (named codeData for backwards compatibility) option.
 
@@ -366,7 +424,7 @@ customProperties (remember, comments are not allowed in json)
 console.log(customProperties.something);
 ```
 
-### codeData
+### codeData (global)
 
 **Note**: codeData is here for backwards compatibility. Please use customProperties instead.
 
@@ -388,7 +446,7 @@ codeData (remember, comments are not allowed in json)
 console.log(codeData.something);
 ```
 
-### data
+### data (global)
 
 The [PanelData interface](https://grafana.com/docs/grafana/latest/packages_api/data/paneldata/) passed in to the panel by Grafana. It is used to get the values from the DataFrame.
 
@@ -407,7 +465,7 @@ const getMetricByName = (metricName, noDataValue = 'No data') => {
 getMetricByName('random-metric-name');
 ```
 
-### options
+### options (global)
 
 The options object that can be edited in the edit menu. All the options are stored in the object (onRender, htmlNode, ETC).
 
@@ -426,7 +484,7 @@ The options object that can be edited in the edit menu. All the options are stor
 }
 ```
 
-### theme
+### theme (global)
 
 The [GrafanaTheme](https://grafana.com/docs/grafana/latest/packages_api/data/grafanatheme/) interface. It stores the current theme (light/dark), colors used by grafana, ETC.
 
@@ -442,7 +500,7 @@ if (theme.isDark) {
 }
 ```
 
-### getTemplateSrv
+### getTemplateSrv (global)
 
 Used to retrieve the [TemplateSrv](https://grafana.com/docs/grafana/latest/packages_api/runtime/templatesrv/) that can be used to fetch available template variables.
 
@@ -450,7 +508,7 @@ Used to retrieve the [TemplateSrv](https://grafana.com/docs/grafana/latest/packa
 getTemplateSrv().replace(`$randomVariable`);
 ```
 
-### getLocationSrv
+### getLocationSrv (global)
 
 Used to retrieve the [LocationSrv](https://grafana.com/docs/grafana/latest/packages_api/runtime/locationsrv/) that can be used to automatically navigate the user to a new place in Grafana.
 
