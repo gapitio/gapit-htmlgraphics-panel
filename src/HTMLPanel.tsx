@@ -107,6 +107,9 @@ export class HTMLPanel extends PureComponent<Props, PanelState> {
       theme,
       getTemplateSrv,
       getLocationSrv,
+      props: this.props,
+      width: this.props.width,
+      height: this.props.height,
     };
 
     const F = new Function(
