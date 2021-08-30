@@ -63,6 +63,7 @@ This plugin is highly inspired by [marcuscalidus-svg-panel](https://github.com/M
       - [height](#height)
     - [htmlNode (global)](#htmlnode-global)
       - [panelupdate event](#panelupdate-event)
+      - [panelwillunmount event](#panelwillunmount-event)
     - [customProperties (global)](#customproperties-global)
     - [codeData (global)](#codedata-global)
     - [data (global)](#data-global)
@@ -391,7 +392,7 @@ randomTextElt.style.fill = '#08f';
 
 #### panelupdate event
 
-htmlNode also has one event, `panelupdate`, which triggers when new data is available (like onRender).
+`panelupdate` will trigger when new data is available (like onRender).
 
 ```js
 function onPanelUpdate() {
@@ -403,6 +404,19 @@ htmlNode.onpanelupdate = onPanelUpdate; // A function that triggers at the same 
 ```
 
 Because of the panelupdate event, frameworks like [React](https://reactjs.org/), [Svelte](https://svelte.dev/), ETC are easier to work with. Check out [Bundler](#bundler) for more information.
+
+#### panelwillunmount event
+
+`panelwillunmount` will trigger when the panel will unmount <https://reactjs.org/docs/react-component.html#componentwillunmount>.
+
+```js
+function onPanelWillUnmount() {
+  console.log('Bye');
+}
+
+htmlNode.addEventListener('panelwillunmount', onPanelWillUnmount);
+htmlNode.onpanelwillunmount = onPanelWillUnmount;
+```
 
 ### customProperties (global)
 
