@@ -33,7 +33,12 @@ export class TextEditor extends Component<Props, State> {
   render = () => {
     return (
       <div onBlur={this.saveEditorValue}>
-        <CodeEditor height={'33vh'} value={this.props.value ?? ''} language={this.props.language ?? ''} />
+        <CodeEditor
+          height={'33vh'}
+          value={this.props.value ?? ''}
+          language={this.props.language ?? ''}
+          showLineNumbers={true}
+        />
       </div>
     );
   };
