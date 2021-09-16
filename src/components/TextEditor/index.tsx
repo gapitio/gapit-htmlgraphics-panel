@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import { editor } from 'monaco-editor/esm/vs/editor/editor.api';
 import { EditorLanguageType } from 'types';
-import { CodeEditor } from '@grafana/ui';
+import { CodeEditor, Monaco } from '@grafana/ui';
+import textEditorDeclarations from './declarations';
 
 interface Props {
   language: EditorLanguageType;
@@ -19,6 +20,19 @@ export class TextEditor extends Component<Props, State> {
 
     this.state = {};
   }
+
+  editorDidMount = (editor: editor.IStandaloneCodeEditor, monaco: Monaco) => {
+    if (this.props.language === 'javascript') {
+      // Add autocompletion for panel definitions (htmlNode, codeData, data, options, and theme)
+      monaco.languages.typescript.javascriptDefaults.addExtraLib(textEditorDeclarations);
+    }
+
+    editor.addCommand(monaco.KeyMod.CtrlCmd | monaco.KeyCode.KEY_S, () => {
+      this.saveEditorValue();
+    });
+
+    this.setState({ editor });
+  };
 
   componentDidUpdate() {
     this.state.editor?.layout();
@@ -38,6 +52,7 @@ export class TextEditor extends Component<Props, State> {
           value={this.props.value ?? ''}
           language={this.props.language ?? ''}
           showLineNumbers={true}
+          onEditorDidMount={this.editorDidMount}
         />
       </div>
     );
