@@ -110,7 +110,7 @@ export const plugin = new PanelPlugin<OptionsInterface>(HTMLPanel).useFieldConfi
       description: `On render code is executed whenever new data is available (htmlNode, customProperties/codeData, data, options, theme, getTemplateSrv, getLocationSrv)`,
       editor: TextEditorOption,
       defaultValue:
-        "// Sets the value from the first series on every refresh\nconst htmlgraphicsValue = htmlNode.getElementById('htmlgraphics-value');\n\nif (htmlgraphicsValue) {\n  htmlgraphicsValue.textContent = data.series[0].fields[1].state.calcs.last;\n}\n",
+        "// Sets the value from the first series on every refresh\nconst htmlgraphicsValue = htmlNode.getElementById('htmlgraphics-value');\n\nif (htmlgraphicsValue) {\n  const valueField = data.series[0].fields[1];\n  const length = valueField.values.length;\n  htmlgraphicsValue.textContent = valueField.values.get(length - 1);\n}",
       settings: {
         language: 'javascript',
       },
