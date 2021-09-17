@@ -8,5 +8,8 @@ declare const htmlGraphics: {
   htmlNode: typeof htmlNode;
   options: typeof options;
   theme: typeof theme;
+  props: PanelProps<OptionsInterface>;
+  width: number;
+  height: number;
 };
 `;
