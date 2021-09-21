@@ -1,0 +1,22 @@
+{
+  "short_name": "HTMLGraphics",
+  "name": "HTMLGraphics",
+  "icons": [
+    {
+      "src": "/img/icons-192.png",
+      "type": "image/png",
+      "sizes": "192x192"
+    },
+    {
+      "src": "/img/icons-512.png",
+      "type": "image/png",
+      "sizes": "512x512"
+    }
+  ],
+  "start_url": "/",
+  "background_color": "#33a2e5",
+  "display": "standalone",
+  "scope": "/",
+  "theme_color": "#33a2e5",
+  "description": "Grafana panel for displaying metric sensitive HTML or SVG graphics"
+}
