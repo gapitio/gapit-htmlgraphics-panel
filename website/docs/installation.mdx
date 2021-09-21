@@ -1,0 +1,221 @@
+---
+id: installation
+title: Installation
+---
+
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+
+You can install the plugin using [grafana-cli](https://grafana.com/docs/grafana/latest/administration/cli/), or by downloading the plugin manually.
+
+## Install using grafana-cli
+
+To install the latest version of the plugin, run the following command on the Grafana server:
+
+<Tabs
+  groupId="operating-systems"
+  defaultValue="linux"
+  values={[
+    {label: 'Linux', value: 'linux'},
+    {label: 'macOS', value: 'macos'},
+    {label: 'Windows', value: 'windows'},
+  ]}>
+
+  <TabItem value="linux">
+
+<Tabs
+  groupId="version"
+  defaultValue="latest"
+  values={[
+    {label: 'Latest', value: 'latest'},
+    {label: 'Specific version', value: 'specific'},
+  ]}>
+
+  <TabItem value="latest">
+
+```bash
+grafana-cli plugins install gapit-htmlgraphics-panel
+```
+
+  </TabItem>
+
+  <TabItem value="specific">
+
+The specific version link can be obtained by copying the asset link from [Releases](https://github.com/gapitio/gapit-htmlgraphics-panel/releases) on the GitHub project page
+
+```bash
+grafana-cli --pluginUrl https://github.com/gapitio/gapit-htmlgraphics-panel/releases/download/v1.3.3/gapit-htmlgraphics-panel-1.3.3.zip plugins install gapit-htmlgraphics-plugin
+```
+
+  </TabItem>
+</Tabs>
+
+  </TabItem>
+  <TabItem value="macos">
+
+<Tabs
+  groupId="version"
+  defaultValue="latest"
+  values={[
+    {label: 'Latest', value: 'latest'},
+    {label: 'Specific version', value: 'specific'},
+  ]}>
+
+  <TabItem value="latest">
+
+```bash
+grafana-cli plugins install gapit-htmlgraphics-panel
+```
+
+  </TabItem>
+
+  <TabItem value="specific">
+
+The specific version link can be obtained by copying the asset link from [Releases](https://github.com/gapitio/gapit-htmlgraphics-panel/releases) on the GitHub project page
+
+```bash
+grafana-cli --pluginUrl https://github.com/gapitio/gapit-htmlgraphics-panel/releases/download/v1.3.3/gapit-htmlgraphics-panel-1.3.3.zip plugins install gapit-htmlgraphics-plugin
+```
+
+  </TabItem>
+</Tabs>
+
+  </TabItem>
+  <TabItem value="windows">
+
+<Tabs
+  groupId="version"
+  defaultValue="latest"
+  values={[
+    {label: 'Latest', value: 'latest'},
+    {label: 'Specific version', value: 'specific'},
+  ]}>
+
+  <TabItem value="latest">
+
+```bash
+grafana-cli.exe plugins install gapit-htmlgraphics-panel
+```
+
+  </TabItem>
+
+  <TabItem value="specific">
+
+The specific version link can be obtained by copying the asset link from [Releases](https://github.com/gapitio/gapit-htmlgraphics-panel/releases) on the GitHub project page
+
+```bash
+grafana-cli.exe --pluginUrl https://github.com/gapitio/gapit-htmlgraphics-panel/releases/download/v1.3.3/gapit-htmlgraphics-panel-1.3.3.zip plugins install gapit-htmlgraphics-plugin
+```
+
+  </TabItem>
+</Tabs>
+
+  </TabItem>
+</Tabs>
+
+## Install manually
+
+1.  Go to [Releases](https://github.com/gapitio/gapit-htmlgraphics-panel/releases) on the GitHub project page
+2.  Find the release you want to install
+3.  Download the release by clicking the release asset called `gapit-htmlgraphics-panel-<version>.zip`. You may need to uncollapse the **Assets** section to see it.
+4.  Unarchive the plugin into the Grafana plugins directory
+
+<Tabs
+  groupId="operating-systems"
+  defaultValue="linux"
+  values={[
+    {label: 'Linux', value: 'linux'},
+    {label: 'macOS', value: 'macos'},
+    {label: 'Windows', value: 'windows'},
+  ]}>
+
+  <TabItem value="linux">
+
+```bash
+unzip gapit-htmlgraphics-panel-<version>.zip
+mv gapit-htmlgraphics-panel /var/lib/grafana/plugins
+```
+
+  </TabItem>
+
+  <TabItem value="macos">
+
+```bash
+unzip gapit-htmlgraphics-panel-<version>.zip
+mv gapit-htmlgraphics-panel /usr/local/var/lib/grafana/plugins
+```
+
+  </TabItem>
+
+  <TabItem value="windows">
+
+```bash
+Expand-Archive -Path gapit-htmlgraphics-panel-<version>.zip -DestinationPath C:\grafana\data\plugins
+```
+
+  </TabItem>
+
+</Tabs>
+
+5.  Restart the Grafana server to load the plugin
+
+## Docker compose
+
+<Tabs
+  groupId="version"
+  defaultValue="latest"
+  values={[
+    {label: 'Latest', value: 'latest'},
+    {label: 'Specific version', value: 'specific'},
+  ]}>
+
+  <TabItem value="latest">
+
+```yaml
+version: '3'
+services:
+  grafana:
+    image: grafana/grafana:8.1.4
+    container_name: grafana
+    restart: always
+    networks:
+      - grafana
+    ports:
+      - 3000:3000
+    environment:
+      - GF_INSTALL_PLUGINS=gapit-htmlgraphics-panel
+
+networks:
+  grafana:
+    external:
+      name: grafana
+```
+
+  </TabItem>
+
+  <TabItem value="specific">
+
+The specific version link can be obtained by copying the asset link from [Releases](https://github.com/gapitio/gapit-htmlgraphics-panel/releases) on the GitHub project page
+
+```yaml
+version: '3'
+services:
+  grafana:
+    image: grafana/grafana:8.1.4
+    container_name: grafana
+    restart: always
+    networks:
+      - grafana
+    ports:
+      - 3000:3000
+    environment:
+      - GF_INSTALL_PLUGINS=https://github.com/gapitio/gapit-htmlgraphics-panel/releases/download/v1.3.3/gapit-htmlgraphics-panel-1.3.3.zip;gapit-htmlgraphics-panel # v1.3.3
+
+networks:
+  grafana:
+    external:
+      name: grafana
+```
+
+  </TabItem>
+</Tabs>

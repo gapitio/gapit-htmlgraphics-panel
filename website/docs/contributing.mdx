@@ -1,0 +1,121 @@
+---
+id: contributing
+title: Contributing
+---
+
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+
+1. Create a fork of the repo.
+2. Clone the fork to the grafana plugins folder on your local machine.
+3. Optional: create a new branch.
+4. [Setup grafana for developing HTMLGraphics](#setup-grafana-for-developing-htmlgraphics)
+5. Follow the [DEVELOPMENT_GUIDE](https://github.com/gapitio/gapit-htmlgraphics-panel/blob/6d7bb59277606dbfedad0ac461a10437f1021257/DEVELOPMENT_GUIDE.md#L1-L1).
+6. Implement the feature/fix.
+7. Add/change the documentation as needed.
+8. Create a commit following the [Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0/)
+9. Push the changes to your fork on Github, the remote `origin`.
+10. From your fork open a pull request to the `main` branch.
+
+## Setup grafana for developing HTMLGraphics
+
+### Local installation
+
+The grafana directory could be somewhere else than written here. Please check <https://grafana.com/docs/grafana/latest/administration/configuration> to find where your grafana directory is located.
+
+<Tabs
+  groupId="operating-systems"
+  defaultValue="linux"
+  values={[
+    {label: 'Linux', value: 'linux'},
+    {label: 'macOS', value: 'macos'},
+    {label: 'Windows', value: 'windows'},
+  ]}>
+
+  <TabItem value="linux">
+
+Create a `custom.ini` file at the grafana directory `/etc/grafana/` and add the following content:
+
+`custom.ini`
+
+```yml
+app_mode = development
+
+[plugins]
+
+allow_loading_unsigned_plugins = true
+```
+
+  </TabItem>
+  <TabItem value="macos">
+
+Create a `custom.ini` file at the grafana directory `/usr/local/etc/grafana/` and add the following content:
+
+`custom.ini`
+
+```yml
+app_mode = development
+
+[plugins]
+
+allow_loading_unsigned_plugins = true
+```
+
+  </TabItem>
+  <TabItem value="windows">
+
+Create a `custom.ini` file at the grafana directory `C:\Program Files\GrafanaLabs\grafana\conf\` and add the following content:
+
+`custom.ini`
+
+```yml
+app_mode = development
+
+[plugins]
+
+allow_loading_unsigned_plugins = true
+```
+
+  </TabItem>
+</Tabs>
+
+### Docker compose
+
+`docker-compose.yml`
+
+:::tip
+Set the volumes path to `./grafana-plugins` and run the docker-compose.yml file above the grafana-plugins folder. _(The fork needs to be cloned into ./grafana-plugins)._
+:::
+
+```yaml
+version: '3'
+services:
+  grafana:
+    image: grafana/grafana
+    container_name: grafana
+    restart: always
+    networks:
+      - grafana
+    ports:
+      - 3001:3000
+    volumes:
+      - /path-to-grafana-plugins/grafana-plugins:/var/lib/grafana/plugins
+      - grafana-storage:/var/lib/grafana
+    environment:
+      - GF_APP_MODE=development
+      - GF_PLUGINS_ALLOW_LOADING_UNSIGNED_PLUGINS=gapit-htmlgraphics-panel
+
+networks:
+  grafana:
+    external:
+      name: grafana
+
+volumes:
+  grafana-storage:
+```
+
+Run in the same folder as the docker-compose.yml file
+
+```bash
+docker-compose up -d
+```
