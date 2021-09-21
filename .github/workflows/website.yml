@@ -10,6 +10,6 @@ jobs:
       - uses: redkubes/docusaurus-deploy-action@master
         with:
           source-folder: website
-          git-user: gapitio
+          git-user: gh-actions
           git-password: ${{ secrets.GITHUB_TOKEN }}
           deployment-branch: gh-pages
