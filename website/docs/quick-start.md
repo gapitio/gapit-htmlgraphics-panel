@@ -20,4 +20,4 @@ To update the panel, press `ctrl+s` inside the text editor or click outside the 
 6. Add options into the Custom properties text editor that you want to use in onInit or onRender.
 7. Make good use of the [developer console](https://developers.google.com/web/tools/chrome-devtools) (ctrl+shift+j) and console.log().
 
-Using a [bundler](./projects#bundlers) is highly encouraged.
+Using a [bundler](./projects.md#bundlers) is highly encouraged.

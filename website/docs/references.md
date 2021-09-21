@@ -127,7 +127,7 @@ htmlNode.addEventListener('panelupdate', onPanelUpdate); // Triggers when new da
 htmlNode.onpanelupdate = onPanelUpdate; // A function that triggers at the same time as the panelupdate event
 ```
 
-Because of the panelupdate event, frameworks like [React](https://reactjs.org/), [Svelte](https://svelte.dev/), ETC are easier to work with. Check out the [Bundlers](./projects#bundlers) for more information.
+Because of the panelupdate event, frameworks like [React](https://reactjs.org/), [Svelte](https://svelte.dev/), ETC are easier to work with. Check out the [Bundlers](./projects.md#bundlers) for more information.
 
 ### panelwillunmount event
 

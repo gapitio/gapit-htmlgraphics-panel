@@ -7,7 +7,7 @@ title: How to get metrics
 
 Use a package maintained by others.
 
-The easiest way is to use the [grafana-metric](https://www.npmjs.com/package/@gapit/grafana-metric) with a [bundler](../projects#bundlers).
+The easiest way is to use the [grafana-metric](https://www.npmjs.com/package/@gapit/grafana-metric) with a [bundler](../projects.md#bundlers).
 
 ## Use the data object
 
