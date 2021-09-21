@@ -7,8 +7,8 @@ const darkCodeTheme = require('prism-react-renderer/themes/dracula');
   module.exports = {
     title: 'HTMLGraphics',
     tagline: 'Grafana panel for displaying metric sensitive HTML or SVG graphics.',
-    url: 'https://repo.gapit.io',
-    baseUrl: '/gapit-htmlgraphics-panel/',
+    url: 'https://gapit-htmlgraphics-panel.gapit.io/',
+    baseUrl: '/',
     onBrokenLinks: 'throw',
     onBrokenMarkdownLinks: 'warn',
     favicon: 'img/favicon.ico',
