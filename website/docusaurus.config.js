@@ -11,7 +11,7 @@ const darkCodeTheme = require('prism-react-renderer/themes/dracula');
     baseUrl: '/',
     onBrokenLinks: 'throw',
     onBrokenMarkdownLinks: 'warn',
-    favicon: 'img/favicon.ico',
+    favicon: 'favicon.ico',
     organizationName: 'gapitio', // Usually your GitHub org/user name.
     projectName: 'gapit-htmlgraphics-panel', // Usually your repo name.
     trailingSlash: true,
