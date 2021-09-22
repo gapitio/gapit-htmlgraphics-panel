@@ -27,7 +27,12 @@ module.exports = {
     {
       type: 'category',
       label: 'Guides',
-      items: ['guides/how-to-add-the-panel', 'guides/how-to-import-export', 'guides/how-to-get-metrics'],
+      items: [
+        'guides/how-to-add-the-panel',
+        'guides/how-to-import-export',
+        'guides/how-to-get-metrics',
+        'guides/how-to-use-a-template',
+      ],
     },
     {
       type: 'category',

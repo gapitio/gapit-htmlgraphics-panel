@@ -18,6 +18,10 @@ The main difference between the svg bundler and svelte bundler is how and where 
 Remember to turn `Dynamic data object` to true when using React or Svelte bundler
 :::
 
+:::tip
+Unsure how to use a template? Check out [How to use a template](guides/how-to-use-a-template.md).
+:::
+
 ### SVG
 
 [htmlgraphics svg bundler template](https://github.com/gapitio/htmlgraphics-svg-bundler-template)
