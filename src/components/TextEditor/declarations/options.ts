@@ -5,6 +5,7 @@ interface OptionsInterface {
   add100Percentage: boolean;
   centerAlignContent: boolean;
   SVGBaseFix: boolean;
+  rootCSS: EditorCodeType;
   css: EditorCodeType;
   html: EditorCodeType;
   onRender: EditorCodeType;

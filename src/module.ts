@@ -70,6 +70,17 @@ export const plugin = new PanelPlugin<OptionsInterface>(HTMLPanel).useFieldConfi
       },
     })
     .addCustomEditor({
+      id: 'rootCSS',
+      path: 'rootCSS',
+      name: 'Root CSS',
+      description: "CSS that's loaded outside the shadowroot. Useful for font faces and imports.",
+      editor: TextEditorOption,
+      defaultValue: '',
+      settings: {
+        language: 'css',
+      },
+    })
+    .addCustomEditor({
       id: 'css',
       path: 'css',
       name: 'CSS',

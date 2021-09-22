@@ -22,6 +22,28 @@ Chooses what happens if content overflows outside the panel.
 
 ![Overflow options](https://raw.githubusercontent.com/gapitio/gapit-htmlgraphics-panel/master/src/img/screenshot-overflow.png)
 
+### Root CSS
+
+CSS that's loaded outside the shadowroot. Useful for font faces and imports.
+
+Below code imports the [Stick No Bills](https://fonts.google.com/specimen/Stick+No+Bills) font
+
+`Root CSS`
+
+```css
+@import url('https://fonts.googleapis.com/css2?family=Stick+No+Bills:wght@200&display=swap');
+```
+
+The font can be used inside the `CSS` code.
+
+`CSS`
+
+```css
+* {
+  font-family: 'Stick No Bills', sans-serif;
+}
+```
+
 ### CSS
 
 The style which can be used to style the HTML/SVG document.
