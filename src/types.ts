@@ -7,6 +7,7 @@ interface OptionsInterface {
   centerAlignContent: boolean;
   overflow: 'Visible' | 'Auto' | 'Overlay' | 'Hidden';
   SVGBaseFix: boolean;
+  rootCSS: EditorCodeType;
   css: EditorCodeType;
   html: EditorCodeType;
   renderOnMount: boolean;

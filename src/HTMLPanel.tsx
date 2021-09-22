@@ -50,10 +50,11 @@ export class HTMLPanel extends PureComponent<Props, PanelState> {
   }
 
   setHTML() {
-    const htmlNode = this.state.shadowContainerRef.current?.firstElementChild?.shadowRoot as HTMLNodeElement;
+    const shadowContainer = this.state.shadowContainerRef.current;
+    const htmlNode = shadowContainer?.firstElementChild?.shadowRoot as HTMLNodeElement;
     let isError = false;
 
-    if (htmlNode) {
+    if (shadowContainer && htmlNode) {
       try {
         htmlNode.onpanelupdate = () => {};
         htmlNode.onpanelwillunmount = () => {};
@@ -61,14 +62,19 @@ export class HTMLPanel extends PureComponent<Props, PanelState> {
 
         // Create a new variable to not mutate/override the current html code
         let htmlCode = this.props.options.html;
-        let CSSCode = this.props.options.css;
+        const CSSCode = this.props.options.css;
+        const rootCSSCode = this.props.options.rootCSS;
 
         if (this.props.options.SVGBaseFix && htmlCode) {
           // Fix references to inline SVG elements when the <base> tag is in use.
           htmlCode = SVGBaseFix(htmlCode);
         }
 
-        htmlNode.innerHTML = `<style>${CSSCode}</style>${htmlCode ? htmlCode : '<div></div>'}`;
+        const rootCSS = document.createElement('style');
+        rootCSS.textContent = rootCSSCode ?? '';
+        shadowContainer.appendChild(rootCSS);
+
+        htmlNode.innerHTML = `<style>${CSSCode ?? ''}</style>${htmlCode ? htmlCode : '<div></div>'}`;
 
         const htmlDocument = htmlNode.children[1] as HTMLElement | (HTMLElement & SVGElement) | undefined;
 
