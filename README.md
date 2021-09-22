@@ -10,8 +10,8 @@
 
 Grafana panel for displaying metric sensitive HTML and SVG graphics.
 
+Full documentation for the plugin is available on the [website](https://gapit-htmlgraphics-panel.gapit.io/).
+
 ![Preview](https://raw.githubusercontent.com/gapitio/gapit-htmlgraphics-panel/master/src/img/screenshot-building-overview-edit.png)
 
 This plugin is highly inspired by [marcuscalidus-svg-panel](https://github.com/MarcusCalidus/marcuscalidus-svg-panel), [aidanmountford-html-panel](https://github.com/AidanMountford/aidanmountford-html-panel), and [aceiot-svg-panel](https://github.com/ACE-IoT-Solutions/ace-svg-react).
-
-Full documentation for the plugin is available on the [website](https://gapit-htmlgraphics-panel.gapit.io/).
