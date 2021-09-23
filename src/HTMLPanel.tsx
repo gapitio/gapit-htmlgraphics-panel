@@ -197,8 +197,8 @@ export class HTMLPanel extends PureComponent<Props, PanelState> {
     const shadowContainerElt = this.state.shadowContainerRef.current;
 
     if (shadowContainerElt) {
-      if (shadowContainerElt.firstChild) {
-        shadowContainerElt.removeChild(shadowContainerElt.firstChild);
+      while (shadowContainerElt.firstChild) {
+        shadowContainerElt.firstChild.remove();
       }
 
       shadowContainerElt.appendChild(this.createShadowRootElement());
