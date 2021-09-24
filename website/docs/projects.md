@@ -51,3 +51,4 @@ Useful if you're making a reactive panel and need to use a lot of reactivity.
 - [grafana-360-viewer](https://github.com/gapitio/grafana-360-viewer)
 - [htmlgraphics-video-example](https://github.com/gapitio/htmlgraphics-video-example)
 - [htmlgraphics-video.js-example](https://github.com/gapitio/htmlgraphics-video.js-example)
+- [htmlgraphics-react-radar-example](https://github.com/gapitio/htmlgraphics-react-radar-example)
