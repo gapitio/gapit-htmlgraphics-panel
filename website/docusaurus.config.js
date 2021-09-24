@@ -84,7 +84,7 @@ const darkCodeTheme = require('prism-react-renderer/themes/dracula');
                 },
                 {
                   label: 'Ask a question',
-                  href: 'https://github.com/gapitio/gapit-htmlgraphics-panel/discussions',
+                  href: 'https://github.com/gapitio/gapit-htmlgraphics-panel/discussions/categories/q-a',
                 },
               ],
             },
