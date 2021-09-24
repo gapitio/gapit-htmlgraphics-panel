@@ -76,6 +76,19 @@ const darkCodeTheme = require('prism-react-renderer/themes/dracula');
               ],
             },
             {
+              title: 'Help',
+              items: [
+                {
+                  label: 'Guides',
+                  to: '/docs/guides/how-to-add-the-panel',
+                },
+                {
+                  label: 'Ask a question',
+                  href: 'https://github.com/gapitio/gapit-htmlgraphics-panel/discussions',
+                },
+              ],
+            },
+            {
               title: 'More',
               items: [
                 {
