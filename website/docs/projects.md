@@ -5,40 +5,25 @@ title: Projects
 
 ## Bundlers
 
-There are currently 3 different bundler templates [svg](https://github.com/gapitio/htmlgraphics-svg-bundler-template), [svelte](https://github.com/gapitio/htmlgraphics-svelte-bundler-template) and [react](https://github.com/gapitio/htmlgraphics-react-bundler-template)
+The main difference between the bundler using a framework like [Svelte](https://svelte.dev/) or [React](https://reactjs.org/) and those who doesn't is how and where the data is used. In the svg bundler the data is used in onRender, which is executed when new data is available. In the svelte bundler the data is used inside the svelte files (onInit) and updates when the panelupdate event is triggered _(panelupdate triggers when new data is available)_.
 
-SVG and Svelte are both highly recommended to use _(React has a high build size)_.
-
-There is an [example](https://github.com/gapitio/htmlgraphics-svg-bundler-example).
-The example contains a [panel-options.json](https://github.com/gapitio/htmlgraphics-svg-bundler-example/blob/master/dist/panel-options.json) file which contains the bundled code. This can be imported to the panel in the import/export option _(almost at the bottom)_.
-
-The main difference between the svg bundler and svelte bundler is how and where the data is used. In the svg bundler the data is used in onRender, which is executed when new data is available. In the svelte bundler the data is used inside the svelte files (onInit) and updates when the panelupdate event is triggered _(panelupdate triggers when new data is available)_.
-
-:::caution
-Remember to turn `Dynamic data object` to true when using React or Svelte bundler
-:::
+### Bundler templates
 
 :::tip
 Unsure how to use a template? Check out [How to use a template](guides/how-to-use-a-template.md).
 :::
 
-### SVG
+- [htmlgraphics svg bundler template](https://github.com/gapitio/htmlgraphics-svg-bundler-template)
+- [htmlgraphics html bundler template](https://github.com/gapitio/htmlgraphics-html-bundler-template)
 
-[htmlgraphics svg bundler template](https://github.com/gapitio/htmlgraphics-svg-bundler-template)
+#### Bundlers using a framework
 
-[htmlgraphics svg bundler example](https://github.com/gapitio/htmlgraphics-svg-bundler-example)
+:::caution
+Remember to turn [Dynamic data object](options.md#dynamic-data) to true when using the bundlers below
+:::
 
-Useful if you're making SVG drawings and need to use the grafana data object to retrieve data.
-
-### Svelte
-
-[htmlgraphics svelte bundler template](https://github.com/gapitio/htmlgraphics-svelte-bundler-template)
-
-Useful if you're making a reactive panel and need to use a lot of reactivity.
-
-### React
-
-[htmlgraphics react bundler template](https://github.com/gapitio/htmlgraphics-react-bundler-template)
+- [htmlgraphics svelte bundler template](https://github.com/gapitio/htmlgraphics-svelte-bundler-template)
+- [htmlgraphics react bundler template](https://github.com/gapitio/htmlgraphics-react-bundler-template)
 
 ## NPM packages
 
@@ -49,6 +34,10 @@ Useful if you're making a reactive panel and need to use a lot of reactivity.
 ## Project repos
 
 - [grafana-360-viewer](https://github.com/gapitio/grafana-360-viewer)
+
+### Examples
+
 - [htmlgraphics-video-example](https://github.com/gapitio/htmlgraphics-video-example)
 - [htmlgraphics-video.js-example](https://github.com/gapitio/htmlgraphics-video.js-example)
 - [htmlgraphics-react-radar-example](https://github.com/gapitio/htmlgraphics-react-radar-example)
+- [htmlgraphics svg bundler example](https://github.com/gapitio/htmlgraphics-svg-bundler-example)
