@@ -23,16 +23,12 @@ export class TextEditor extends Component<Props, State> {
 
   editorDidMount = (editor: editor.IStandaloneCodeEditor, monaco: Monaco) => {
     if (this.props.language === 'javascript') {
-      // Add autocompletion for panel definitions (htmlNode, codeData, data, options, and theme)
+      // Add autocompletion for panel definitions (htmlNode, codeData, data, options, ETC)
       monaco.languages.typescript.javascriptDefaults.addExtraLib(
         textEditorDeclarations,
         'HtmlGraphics/HtmlGraphics.d.ts'
       );
     }
-
-    editor.addCommand(monaco.KeyMod.CtrlCmd | monaco.KeyCode.KEY_S, () => {
-      this.saveEditorValue();
-    });
 
     this.setState({ editor });
   };
@@ -41,23 +37,21 @@ export class TextEditor extends Component<Props, State> {
     this.state.editor?.layout();
   }
 
-  saveEditorValue = () => {
-    if (this.state.editor) {
-      this.props.onChange(this.state.editor.getValue());
-    }
+  saveEditorValue = (value: string) => {
+    this.props.onChange(value);
   };
 
   render = () => {
     return (
-      <div onBlur={this.saveEditorValue}>
-        <CodeEditor
-          height={'33vh'}
-          value={this.props.value ?? ''}
-          language={this.props.language ?? ''}
-          showLineNumbers={true}
-          onEditorDidMount={this.editorDidMount}
-        />
-      </div>
+      <CodeEditor
+        height={'33vh'}
+        value={this.props.value ?? ''}
+        language={this.props.language ?? ''}
+        showLineNumbers={true}
+        onEditorDidMount={this.editorDidMount}
+        onSave={this.saveEditorValue}
+        onBlur={this.saveEditorValue}
+      />
     );
   };
 }
