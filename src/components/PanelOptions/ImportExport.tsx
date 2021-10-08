@@ -49,7 +49,7 @@ export const ImportExportOption: React.FC<Props> = ({ value, item, onChange, con
 
   return (
     <div>
-      <Input css={{}} type="file" onChange={(e) => importPanelOptions(e.currentTarget.files, updatePanelOptions)} />
+      <Input type="file" onChange={(e) => importPanelOptions(e.currentTarget.files, updatePanelOptions)} />
       <Spacer />
       <TextEditor language={item.settings?.language} value={value} onChange={updatePanelOptions} />
       <Spacer />

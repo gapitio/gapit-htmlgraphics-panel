@@ -32,7 +32,7 @@ export const CodeDataOption: React.FC<Props> = ({ value, item, onChange, context
     <div>
       <br />
       <Label>Edit as JSON</Label>
-      <Switch value={jsonView} onChange={() => setJsonView(!jsonView)} css={{}}></Switch>
+      <Switch value={jsonView} onChange={() => setJsonView(!jsonView)}></Switch>
       <br />
       {jsonView ? (
         <TextEditor language={item.settings?.language} value={value} onChange={(code) => onChange(code)} />
