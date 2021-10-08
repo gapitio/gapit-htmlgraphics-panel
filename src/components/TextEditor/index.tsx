@@ -51,6 +51,7 @@ export class TextEditor extends Component<Props, State> {
         onEditorDidMount={this.editorDidMount}
         onSave={this.saveEditorValue}
         onBlur={this.saveEditorValue}
+        monacoOptions={{ contextmenu: true }}
       />
     );
   };
