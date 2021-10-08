@@ -33,10 +33,6 @@ export class TextEditor extends Component<Props, State> {
     this.setState({ editor });
   };
 
-  componentDidUpdate() {
-    this.state.editor?.layout();
-  }
-
   saveEditorValue = (value: string) => {
     this.props.onChange(value);
   };
