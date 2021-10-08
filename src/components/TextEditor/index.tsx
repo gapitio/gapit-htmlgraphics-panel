@@ -24,7 +24,10 @@ export class TextEditor extends Component<Props, State> {
   editorDidMount = (editor: editor.IStandaloneCodeEditor, monaco: Monaco) => {
     if (this.props.language === 'javascript') {
       // Add autocompletion for panel definitions (htmlNode, codeData, data, options, and theme)
-      monaco.languages.typescript.javascriptDefaults.addExtraLib(textEditorDeclarations);
+      monaco.languages.typescript.javascriptDefaults.addExtraLib(
+        textEditorDeclarations,
+        'HtmlGraphics/HtmlGraphics.d.ts'
+      );
     }
 
     editor.addCommand(monaco.KeyMod.CtrlCmd | monaco.KeyCode.KEY_S, () => {
