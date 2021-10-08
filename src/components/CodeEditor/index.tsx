@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import { editor } from 'monaco-editor/esm/vs/editor/editor.api';
 import { EditorLanguageType } from 'types';
-import { CodeEditor, Monaco } from '@grafana/ui';
-import textEditorDeclarations from './declarations';
+import { CodeEditor as GrafanaCodeEditor, Monaco } from '@grafana/ui';
+import declarations from './declarations';
 
 interface Props {
   language: EditorLanguageType;
@@ -14,7 +14,7 @@ interface State {
   editor?: editor.IStandaloneCodeEditor;
 }
 
-export class TextEditor extends Component<Props, State> {
+export class CodeEditor extends Component<Props, State> {
   constructor(props: Props) {
     super(props);
 
@@ -24,10 +24,7 @@ export class TextEditor extends Component<Props, State> {
   editorDidMount = (editor: editor.IStandaloneCodeEditor, monaco: Monaco) => {
     if (this.props.language === 'javascript') {
       // Add autocompletion for panel definitions (htmlNode, codeData, data, options, ETC)
-      monaco.languages.typescript.javascriptDefaults.addExtraLib(
-        textEditorDeclarations,
-        'HtmlGraphics/HtmlGraphics.d.ts'
-      );
+      monaco.languages.typescript.javascriptDefaults.addExtraLib(declarations, 'HtmlGraphics/HtmlGraphics.d.ts');
     }
 
     this.setState({ editor });
@@ -39,7 +36,7 @@ export class TextEditor extends Component<Props, State> {
 
   render = () => {
     return (
-      <CodeEditor
+      <GrafanaCodeEditor
         height={'33vh'}
         value={this.props.value ?? ''}
         language={this.props.language ?? ''}

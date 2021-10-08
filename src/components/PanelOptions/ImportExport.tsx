@@ -1,7 +1,7 @@
 import React from 'react';
 import { StandardEditorProps } from '@grafana/data';
 import { OptionsInterface, EditorLanguageType, EditorCodeType } from 'types';
-import { TextEditor } from 'components/TextEditor';
+import { CodeEditor } from 'components/CodeEditor';
 import { Button, Input } from '@grafana/ui';
 import { exportFile, contentType } from 'utils/exportFile';
 import { readFile } from 'utils/readFile';
@@ -51,7 +51,7 @@ export const ImportExportOption: React.FC<Props> = ({ value, item, onChange, con
     <div>
       <Input type="file" onChange={(e) => importPanelOptions(e.currentTarget.files, updatePanelOptions)} />
       <Spacer />
-      <TextEditor language={item.settings?.language} value={value} onChange={updatePanelOptions} />
+      <CodeEditor language={item.settings?.language} value={value} onChange={updatePanelOptions} />
       <Spacer />
       <Button onClick={() => downloadJsonFile(value)}>Download as JSON file</Button>
     </div>

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { StandardEditorProps } from '@grafana/data';
 import { OptionsInterface, EditorLanguageType, EditorCodeType } from 'types';
-import { TextEditor } from 'components/TextEditor';
+import { CodeEditor } from 'components/CodeEditor';
 import { Switch, Label } from '@grafana/ui';
 import { SimpleOptions } from 'components/SimpleOptions';
 import { parseJSON } from 'utils/parseJSON';
@@ -35,7 +35,7 @@ export const CodeDataOption: React.FC<Props> = ({ value, item, onChange, context
       <Switch value={jsonView} onChange={() => setJsonView(!jsonView)}></Switch>
       <br />
       {jsonView ? (
-        <TextEditor language={item.settings?.language} value={value} onChange={(code) => onChange(code)} />
+        <CodeEditor language={item.settings?.language} value={value} onChange={(code) => onChange(code)} />
       ) : (
         <SimpleCodeData value={value} onChange={onChange} />
       )}

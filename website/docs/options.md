@@ -108,11 +108,11 @@ Think of this scenario: You have three dashboards with similar graphics. The onl
 
 ### Edit as JSON
 
-Shows the JSON code in a text editor
+Shows the JSON code in a code editor
 
 ## Import/export
 
-Import a file with the file picker _(a file can be dragged to it)_ or paste the json code into the text editor.
+Import a file with the file picker _(a file can be dragged to it)_ or paste the json code into the code editor.
 
 All the options and code can be easily copied _(exported)_ or imported with this.
 
