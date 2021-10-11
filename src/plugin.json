@@ -23,8 +23,8 @@
         "path": "img/screenshot-building-overview-edit.png"
       },
       {
-        "name": "Text editor",
-        "path": "img/screenshot-text-editor.png"
+        "name": "Code editor",
+        "path": "img/screenshot-code-editor.png"
       }
     ],
     "links": [
@@ -45,8 +45,6 @@
     "updated": "%TODAY%"
   },
   "dependencies": {
-    "grafanaDependency": ">=7.1.0",
-    "grafanaVersion": "7.1.x",
-    "plugins": []
+    "grafanaDependency": ">=8.2.0"
   }
 }

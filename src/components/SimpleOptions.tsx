@@ -19,7 +19,6 @@ export const BooleanOption = ({ dict, update, itemKey }: SimpleOptionProps) => {
         dict[itemKey] = !dict[itemKey];
         update();
       }}
-      css={{}}
     ></Switch>
   );
 };
@@ -32,7 +31,6 @@ export const NumberOption = ({ dict, update, itemKey }: SimpleOptionProps) => {
         dict[itemKey] = parseFloat(e.currentTarget.value) || 0;
         update();
       }}
-      css={{}}
       type={'number'}
     ></Input>
   );
@@ -46,7 +44,6 @@ export const StringOption = ({ dict, update, itemKey }: SimpleOptionProps) => {
         dict[itemKey] = e.currentTarget.value || '';
         update();
       }}
-      css={{}}
       type={'string'}
     ></Input>
   );

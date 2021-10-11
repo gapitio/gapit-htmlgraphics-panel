@@ -2,7 +2,7 @@ import { PanelPlugin } from '@grafana/data';
 import { OptionsInterface } from 'types';
 import { HTMLPanel } from 'HTMLPanel';
 import { CodeDataOption } from 'components/PanelOptions/CodeData';
-import { TextEditorOption } from 'components/PanelOptions/TextEditor';
+import { CodeEditorOption } from 'components/PanelOptions/CodeEditor';
 import { ImportExportOption } from 'components/PanelOptions/ImportExport';
 
 export const plugin = new PanelPlugin<OptionsInterface>(HTMLPanel).useFieldConfig().setPanelOptions((builder) => {
@@ -74,7 +74,7 @@ export const plugin = new PanelPlugin<OptionsInterface>(HTMLPanel).useFieldConfi
       path: 'rootCSS',
       name: 'Root CSS',
       description: "CSS that's loaded outside the shadowroot. Useful for font faces and imports.",
-      editor: TextEditorOption,
+      editor: CodeEditorOption,
       defaultValue: '',
       settings: {
         language: 'css',
@@ -85,7 +85,7 @@ export const plugin = new PanelPlugin<OptionsInterface>(HTMLPanel).useFieldConfi
       path: 'css',
       name: 'CSS',
       description: '',
-      editor: TextEditorOption,
+      editor: CodeEditorOption,
       defaultValue:
         '* {\n  font-family: Open Sans;\n}\n\n.box {\n  border: solid #555 2px;\n  border-radius: 10px;\n  padding: 10px 20px;\n}\n',
       settings: {
@@ -101,7 +101,7 @@ export const plugin = new PanelPlugin<OptionsInterface>(HTMLPanel).useFieldConfi
         It is recommended to write your code in an editor and paste the code here.
         This is to keep a copy of the code and not lose your work if the browser crashes.
     `,
-      editor: TextEditorOption,
+      editor: CodeEditorOption,
       defaultValue:
         '<div style="text-align: center;">\n  <div class="box" id="htmlgraphics-text"></div>\n  <br />\n  <div class="box" id="htmlgraphics-value"></div>\n</div>\n',
       settings: {
@@ -119,7 +119,7 @@ export const plugin = new PanelPlugin<OptionsInterface>(HTMLPanel).useFieldConfi
       path: 'onRender',
       name: 'onRender',
       description: `On render code is executed whenever new data is available (htmlNode, customProperties/codeData, data, options, theme, getTemplateSrv, getLocationSrv)`,
-      editor: TextEditorOption,
+      editor: CodeEditorOption,
       defaultValue:
         "// Sets the value from the first series on every refresh\nconst htmlgraphicsValue = htmlNode.getElementById('htmlgraphics-value');\n\nif (htmlgraphicsValue) {\n  const valueField = data.series[0].fields[1];\n  const length = valueField.values.length;\n  htmlgraphicsValue.textContent = valueField.values.get(length - 1);\n}",
       settings: {
@@ -146,7 +146,7 @@ export const plugin = new PanelPlugin<OptionsInterface>(HTMLPanel).useFieldConfi
       name: 'onInit',
       description:
         'On init code is executed when the panel loads (htmlNode, customProperties/codeData, data, options, theme, getTemplateSrv, getLocationSrv)',
-      editor: TextEditorOption,
+      editor: CodeEditorOption,
       defaultValue:
         "// Sets the text from customProperties\nconst htmlgraphicsText = htmlNode.getElementById('htmlgraphics-text');\n\nif (htmlgraphicsText) {\n  htmlgraphicsText.textContent = customProperties.text;\n\n  // Change the text color based on the theme\n  if (theme.isDark) {\n    htmlgraphicsText.style.color = 'green';\n  } else {\n    htmlgraphicsText.style.color = 'red';\n  }\n}\n",
       settings: {

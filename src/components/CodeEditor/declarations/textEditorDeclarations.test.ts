@@ -1,6 +1,6 @@
 import textEditorDeclarations from '.';
 
-describe('Text editor declarations', () => {
+describe('Code editor declarations', () => {
   it('is a valid string', () => {
     expect(textEditorDeclarations).toEqual(expect.any(String));
   });
