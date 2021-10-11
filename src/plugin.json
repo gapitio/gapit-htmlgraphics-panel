@@ -29,6 +29,10 @@
     ],
     "links": [
       {
+        "name": "Website (docs)",
+        "url": "https://gapit-htmlgraphics-panel.gapit.io/"
+      },
+      {
         "name": "Project site",
         "url": "https://github.com/gapitio/gapit-htmlgraphics-panel"
       },
