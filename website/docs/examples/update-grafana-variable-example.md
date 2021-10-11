@@ -3,7 +3,7 @@ id: update-grafana-variable-example
 title: Update grafana variable example
 ---
 
-![Update grafana variable example](../../static/img/update-grafana-variable-example.gif)
+![Update grafana variable example](../../static/gif/update-grafana-variable-example.gif)
 ![testVariable used](../../static/img/test-variable-used.png)
 
 `HTML/SVG`
