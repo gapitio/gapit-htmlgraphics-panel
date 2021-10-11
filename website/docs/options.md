@@ -20,7 +20,7 @@ Adds "display: flex; justify-content: center; align-items: center" to the shadow
 Chooses what happens if content overflows outside the panel.
 "Fit content to panel" is recommended to turn on with some of these options, as some of these won't work without it.
 
-![Overflow options](https://raw.githubusercontent.com/gapitio/gapit-htmlgraphics-panel/master/src/img/screenshot-overflow.png)
+![Overflow options](https://github.com/gapitio/gapit-htmlgraphics-panel/raw/879c71528a1a7360895f6b1de002b06a00f1be5b/src/img/screenshot-overflow.png)
 
 ### Root CSS
 
