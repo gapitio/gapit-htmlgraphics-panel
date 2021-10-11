@@ -23,6 +23,10 @@
         "path": "img/screenshot-building-overview-edit.png"
       },
       {
+        "name": "Radar example",
+        "path": "img/screenshot-react-radar-example.png"
+      },
+      {
         "name": "Code editor",
         "path": "img/screenshot-code-editor.png"
       }
