@@ -1,6 +1,7 @@
 ---
 id: simple-example
 title: Simple example
+sidebar_position: 1
 ---
 
 ![Simple example](../../static/img/simple-example.png)
