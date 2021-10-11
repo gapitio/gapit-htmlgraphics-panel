@@ -53,6 +53,11 @@ const darkCodeTheme = require('prism-react-renderer/themes/dracula');
               label: 'GitHub',
               position: 'right',
             },
+            {
+              href: 'https://grafana.com/grafana/plugins/gapit-htmlgraphics-panel/',
+              label: 'Marketplace',
+              position: 'right',
+            },
           ],
         },
         footer: {
