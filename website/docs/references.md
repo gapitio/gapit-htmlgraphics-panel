@@ -252,9 +252,6 @@ getTemplateSrv().replace(`$randomVariable`);
 
 Used to retrieve the [LocationSrv](https://grafana.com/docs/grafana/latest/packages_api/runtime/locationsrv/) that can be used to update the template variables.
 
-- [Grafana templates and variables](https://grafana.com/docs/grafana/latest/developers/plugins/add-support-for-variables/)
-- [Example](https://github.com/gapitio/gapit-htmlgraphics-panel/tree/master/examples/update-grafana-variable-example)
-
 ```javascript
 getLocationSrv().update({
   query: {
