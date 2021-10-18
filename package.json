@@ -19,7 +19,11 @@
     "watch": "grafana-toolkit plugin:dev --watch",
     "sign": "grafana-toolkit plugin:sign"
   },
-  "dependencies": {},
+  "dependencies": {
+    "@types/lodash": "^4.14.175",
+    "lodash": "^4.17.21",
+    "tslib": "^2.3.1"
+  },
   "devDependencies": {
     "@grafana/data": "8.2.0",
     "@grafana/runtime": "8.2.0",
