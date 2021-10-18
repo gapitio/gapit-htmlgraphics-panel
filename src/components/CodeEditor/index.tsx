@@ -19,15 +19,17 @@ export const CodeEditor: FC<Props> = ({ language, value, onChange }) => {
   };
 
   return (
-    <GrafanaCodeEditor
-      height={'33vh'}
-      value={value ?? ''}
-      language={language ?? ''}
-      showLineNumbers={true}
-      onEditorDidMount={editorDidMount}
-      onSave={onChange}
-      onBlur={onChange}
-      monacoOptions={{ contextmenu: true }}
-    />
+    <div>
+      <GrafanaCodeEditor
+        height={'33vh'}
+        value={value ?? ''}
+        language={language ?? ''}
+        showLineNumbers={true}
+        onEditorDidMount={editorDidMount}
+        onSave={onChange}
+        onBlur={onChange}
+        monacoOptions={{ contextmenu: true }}
+      />
+    </div>
   );
 };

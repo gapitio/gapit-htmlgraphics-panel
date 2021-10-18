@@ -1,12 +1,19 @@
 import React, { PureComponent } from 'react';
-import { PanelProps } from '@grafana/data';
+import {
+  FieldDisplay,
+  fieldReducers,
+  getFieldDisplayValues,
+  GetFieldDisplayValuesOptions,
+  PanelProps,
+} from '@grafana/data';
 import { config, getTemplateSrv, getLocationSrv } from '@grafana/runtime';
 import { Alert } from '@grafana/ui';
-import { OptionsInterface } from 'types';
+import { OptionsInterface, CalcsMutation } from 'types';
 import { SVGBaseFix } from 'utils/polyfill';
 import 'fonts.scss';
 import { parseJSON } from 'utils/parseJSON';
 import { shallowCompare } from 'utils/shallowCompare';
+import _ from 'lodash';
 
 interface HTMLNodeElement extends ShadowRoot {
   onpanelupdate: () => void;
@@ -23,6 +30,16 @@ interface PanelState {
   options: OptionsInterface;
 }
 
+interface PopulatedGetFieldDisplayValuesOptions {
+  series?: GetFieldDisplayValuesOptions['data'];
+  reduceOptions?: GetFieldDisplayValuesOptions['reduceOptions'];
+  fieldConfig?: GetFieldDisplayValuesOptions['fieldConfig'];
+  replaceVariables?: GetFieldDisplayValuesOptions['replaceVariables'];
+  sparkline?: GetFieldDisplayValuesOptions['sparkline'];
+  theme?: GetFieldDisplayValuesOptions['theme'];
+  timeZone?: GetFieldDisplayValuesOptions['timeZone'];
+}
+
 export class HTMLPanel extends PureComponent<Props, PanelState> {
   state: PanelState = {
     shadowContainerRef: React.createRef<HTMLDivElement>(),
@@ -34,8 +51,50 @@ export class HTMLPanel extends PureComponent<Props, PanelState> {
   };
 
   data = this.props.data; // Used for dynamic data
+  fieldDisplayValues: FieldDisplay[] = [];
   panelUpdateEvent = new CustomEvent('panelupdate');
   panelWillUnmountEvent = new CustomEvent('panelwillunmount');
+
+  calcGroups = {
+    [CalcsMutation.All]: fieldReducers.list().map(({ id }) => id),
+    [CalcsMutation.Standard]: fieldReducers
+      .list()
+      .filter(({ standard }) => standard)
+      .map(({ id }) => id),
+  };
+
+  getFieldDisplayValues = ({
+    series = this.props.data.series,
+    fieldConfig = this.props.fieldConfig,
+    reduceOptions = this.props.options.reduceOptions,
+    replaceVariables = this.props.replaceVariables,
+    theme = config.theme2,
+    sparkline,
+    timeZone,
+  }: PopulatedGetFieldDisplayValuesOptions = {}) =>
+    getFieldDisplayValues({
+      data: series,
+      fieldConfig,
+      reduceOptions,
+      replaceVariables,
+      theme,
+      sparkline,
+      timeZone,
+    });
+
+  updateFieldDisplayValues = () => {
+    const { calcsMutation, reduceOptions } = this.props.options;
+
+    if (calcsMutation !== CalcsMutation.None) {
+      if (calcsMutation !== CalcsMutation.Custom) {
+        reduceOptions.calcs = this.calcGroups[calcsMutation];
+      }
+      this.fieldDisplayValues.splice(0, this.fieldDisplayValues.length);
+      this.fieldDisplayValues.push(...this.getFieldDisplayValues());
+    } else {
+      this.fieldDisplayValues.splice(0, this.fieldDisplayValues.length);
+    }
+  };
 
   getCodeData() {
     const { json: codeData, isError } = parseJSON<OptionsInterface>(this.props.options.codeData, {
@@ -99,13 +158,14 @@ export class HTMLPanel extends PureComponent<Props, PanelState> {
     }
   }
 
-  executeScript(script: string, dynamic = false) {
-    const data = dynamic ? this.data : this.props.data;
+  executeScript(script: string, { dynamicData = false, dynamicFieldDisplayValues = false } = {}) {
+    const data = dynamicData ? this.data : this.props.data;
+    const fieldDisplayValues = dynamicFieldDisplayValues ? this.fieldDisplayValues : _.clone(this.fieldDisplayValues);
     const codeData = this.getCodeData();
 
     const htmlNode = this.state.shadowContainerRef.current?.firstElementChild?.shadowRoot as HTMLNodeElement;
-    const options = this.props.options;
-    const theme = config.theme;
+    const { options } = this.props;
+    const { theme, theme2 } = config;
 
     const htmlGraphics = {
       htmlNode,
@@ -114,11 +174,15 @@ export class HTMLPanel extends PureComponent<Props, PanelState> {
       codeData,
       options,
       theme,
+      theme2,
       getTemplateSrv,
       getLocationSrv,
       props: this.props,
       width: this.props.width,
       height: this.props.height,
+      getFieldDisplayValues: this.getFieldDisplayValues,
+      fieldDisplayValues,
+      fieldReducers,
     };
 
     const F = new Function(
@@ -139,9 +203,11 @@ export class HTMLPanel extends PureComponent<Props, PanelState> {
   onRender() {
     let isError = false;
 
-    if (this.props.options.onRender) {
+    const { onRender } = this.props.options;
+
+    if (onRender) {
       try {
-        this.executeScript(this.props.options.onRender);
+        this.executeScript(onRender);
       } catch (e) {
         isError = true;
         console.error(`onRender:`, e);
@@ -156,9 +222,11 @@ export class HTMLPanel extends PureComponent<Props, PanelState> {
   onInit() {
     let isError = false;
 
-    if (this.props.options.onInit) {
+    const { onInit, dynamicData, dynamicFieldDisplayValues } = this.props.options;
+
+    if (onInit) {
       try {
-        this.executeScript(this.props.options.onInit, this.props.options.dynamicData);
+        this.executeScript(onInit, { dynamicData, dynamicFieldDisplayValues });
       } catch (e) {
         isError = true;
         console.error(`onInit:`, e);
@@ -171,6 +239,7 @@ export class HTMLPanel extends PureComponent<Props, PanelState> {
   }
 
   initialize() {
+    this.updateFieldDisplayValues();
     this.addShadowRoot();
     this.setHTML();
     this.onInit();
@@ -240,6 +309,7 @@ export class HTMLPanel extends PureComponent<Props, PanelState> {
         options: this.props.options,
       });
     } else {
+      this.updateFieldDisplayValues();
       this.panelupdate();
       this.onRender();
     }
