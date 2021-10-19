@@ -3,6 +3,88 @@ id: options
 title: Options
 ---
 
+## Value options
+
+### Mutate calcs
+
+:::note
+Reducer id and calcs are sometimes referred to as the same thing. Calcs here are referred to as the values in the calcs object inside the [data object](./references.md#data-global).
+:::
+
+:::caution
+This doesn't remove existing calcs. It only adds to it. Changing from "All calcs" to "No mutation" will show all calcs until "Refresh dashboard" button is clicked. _The data object needs to be updated to remove "previous" calcs_
+:::
+
+Some data sources doesn't add the desired calc (some doesn't add calcs at all), which in some cases makes it harder to get the desired value from this plugin.
+
+Calcs like max, min, diff, ETC adds all standard calcs, which means that only some custom calcs are allowed.
+
+You can check the calcs properties with [fieldReducers](./references.md#fieldreducers).
+
+`Standard calcs` _(calcs with `{standard: true}`)_
+
+```json
+{
+  "allIsNull": false,
+  "allIsZero": false,
+  "count": 1081,
+  "delta": 5160.296223387697,
+  "diff": -27.562124876418547,
+  "diffperc": -0.7987191943927379,
+  "first": 34.50790349088066,
+  "firstNotNull": 34.50790349088066,
+  "last": 6.945778614462109,
+  "lastNotNull": 6.945778614462109,
+  "logmin": 6.606859716238607,
+  "max": 35.886042023999536,
+  "mean": 19.436556881379083,
+  "min": 6.606859716238607,
+  "nonNullCount": 1081,
+  "previousDeltaUp": false,
+  "range": 29.27918230776093,
+  "step": -0.4993308915394312,
+  "sum": 21010.917988770787
+}
+```
+
+`All calcs`
+
+```json
+{
+  "allIsNull": false,
+  "allIsZero": false,
+  "count": 720,
+  "delta": -715.3035540645247,
+  "diff": -7.021496923427495,
+  "diffperc": -4.946144132468452,
+  "first": 1.4195900352631468,
+  "firstNotNull": 1.4195900352631468,
+  "last": -5.601906888164349,
+  "lastNotNull": -5.601906888164349,
+  "logmin": 0.07720417385470929,
+  "max": 3.184124812796603,
+  "mean": -4.219071496932824,
+  "min": -11.131454766473656,
+  "nonNullCount": 720,
+  "previousDeltaUp": false,
+  "range": 14.31557957927026,
+  "step": -0.49997734159248264,
+  "sum": -3037.7314777916336,
+
+  // Different from standard
+  "allValues": [
+    1.4195900352631468,
+    1.6835262754797644,
+    1.655662138180408,
+    ... // 717 more values
+  ],
+  "changeCount": 719,
+  "distinctCount": 720,
+}
+```
+
+`allValues`, `changeCount`, and `distinctCount` are not standard calcs.
+
 ## HTML graphics
 
 ### Fit content to panel
@@ -72,6 +154,10 @@ Executes the code every render (when new data is available).
 ### Dynamic data
 
 Update the data object when new data is available. The code will not execute again, it will only update the data object. This is only for onInit, onRender will update like normal.
+
+### Dynamic fieldDisplayValues
+
+Update fieldDisplayValues when new data is available.
 
 ### Trigger panelupdate when mounted
 

@@ -3,7 +3,11 @@ id: references
 title: References
 ---
 
-The plugin makes several interfaces to the HTML/SVG document and Grafana in the execution context of onRender and onInit functions/javascripts. Below are details for each. Remember, you can always use the [developer console](https://developers.google.com/web/tools/chrome-devtools/console) (ctrl+shift+j) and [console.log()](https://developer.mozilla.org/en-US/docs/Web/API/Console/log).
+:::warning
+All references are in htmlGraphics, but not every reference is global.
+:::
+
+The plugin makes several references to the HTML/SVG document and Grafana in the execution context of onRender and onInit functions/javascripts. Below are details for each. Remember, you can always use the [developer console](https://developers.google.com/web/tools/chrome-devtools/console) (ctrl+shift+j) and [console.log()](https://developer.mozilla.org/en-US/docs/Web/API/Console/log).
 
 ```javascript
 // Log this in onRender or onInit, and look at developer console (ctrl+shift+j).
@@ -101,6 +105,38 @@ The height of the panel
 ```javascript
 console.log(htmlGraphics.height);
 ```
+
+### getFieldDisplayValues
+
+This is the same command that is used for mutating calcs in the Value options [Mutate calcs](./options.md#mutate-calcs).
+
+This command returns a list of the values specified in the reduceOptions.
+
+_If nothing is specified it will use the same options as the [Mutate calcs](./options.md#mutate-calcs) and [props](#props)_
+
+```js
+console.log(htmlGraphics.getFieldDisplayValues({ reduceOptions: { calcs: ['last', 'first'] } }));
+```
+
+![Field display values](../static/img/field-display-values.png)
+
+### fieldDisplayValues
+
+[Mutate calcs](./options.md#mutate-calcs) uses [getFieldDisplayValues](#getFieldDisplayValues) to mutate the calcs and this is the returned values.
+
+```js
+console.log(htmlGraphics.fieldDisplayValues);
+```
+
+### fieldReducers
+
+A list of the reducers. Useful for checking the calcs properties.
+
+```js
+console.log(htmlGraphics.fieldReducers);
+```
+
+![Field display values](../static/img/field-reducers.png)
 
 ## htmlNode (global)
 
