@@ -63,7 +63,7 @@ export class HTMLPanel extends PureComponent<Props, PanelState> {
       .map(({ id }) => id),
   };
 
-  getFieldDisplayValues = ({
+  populatedGetFieldDisplayValues = ({
     series = this.props.data.series,
     fieldConfig = this.props.fieldConfig,
     reduceOptions = this.props.options.reduceOptions,
@@ -90,7 +90,7 @@ export class HTMLPanel extends PureComponent<Props, PanelState> {
         reduceOptions.calcs = this.calcGroups[calcsMutation];
       }
       this.fieldDisplayValues.splice(0, this.fieldDisplayValues.length);
-      this.fieldDisplayValues.push(...this.getFieldDisplayValues());
+      this.fieldDisplayValues.push(...this.populatedGetFieldDisplayValues());
     } else {
       this.fieldDisplayValues.splice(0, this.fieldDisplayValues.length);
     }
@@ -180,7 +180,7 @@ export class HTMLPanel extends PureComponent<Props, PanelState> {
       props: this.props,
       width: this.props.width,
       height: this.props.height,
-      getFieldDisplayValues: this.getFieldDisplayValues,
+      getFieldDisplayValues: this.populatedGetFieldDisplayValues,
       fieldDisplayValues,
       fieldReducers,
     };

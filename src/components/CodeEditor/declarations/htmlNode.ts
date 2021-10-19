@@ -1,6 +1,7 @@
 export default `
 interface HTMLNode extends ShadowRoot {
   onpanelupdate: () => void;
+  onpanelwillunmount: () => void;
 }
 
 /**
