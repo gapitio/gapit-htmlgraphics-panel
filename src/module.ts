@@ -1,12 +1,39 @@
-import { PanelPlugin } from '@grafana/data';
-import { OptionsInterface } from 'types';
+import { PanelPlugin, ReducerID } from '@grafana/data';
+import { OptionsInterface, CalcsMutation } from 'types';
 import { HTMLPanel } from 'HTMLPanel';
 import { CodeDataOption } from 'components/PanelOptions/CodeData';
 import { CodeEditorOption } from 'components/PanelOptions/CodeEditor';
 import { ImportExportOption } from 'components/PanelOptions/ImportExport';
+import { SelectedCalcsOption } from 'components/PanelOptions/SelectedCalcsOption';
 
 export const plugin = new PanelPlugin<OptionsInterface>(HTMLPanel).useFieldConfig().setPanelOptions((builder) => {
   return builder
+    .addRadio({
+      path: 'calcsMutation',
+      name: 'Mutate calcs',
+      description:
+        "Mutate the calcs object. Useful when getting metric values. This doesn't remove existing calcs. Calcs like max, min, diff, ETC adds all standard calcs, which means that only some custom calcs are allowed.",
+      settings: {
+        options: [
+          { value: CalcsMutation.None, label: 'No mutation' },
+          { value: CalcsMutation.Custom, label: 'Custom' },
+          { value: CalcsMutation.Standard, label: 'Standard calcs' },
+          { value: CalcsMutation.All, label: 'All calcs' },
+        ],
+      },
+      category: ['Value options'],
+      defaultValue: CalcsMutation.Standard,
+    })
+    .addCustomEditor({
+      id: 'reduceOptions.calcs',
+      path: 'reduceOptions.calcs',
+      name: 'Calcs',
+      description: 'Choose the reducer functions (calculation) to be added to the calcs object.',
+      category: ['Value options'],
+      editor: SelectedCalcsOption,
+      defaultValue: [ReducerID.last],
+      showIf: (options) => options.calcsMutation === CalcsMutation.Custom,
+    })
     .addBooleanSwitch({
       path: 'add100Percentage',
       name: 'Fit content to panel',
@@ -131,6 +158,12 @@ export const plugin = new PanelPlugin<OptionsInterface>(HTMLPanel).useFieldConfi
       name: 'Dynamic data object',
       description:
         'Update the data object when new data is available. The code will not execute again, it will only update the data object. This is only for onInit, onRender will update like normal.',
+      defaultValue: false,
+    })
+    .addBooleanSwitch({
+      path: 'dynamicFieldDisplayValues',
+      name: 'Dynamic fieldDisplayValues',
+      description: 'Update fieldDisplayValues when new data is available.',
       defaultValue: false,
     })
     .addBooleanSwitch({

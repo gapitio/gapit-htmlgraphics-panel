@@ -6,6 +6,8 @@ import dataQuery from './dataQuery';
 import dataQueryRequest from './dataQueryRequest';
 import eventBus from './eventBus';
 import fieldColor from './fieldColor';
+import fieldReducers from './fieldReducers';
+import getFieldDisplayValues from './getFieldDisplayValues';
 import getLocationSrv from './getLocationSrv';
 import getTemplateSrv from './getTemplateSrv';
 import htmlGraphics from './htmlGraphics';
@@ -16,6 +18,7 @@ import panelProps from './panelProps';
 import scopedVars from './scopedVars';
 import subscription from './subscription';
 import theme from './theme';
+import theme2 from './theme2';
 import thresholds from './thresholds';
 import timeRanges from './timeRanges';
 import timezone from './timezone';
@@ -29,6 +32,8 @@ export default codeData +
   dataQueryRequest +
   eventBus +
   fieldColor +
+  fieldReducers +
+  getFieldDisplayValues +
   getLocationSrv +
   getTemplateSrv +
   htmlNode +
@@ -38,6 +43,7 @@ export default codeData +
   scopedVars +
   subscription +
   theme +
+  theme2 +
   thresholds +
   timeRanges +
   timezone +

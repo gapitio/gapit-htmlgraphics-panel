@@ -8,8 +8,12 @@ declare const htmlGraphics: {
   htmlNode: typeof htmlNode;
   options: typeof options;
   theme: typeof theme;
+  theme2: typeof theme2;
   props: PanelProps<OptionsInterface>;
   width: number;
   height: number;
+  getFieldDisplayValues: (options: PopulatedGetFieldDisplayValuesOptions) => FieldDisplay[];
+  fieldDisplayValues: FieldDisplay[];
+  fieldReducers: Registry<FieldReducerInfo>;
 };
 `;
