@@ -1,5 +1,26 @@
 # Change Log
 
+## v1.4.0 (2021-10-20)
+
+### Features / enhancements
+
+- **Code editor**: Only load declarations in edit mode [#49](https://github.com/gapitio/gapit-htmlgraphics-panel/pull/49)
+- **Options**: Add stock field and overrides tabs [#24](https://github.com/gapitio/gapit-htmlgraphics-panel/pull/24)
+- **Options**: Add root css [#44](https://github.com/gapitio/gapit-htmlgraphics-panel/pull/44)
+- **Options**: Add calcs mutation [#47](https://github.com/gapitio/gapit-htmlgraphics-panel/pull/47)
+- **References**: Centralize references (htmlGraphics) [#30](https://github.com/gapitio/gapit-htmlgraphics-panel/pull/30)
+- **References**: Expose props [#36](https://github.com/gapitio/gapit-htmlgraphics-panel/pull/36)
+- **References**: Add panelwillunmount event [#37](https://github.com/gapitio/gapit-htmlgraphics-panel/pull/37)
+- **Website**: Add website [#39](https://github.com/gapitio/gapit-htmlgraphics-panel/pull/39)
+
+### Bug fixes
+
+- **References**: Fix missing type on custom properties [#31](https://github.com/gapitio/gapit-htmlgraphics-panel/pull/31)
+
+### Breaking changes
+
+- **Code editor**: Use the integrated code editor [#38](https://github.com/gapitio/gapit-htmlgraphics-panel/pull/38). Latest version that works with this change requires v8.2.0+ of Grafana. This also fixes [#32](https://github.com/gapitio/gapit-htmlgraphics-panel/issues/32).
+
 ## v1.3.3 (2021-04-12)
 
 ### Bug fixes
@@ -68,13 +89,13 @@
 
 ### Features / enhancements
 
-- **Text editor**: Support offline
+- **Code editor**: Support offline
 
 ## v0.0.3 (2020-10-06)
 
 ### Features / enhancements
 
-- **Text editor**: Better Grafana types for autocompletion
+- **Code editor**: Better Grafana types for autocompletion
 - **codeData**: Add a collapse header icon
 
 ## v0.0.2 (2020-09-28)
@@ -96,7 +117,7 @@
 - **Readme**: Add more information.
 - **plugin.json**: Add author url and keywords.
 - **SVGBaseFix**: Update links used in the comments.
-- **Screenshots**: Add open-sans-font-weight, building-overview, building-overview-edit and text-editor screenshot.
+- **Screenshots**: Add open-sans-font-weight, building-overview, building-overview-edit and code-editor screenshot.
 
 ### Bug fixes
 
