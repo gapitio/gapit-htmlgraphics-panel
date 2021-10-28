@@ -308,7 +308,9 @@ export class HTMLPanel extends PureComponent<Props, PanelState> {
       this.panelupdate();
     }
 
-    if (!shallowCompare(this.state.errors, this.errors)) this.setState({ errors: { ...this.errors } });
+    if (!shallowCompare(this.state.errors, this.errors)) {
+      this.setState({ errors: { ...this.errors } });
+    }
   }
 
   componentDidUpdate() {
@@ -329,7 +331,9 @@ export class HTMLPanel extends PureComponent<Props, PanelState> {
       this.panelupdate();
       this.onRender();
 
-      if (!shallowCompare(this.state.errors, this.errors)) this.setState({ errors: { ...this.errors } });
+      if (!shallowCompare(this.state.errors, this.errors)) {
+        this.setState({ errors: { ...this.errors } });
+      }
     }
   }
 
@@ -344,7 +348,9 @@ export class HTMLPanel extends PureComponent<Props, PanelState> {
       delete this.errors[scope];
     } else {
       const errorMessage = error instanceof Error ? error.message : this.defaultErrorMessage;
-      if (isError && this.errors[scope] !== errorMessage) this.errors = { ...this.errors, [scope]: errorMessage };
+      if (isError && this.errors[scope] !== errorMessage) {
+        this.errors = { ...this.errors, [scope]: errorMessage };
+      }
     }
   };
 

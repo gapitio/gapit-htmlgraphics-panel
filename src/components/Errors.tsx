@@ -10,7 +10,9 @@ export const Errors = ({ errors }: ErrorsProps) => (
     {Object.entries(errors)
       .filter(([, value]) => value !== '')
       .map(([scope, value]) => (
-        <Alert title={`Error executing ${scope}`}>{value}</Alert>
+        <Alert key={scope} title={`Error executing ${scope}`}>
+          {value}
+        </Alert>
       ))}
   </div>
 );
