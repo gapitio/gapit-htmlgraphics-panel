@@ -7,13 +7,13 @@ import {
   PanelProps,
 } from '@grafana/data';
 import { config, getTemplateSrv, getLocationSrv } from '@grafana/runtime';
-import { Alert } from '@grafana/ui';
 import { OptionsInterface, CalcsMutation } from 'types';
 import { SVGBaseFix } from 'utils/polyfill';
 import 'fonts.scss';
 import { parseJSON } from 'utils/parseJSON';
 import { shallowCompare } from 'utils/shallowCompare';
 import _ from 'lodash';
+import { Errors } from 'components/Errors';
 
 interface HTMLNodeElement extends ShadowRoot {
   onpanelupdate: () => void;
@@ -23,10 +23,7 @@ interface HTMLNodeElement extends ShadowRoot {
 interface Props extends PanelProps<OptionsInterface> {}
 interface PanelState {
   shadowContainerRef: React.RefObject<HTMLDivElement>;
-  htmlErrorStatus: boolean;
-  onInitErrorStatus: boolean;
-  onRenderErrorStatus: boolean;
-  codeDataErrorStatus: boolean;
+  errors: { [key: string]: string };
   options: OptionsInterface;
 }
 
@@ -40,16 +37,21 @@ interface PopulatedGetFieldDisplayValuesOptions {
   timeZone?: GetFieldDisplayValuesOptions['timeZone'];
 }
 
+interface ErrorObj {
+  scope: string;
+  isError: boolean;
+  error?: unknown;
+}
+
 export class HTMLPanel extends PureComponent<Props, PanelState> {
   state: PanelState = {
     shadowContainerRef: React.createRef<HTMLDivElement>(),
-    htmlErrorStatus: false,
-    onInitErrorStatus: false,
-    onRenderErrorStatus: false,
-    codeDataErrorStatus: false,
+    errors: {},
     options: this.props.options,
   };
 
+  errors: PanelState['errors'] = {};
+  defaultErrorMessage = 'Check console for more info (ctrl+shift+j)';
   data = this.props.data; // Used for dynamic data
   fieldDisplayValues: FieldDisplay[] = [];
   panelUpdateEvent = new CustomEvent('panelupdate');
@@ -97,13 +99,19 @@ export class HTMLPanel extends PureComponent<Props, PanelState> {
   };
 
   getCodeData() {
-    const { json: codeData, isError } = parseJSON<OptionsInterface>(this.props.options.codeData, {
+    const {
+      json: codeData,
+      isError,
+      error,
+    } = parseJSON<OptionsInterface>(this.props.options.codeData, {
       namespace: 'codeData',
     });
 
-    if (this.state.codeDataErrorStatus !== isError) {
-      this.setState({ codeDataErrorStatus: isError });
-    }
+    this.updateError({
+      scope: 'codeData',
+      isError,
+      error,
+    });
 
     return codeData ?? {};
   }
@@ -111,7 +119,10 @@ export class HTMLPanel extends PureComponent<Props, PanelState> {
   setHTML() {
     const shadowContainer = this.state.shadowContainerRef.current;
     const htmlNode = shadowContainer?.firstElementChild?.shadowRoot as HTMLNodeElement;
-    let isError = false;
+    const errorObj: ErrorObj = {
+      scope: 'html',
+      isError: false,
+    };
 
     if (shadowContainer && htmlNode) {
       try {
@@ -148,14 +159,13 @@ export class HTMLPanel extends PureComponent<Props, PanelState> {
           htmlDocument.style.width = '100%';
         }
       } catch (e) {
-        isError = true;
+        errorObj.isError = true;
+        errorObj.error = e;
         console.error(`htmlNode:`, e);
       }
     }
 
-    if (this.state.htmlErrorStatus !== isError) {
-      this.setState({ htmlErrorStatus: isError });
-    }
+    this.updateError(errorObj);
   }
 
   executeScript(script: string, { dynamicData = false, dynamicFieldDisplayValues = false } = {}) {
@@ -201,7 +211,10 @@ export class HTMLPanel extends PureComponent<Props, PanelState> {
   }
 
   onRender() {
-    let isError = false;
+    const errorObj: ErrorObj = {
+      scope: 'onRender',
+      isError: false,
+    };
 
     const { onRender } = this.props.options;
 
@@ -209,18 +222,20 @@ export class HTMLPanel extends PureComponent<Props, PanelState> {
       try {
         this.executeScript(onRender);
       } catch (e) {
-        isError = true;
+        errorObj.isError = true;
+        errorObj.error = e;
         console.error(`onRender:`, e);
       }
     }
 
-    if (this.state.onRenderErrorStatus !== isError) {
-      this.setState({ onRenderErrorStatus: isError });
-    }
+    this.updateError(errorObj);
   }
 
   onInit() {
-    let isError = false;
+    const errorObj: ErrorObj = {
+      scope: 'onInit',
+      isError: false,
+    };
 
     const { onInit, dynamicData, dynamicFieldDisplayValues } = this.props.options;
 
@@ -228,14 +243,13 @@ export class HTMLPanel extends PureComponent<Props, PanelState> {
       try {
         this.executeScript(onInit, { dynamicData, dynamicFieldDisplayValues });
       } catch (e) {
-        isError = true;
+        errorObj.isError = true;
+        errorObj.error = e;
         console.error(`onInit:`, e);
       }
     }
 
-    if (this.state.onInitErrorStatus !== isError) {
-      this.setState({ onInitErrorStatus: isError });
-    }
+    this.updateError(errorObj);
   }
 
   initialize() {
@@ -293,6 +307,8 @@ export class HTMLPanel extends PureComponent<Props, PanelState> {
     if (this.props.options.panelupdateOnMount) {
       this.panelupdate();
     }
+
+    if (!shallowCompare(this.state.errors, this.errors)) this.setState({ errors: { ...this.errors } });
   }
 
   componentDidUpdate() {
@@ -312,6 +328,8 @@ export class HTMLPanel extends PureComponent<Props, PanelState> {
       this.updateFieldDisplayValues();
       this.panelupdate();
       this.onRender();
+
+      if (!shallowCompare(this.state.errors, this.errors)) this.setState({ errors: { ...this.errors } });
     }
   }
 
@@ -321,22 +339,13 @@ export class HTMLPanel extends PureComponent<Props, PanelState> {
     htmlNode.dispatchEvent(this.panelWillUnmountEvent);
   }
 
-  Error = () => {
-    const { onRenderErrorStatus, onInitErrorStatus, codeDataErrorStatus, htmlErrorStatus } = this.state;
-    return (
-      <div>
-        {[
-          { status: onRenderErrorStatus, name: 'onRender' },
-          { status: onInitErrorStatus, name: 'onInit' },
-          { status: codeDataErrorStatus, name: 'codeData' },
-          { status: htmlErrorStatus, name: 'html' },
-        ].map((errorStatus) =>
-          errorStatus.status ? (
-            <Alert title={`Error executing ${errorStatus.name}`}>Check the console for further information</Alert>
-          ) : null
-        )}
-      </div>
-    );
+  updateError = ({ scope, isError, error }: ErrorObj) => {
+    if (!isError && this.state.errors[scope]) {
+      delete this.errors[scope];
+    } else {
+      const errorMessage = error instanceof Error ? error.message : this.defaultErrorMessage;
+      if (isError && this.errors[scope] !== errorMessage) this.errors = { ...this.errors, [scope]: errorMessage };
+    }
   };
 
   shadowContainerStyle = () => {
@@ -353,7 +362,7 @@ export class HTMLPanel extends PureComponent<Props, PanelState> {
     return (
       <>
         <div ref={this.state.shadowContainerRef} style={this.shadowContainerStyle()}></div>
-        <this.Error />
+        <Errors errors={this.state.errors} />
       </>
     );
   }

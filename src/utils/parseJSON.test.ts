@@ -40,9 +40,17 @@ describe('parseJSON', () => {
     });
 
     it('returns null and error on unparsable input', () => {
-      expect(parseJSON('{')).toEqual({ json: null, isError: true });
-      expect(parseJSON('.')).toEqual({ json: null, isError: true });
-      expect(parseJSON('{a = 2}')).toEqual({ json: null, isError: true });
+      expect(parseJSON('{')).toEqual({ json: null, isError: true, error: SyntaxError('Unexpected end of JSON input') });
+      expect(parseJSON('.')).toEqual({
+        json: null,
+        isError: true,
+        error: SyntaxError('Unexpected token . in JSON at position 0'),
+      });
+      expect(parseJSON('{a = 2}')).toEqual({
+        json: null,
+        isError: true,
+        error: SyntaxError('Unexpected token a in JSON at position 1'),
+      });
     });
 
     it('logs error when there is unparsable input', () => {
