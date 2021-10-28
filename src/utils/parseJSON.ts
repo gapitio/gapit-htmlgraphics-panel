@@ -18,6 +18,7 @@ export interface LoggingOptions {
 export interface ParsedOutput<Output> {
   json: Output | null;
   isError: boolean;
+  error?: unknown;
 }
 
 /**
@@ -39,7 +40,7 @@ export function parseJSON<Output = {}>(
       if (logError) {
         console.error(`${namespace}:`, e);
       }
-      return { json: null, isError: true };
+      return { json: null, isError: true, error: e };
     }
   }
   return { json: null, isError: false };
