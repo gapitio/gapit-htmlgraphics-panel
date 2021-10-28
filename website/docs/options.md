@@ -153,11 +153,11 @@ Executes the code every render (when new data is available).
 
 ### Dynamic data
 
-Update the data object when new data is available. The code will not execute again, it will only update the data object. This is only for onInit, onRender will update like normal.
+Update the [data object](references.md#data) when new data is available. The code will not execute again, it will only update the [data object](references.md#data). This is only for onInit, onRender will update like normal.
 
 ### Dynamic fieldDisplayValues
 
-Update fieldDisplayValues when new data is available.
+Update [fieldDisplayValues](references.md#fielddisplayvalues) when new data is available.
 
 ### Dynamic props
 
