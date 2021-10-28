@@ -159,6 +159,14 @@ Update the data object when new data is available. The code will not execute aga
 
 Update fieldDisplayValues when new data is available.
 
+### Dynamic props
+
+:::caution
+Only values under `htmlGraphics.props` becomes dynamic. Internally the `htmlGraphics.width` comes from props, but it does not become dynamic, because it's mapped to the int value.
+:::
+
+Update [props](references.md#props) when new data is available.
+
 ### Trigger panelupdate when mounted
 
 Trigger the panelupdate event (htmlNode.onpanelupdate) when the panel is first loaded (in most cases, this should be true)
