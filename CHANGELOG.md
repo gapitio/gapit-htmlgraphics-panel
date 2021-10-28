@@ -1,5 +1,15 @@
 # Change Log
 
+## v1.4.1 (2021-10-28)
+
+### Features / enhancements
+
+- **Repo**: Show error message in the alert component [#54](https://github.com/gapitio/gapit-htmlgraphics-panel/pull/54)
+
+### Bug fixes
+
+- **Repo**: Fix default onRender code causes error [acec820](https://github.com/gapitio/gapit-htmlgraphics-panel/commit/acec8206b437111bdba71d0b7739f4f27a1c83b1)
+
 ## v1.4.0 (2021-10-20)
 
 ### Features / enhancements
