@@ -24,6 +24,7 @@ export interface OptionsInterface {
   onRender: EditorCodeType;
   dynamicData: boolean;
   dynamicFieldDisplayValues: boolean;
+  dynamicProps: boolean;
   onInit: EditorCodeType;
   codeData: EditorCodeType;
   importedPanelOptions: EditorCodeType;
