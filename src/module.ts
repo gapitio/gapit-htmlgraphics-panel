@@ -167,6 +167,12 @@ export const plugin = new PanelPlugin<OptionsInterface>(HTMLPanel).useFieldConfi
       defaultValue: false,
     })
     .addBooleanSwitch({
+      path: 'dynamicProps',
+      name: 'Dynamic props',
+      description: 'Update props when new data is available.',
+      defaultValue: false,
+    })
+    .addBooleanSwitch({
       path: 'panelupdateOnMount',
       name: 'Trigger panelupdate when mounted',
       description:

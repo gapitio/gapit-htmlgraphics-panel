@@ -53,6 +53,7 @@ export class HTMLPanel extends PureComponent<Props, PanelState> {
   errors: PanelState['errors'] = {};
   defaultErrorMessage = 'Check console for more info (ctrl+shift+j)';
   data = this.props.data; // Used for dynamic data
+  dynamicProps = this.props; // Used for dynamic props
   fieldDisplayValues: FieldDisplay[] = [];
   panelUpdateEvent = new CustomEvent('panelupdate');
   panelWillUnmountEvent = new CustomEvent('panelwillunmount');
@@ -168,8 +169,9 @@ export class HTMLPanel extends PureComponent<Props, PanelState> {
     this.updateError(errorObj);
   }
 
-  executeScript(script: string, { dynamicData = false, dynamicFieldDisplayValues = false } = {}) {
+  executeScript(script: string, { dynamicData = false, dynamicFieldDisplayValues = false, dynamicProps = false } = {}) {
     const data = dynamicData ? this.data : this.props.data;
+    const props = dynamicProps ? this.dynamicProps : this.props;
     const fieldDisplayValues = dynamicFieldDisplayValues ? this.fieldDisplayValues : _.clone(this.fieldDisplayValues);
     const codeData = this.getCodeData();
 
@@ -187,9 +189,10 @@ export class HTMLPanel extends PureComponent<Props, PanelState> {
       theme2,
       getTemplateSrv,
       getLocationSrv,
-      props: this.props,
-      width: this.props.width,
-      height: this.props.height,
+      props,
+      // width and height will not be dynamic even if dynamicProps is true since they are assigned to the value
+      width: props.width,
+      height: props.height,
       getFieldDisplayValues: this.populatedGetFieldDisplayValues,
       fieldDisplayValues,
       fieldReducers,
@@ -237,11 +240,11 @@ export class HTMLPanel extends PureComponent<Props, PanelState> {
       isError: false,
     };
 
-    const { onInit, dynamicData, dynamicFieldDisplayValues } = this.props.options;
+    const { onInit, dynamicData, dynamicFieldDisplayValues, dynamicProps } = this.props.options;
 
     if (onInit) {
       try {
-        this.executeScript(onInit, { dynamicData, dynamicFieldDisplayValues });
+        this.executeScript(onInit, { dynamicData, dynamicFieldDisplayValues, dynamicProps });
       } catch (e) {
         errorObj.isError = true;
         errorObj.error = e;
@@ -317,6 +320,11 @@ export class HTMLPanel extends PureComponent<Props, PanelState> {
     // Update this.data with the new data
     if (this.props.options.dynamicData) {
       Object.assign(this.data, this.props.data);
+    }
+    if (this.props.options.dynamicProps) {
+      console.log(this.props, this.dynamicProps);
+
+      Object.assign(this.dynamicProps, this.props);
     }
 
     const isChanged = !shallowCompare(this.state.options, this.props.options);
