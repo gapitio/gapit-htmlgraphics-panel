@@ -155,6 +155,10 @@ Executes the code every render (when new data is available).
 
 Update the [data object](references.md#data) when new data is available. The code will not execute again, it will only update the [data object](references.md#data). This is only for onInit, onRender will update like normal.
 
+### Dynamic htmlGraphics
+
+Update [htmlGraphics](references.md#htmlgraphics-global) when new data is available.
+
 ### Dynamic fieldDisplayValues
 
 Update [fieldDisplayValues](references.md#fielddisplayvalues) when new data is available.

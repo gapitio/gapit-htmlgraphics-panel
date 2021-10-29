@@ -54,6 +54,7 @@ export class HTMLPanel extends PureComponent<Props, PanelState> {
   defaultErrorMessage = 'Check console for more info (ctrl+shift+j)';
   data = this.props.data; // Used for dynamic data
   dynamicProps = this.props; // Used for dynamic props
+  htmlGraphics = {};
   fieldDisplayValues: FieldDisplay[] = [];
   panelUpdateEvent = new CustomEvent('panelupdate');
   panelWillUnmountEvent = new CustomEvent('panelwillunmount');
@@ -96,6 +97,42 @@ export class HTMLPanel extends PureComponent<Props, PanelState> {
       this.fieldDisplayValues.push(...this.populatedGetFieldDisplayValues());
     } else {
       this.fieldDisplayValues.splice(0, this.fieldDisplayValues.length);
+    }
+  };
+
+  updateDynamicReferences = () => {
+    // Update this.data with the new data
+    if (this.props.options.dynamicData) {
+      Object.assign(this.data, this.props.data);
+    }
+
+    if (this.props.options.dynamicProps) {
+      Object.assign(this.dynamicProps, this.props);
+    }
+
+    if (this.props.options.dynamicHtmlGraphics) {
+      const htmlNode = this.state.shadowContainerRef.current?.firstElementChild?.shadowRoot as HTMLNodeElement;
+      const codeData = this.getCodeData();
+      const { data, options, width, height } = this.props;
+      const { theme, theme2 } = config;
+
+      Object.assign(this.htmlGraphics, {
+        htmlNode,
+        data,
+        customProperties: codeData,
+        codeData,
+        options,
+        theme,
+        theme2,
+        getTemplateSrv,
+        getLocationSrv,
+        props: this.props,
+        width,
+        height,
+        getFieldDisplayValues: this.populatedGetFieldDisplayValues,
+        fieldDisplayValues: this.fieldDisplayValues,
+        fieldReducers,
+      });
     }
   };
 
@@ -169,7 +206,10 @@ export class HTMLPanel extends PureComponent<Props, PanelState> {
     this.updateError(errorObj);
   }
 
-  executeScript(script: string, { dynamicData = false, dynamicFieldDisplayValues = false, dynamicProps = false } = {}) {
+  executeScript(
+    script: string,
+    { dynamicData = false, dynamicFieldDisplayValues = false, dynamicProps = false, dynamicHtmlGraphics = false } = {}
+  ) {
     const data = dynamicData ? this.data : this.props.data;
     const props = dynamicProps ? this.dynamicProps : this.props;
     const fieldDisplayValues = dynamicFieldDisplayValues ? this.fieldDisplayValues : _.clone(this.fieldDisplayValues);
@@ -179,24 +219,26 @@ export class HTMLPanel extends PureComponent<Props, PanelState> {
     const { options } = this.props;
     const { theme, theme2 } = config;
 
-    const htmlGraphics = {
-      htmlNode,
-      data,
-      customProperties: codeData,
-      codeData,
-      options,
-      theme,
-      theme2,
-      getTemplateSrv,
-      getLocationSrv,
-      props,
-      // width and height will not be dynamic even if dynamicProps is true since they are assigned to the value
-      width: props.width,
-      height: props.height,
-      getFieldDisplayValues: this.populatedGetFieldDisplayValues,
-      fieldDisplayValues,
-      fieldReducers,
-    };
+    const htmlGraphics = dynamicHtmlGraphics
+      ? this.htmlGraphics
+      : {
+          htmlNode,
+          data,
+          customProperties: codeData,
+          codeData,
+          options,
+          theme,
+          theme2,
+          getTemplateSrv,
+          getLocationSrv,
+          props,
+          // width and height will not be dynamic even if dynamicProps is true since they are assigned to the value
+          width: props.width,
+          height: props.height,
+          getFieldDisplayValues: this.populatedGetFieldDisplayValues,
+          fieldDisplayValues,
+          fieldReducers,
+        };
 
     const F = new Function(
       'htmlNode',
@@ -240,11 +282,11 @@ export class HTMLPanel extends PureComponent<Props, PanelState> {
       isError: false,
     };
 
-    const { onInit, dynamicData, dynamicFieldDisplayValues, dynamicProps } = this.props.options;
+    const { onInit, dynamicData, dynamicFieldDisplayValues, dynamicProps, dynamicHtmlGraphics } = this.props.options;
 
     if (onInit) {
       try {
-        this.executeScript(onInit, { dynamicData, dynamicFieldDisplayValues, dynamicProps });
+        this.executeScript(onInit, { dynamicData, dynamicFieldDisplayValues, dynamicProps, dynamicHtmlGraphics });
       } catch (e) {
         errorObj.isError = true;
         errorObj.error = e;
@@ -317,15 +359,7 @@ export class HTMLPanel extends PureComponent<Props, PanelState> {
   }
 
   componentDidUpdate() {
-    // Update this.data with the new data
-    if (this.props.options.dynamicData) {
-      Object.assign(this.data, this.props.data);
-    }
-    if (this.props.options.dynamicProps) {
-      console.log(this.props, this.dynamicProps);
-
-      Object.assign(this.dynamicProps, this.props);
-    }
+    this.updateDynamicReferences();
 
     const isChanged = !shallowCompare(this.state.options, this.props.options);
 
