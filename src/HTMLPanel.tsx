@@ -54,7 +54,7 @@ export class HTMLPanel extends PureComponent<Props, PanelState> {
   defaultErrorMessage = 'Check console for more info (ctrl+shift+j)';
   data = this.props.data; // Used for dynamic data
   dynamicProps = this.props; // Used for dynamic props
-  htmlGraphics = {};
+  htmlGraphics = this.getHtmlGraphics();
   fieldDisplayValues: FieldDisplay[] = [];
   panelUpdateEvent = new CustomEvent('panelupdate');
   panelWillUnmountEvent = new CustomEvent('panelwillunmount');
@@ -66,6 +66,31 @@ export class HTMLPanel extends PureComponent<Props, PanelState> {
       .filter(({ standard }) => standard)
       .map(({ id }) => id),
   };
+
+  getHtmlGraphics() {
+    const htmlNode = this.state.shadowContainerRef.current?.firstElementChild?.shadowRoot as HTMLNodeElement;
+    const codeData = this.getCodeData();
+    const { data, options, width, height } = this.props;
+    const { theme, theme2 } = config;
+
+    return {
+      htmlNode,
+      data,
+      customProperties: codeData,
+      codeData,
+      options,
+      theme,
+      theme2,
+      getTemplateSrv,
+      getLocationSrv,
+      props: this.props,
+      width,
+      height,
+      getFieldDisplayValues: this.populatedGetFieldDisplayValues,
+      fieldDisplayValues: this.fieldDisplayValues,
+      fieldReducers,
+    };
+  }
 
   populatedGetFieldDisplayValues = ({
     series = this.props.data.series,
@@ -111,28 +136,7 @@ export class HTMLPanel extends PureComponent<Props, PanelState> {
     }
 
     if (this.props.options.dynamicHtmlGraphics) {
-      const htmlNode = this.state.shadowContainerRef.current?.firstElementChild?.shadowRoot as HTMLNodeElement;
-      const codeData = this.getCodeData();
-      const { data, options, width, height } = this.props;
-      const { theme, theme2 } = config;
-
-      Object.assign(this.htmlGraphics, {
-        htmlNode,
-        data,
-        customProperties: codeData,
-        codeData,
-        options,
-        theme,
-        theme2,
-        getTemplateSrv,
-        getLocationSrv,
-        props: this.props,
-        width,
-        height,
-        getFieldDisplayValues: this.populatedGetFieldDisplayValues,
-        fieldDisplayValues: this.fieldDisplayValues,
-        fieldReducers,
-      });
+      Object.assign(this.htmlGraphics, this.getHtmlGraphics());
     }
   };
 
@@ -385,7 +389,7 @@ export class HTMLPanel extends PureComponent<Props, PanelState> {
     htmlNode.dispatchEvent(this.panelWillUnmountEvent);
   }
 
-  updateError = ({ scope, isError, error }: ErrorObj) => {
+  updateError({ scope, isError, error }: ErrorObj) {
     if (!isError && this.state.errors[scope]) {
       delete this.errors[scope];
     } else {
@@ -394,7 +398,7 @@ export class HTMLPanel extends PureComponent<Props, PanelState> {
         this.errors = { ...this.errors, [scope]: errorMessage };
       }
     }
-  };
+  }
 
   shadowContainerStyle = () => {
     const style: React.CSSProperties = {
