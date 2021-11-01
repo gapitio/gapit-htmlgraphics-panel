@@ -11,7 +11,6 @@ import { OptionsInterface, CalcsMutation } from 'types';
 import { SVGBaseFix } from 'utils/polyfill';
 import 'fonts.scss';
 import { parseJSON } from 'utils/parseJSON';
-import { shallowCompare } from 'utils/shallowCompare';
 import _ from 'lodash';
 import { Errors } from 'components/Errors';
 
@@ -357,7 +356,7 @@ export class HTMLPanel extends PureComponent<Props, PanelState> {
       this.panelupdate();
     }
 
-    if (!shallowCompare(this.state.errors, this.errors)) {
+    if (!_.isEqual(this.state.errors, this.errors)) {
       this.setState({ errors: { ...this.errors } });
     }
   }
@@ -365,7 +364,7 @@ export class HTMLPanel extends PureComponent<Props, PanelState> {
   componentDidUpdate() {
     this.updateDynamicReferences();
 
-    const isChanged = !shallowCompare(this.state.options, this.props.options);
+    const isChanged = !_.isEqual(this.state.options, this.props.options);
 
     if (isChanged) {
       this.initialize();
@@ -377,7 +376,7 @@ export class HTMLPanel extends PureComponent<Props, PanelState> {
       this.panelupdate();
       this.onRender();
 
-      if (!shallowCompare(this.state.errors, this.errors)) {
+      if (!_.isEqual(this.state.errors, this.errors)) {
         this.setState({ errors: { ...this.errors } });
       }
     }
