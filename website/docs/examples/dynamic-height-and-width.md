@@ -3,7 +3,7 @@ id: dynamic-height-and-width
 title: Dynamic height and width
 ---
 
-![Font example](../../static/gif/example-dynamic-height-and-width.gif)
+![Dynamic height and width](../../static/gif/example-dynamic-height-and-width.gif)
 
 `CSS`
 
