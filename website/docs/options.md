@@ -177,7 +177,74 @@ Trigger the panelupdate event (htmlNode.onpanelupdate) when the panel is first l
 
 ### Trigger onInit on resize
 
-Trigger the onInit code when the panels width/height changes.
+:::caution
+This doesn't trigger any cleanup or [onpanelwillunmount](references.md#panelwillunmount-event). It will only trigger `onInit`.
+:::
+
+Trigger the `onInit` code when the panels width/height changes.
+
+Without `onInitOnResize`
+
+`onInit`
+
+```js
+// REMEMBER TO TURN DYNAMIC HTMLGRAPHICS TO TRUE
+
+const [heightValueElt, widthValueElt] = htmlNode.querySelectorAll('.value-field');
+
+// Used to store the initial
+const storedPanelSize = {
+  height: htmlGraphics.height,
+  width: htmlGraphics.width,
+};
+
+const updateValueText = () => {
+  // Important that htmlGraphics.height or width is used inside the function.
+  // If height or width is destructured outside the function they will not get the new height.
+  heightValueElt.textContent = htmlGraphics.height;
+  widthValueElt.textContent = htmlGraphics.width;
+};
+
+const updateStoredPanelSize = () => {
+  storedPanelSize.height = htmlGraphics.height;
+  storedPanelSize.width = htmlGraphics.width;
+};
+
+// Show the height and width right away.
+updateValueText();
+
+htmlNode.onpanelupdate = () => {
+  const isPanelSizeUpdate = !(
+    htmlGraphics.height == storedPanelSize.height && htmlGraphics.width === storedPanelSize.width
+  );
+
+  if (isPanelSizeUpdate) {
+    updateValueText();
+
+    // Update the previous stored values with the new height and witdth
+    updateStoredPanelSize();
+  }
+};
+```
+
+With `onInitOnResize`
+
+`onInit`
+
+```js
+// REMEMBER TO TURN DYNAMIC HTMLGRAPHICS AND TRIGGER ONINIT ON RESIZE TO TRUE
+
+const [heightValueElt, widthValueElt] = htmlNode.querySelectorAll('.value-field');
+
+const updateValueText = () => {
+  heightValueElt.textContent = htmlGraphics.height;
+  widthValueElt.textContent = htmlGraphics.width;
+};
+
+updateValueText();
+```
+
+Full code example [dynamic-height-and-width](examples/dynamic-height-and-width.md)
 
 ### onInit
 
