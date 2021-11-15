@@ -175,6 +175,10 @@ Update [props](references.md#props) when new data is available.
 
 Trigger the panelupdate event (htmlNode.onpanelupdate) when the panel is first loaded (in most cases, this should be true)
 
+### Trigger onInit on resize
+
+Trigger the onInit code when the panels width/height changes.
+
 ### onInit
 
 Executes when the panel loads
