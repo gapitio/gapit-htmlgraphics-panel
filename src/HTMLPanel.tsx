@@ -57,6 +57,7 @@ export class HTMLPanel extends PureComponent<Props, PanelState> {
   fieldDisplayValues: FieldDisplay[] = [];
   panelUpdateEvent = new CustomEvent('panelupdate');
   panelWillUnmountEvent = new CustomEvent('panelwillunmount');
+  panelSize = { height: this.props.height, width: this.props.width };
 
   calcGroups = {
     [CalcsMutation.All]: fieldReducers.list().map(({ id }) => id),
@@ -109,6 +110,18 @@ export class HTMLPanel extends PureComponent<Props, PanelState> {
       sparkline,
       timeZone,
     });
+
+  onInitOnResize() {
+    if (
+      this.props.options.onInitOnResize &&
+      !(this.panelSize.height === this.props.height && this.panelSize.width === this.props.width)
+    ) {
+      this.onInit();
+
+      this.panelSize.height = this.props.height;
+      this.panelSize.width = this.props.width;
+    }
+  }
 
   updateFieldDisplayValues = () => {
     const { calcsMutation, reduceOptions } = this.props.options;
@@ -365,6 +378,8 @@ export class HTMLPanel extends PureComponent<Props, PanelState> {
     this.updateDynamicReferences();
 
     const isChanged = !_.isEqual(this.state.options, this.props.options);
+
+    this.onInitOnResize();
 
     if (isChanged) {
       this.initialize();
