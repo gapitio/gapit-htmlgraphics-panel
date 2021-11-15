@@ -187,6 +187,12 @@ export const plugin = new PanelPlugin<OptionsInterface>(HTMLPanel).useFieldConfi
         'Trigger the panelupdate event (htmlNode.onpanelupdate) when the panel is first loaded (in most cases, this should be true)',
       defaultValue: true,
     })
+    .addBooleanSwitch({
+      path: 'onInitOnResize',
+      name: 'Trigger onInit on resize',
+      description: 'Trigger the onInit code when the panels width/height changes.',
+      defaultValue: false,
+    })
     .addCustomEditor({
       id: 'onInit',
       path: 'onInit',
