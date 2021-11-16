@@ -1,5 +1,17 @@
 # Change Log
 
+## v1.5.0 (2021-10-28)
+
+### Features / enhancements
+
+- **Repo**: Add dynamic props [#55](https://github.com/gapitio/gapit-htmlgraphics-panel/pull/55)
+- **Repo**: Add dynamic htmlGraphics [#56](https://github.com/gapitio/gapit-htmlgraphics-panel/pull/56)
+- **Repo**: Add onInitOnResize [#63](https://github.com/gapitio/gapit-htmlgraphics-panel/pull/63)
+
+### Bug fixes
+
+- **Repo**: Fix onInit triggers when leaving edit mode [#59](https://github.com/gapitio/gapit-htmlgraphics-panel/pull/59)
+
 ## v1.4.1 (2021-10-28)
 
 ### Features / enhancements
