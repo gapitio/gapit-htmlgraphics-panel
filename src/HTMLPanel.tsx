@@ -7,17 +7,15 @@ import {
   PanelProps,
 } from '@grafana/data';
 import { config, getTemplateSrv, getLocationSrv } from '@grafana/runtime';
-import { OptionsInterface, CalcsMutation } from 'types';
-import { SVGBaseFix } from 'utils/polyfill';
+import { OptionsInterface, CalcsMutation, ErrorObj, HTMLNodeElement } from 'types';
 import 'fonts.scss';
 import { parseJSON } from 'utils/parseJSON';
 import _ from 'lodash';
 import { Errors } from 'components/Errors';
-
-interface HTMLNodeElement extends ShadowRoot {
-  onpanelupdate: () => void;
-  onpanelwillunmount: () => void;
-}
+import { addShadowRoot } from 'utils/addShadowRoot';
+import { triggerPanelupdate } from 'utils/events/panelupdate';
+import { triggerPanelwillunmount } from 'utils/events/panelwillunmount';
+import { addHtml } from 'utils/addHtml';
 
 interface Props extends PanelProps<OptionsInterface> {}
 interface PanelState {
@@ -36,12 +34,6 @@ interface PopulatedGetFieldDisplayValuesOptions {
   timeZone?: GetFieldDisplayValuesOptions['timeZone'];
 }
 
-interface ErrorObj {
-  scope: string;
-  isError: boolean;
-  error?: unknown;
-}
-
 export class HTMLPanel extends PureComponent<Props, PanelState> {
   state: PanelState = {
     shadowContainerRef: React.createRef<HTMLDivElement>(),
@@ -55,9 +47,8 @@ export class HTMLPanel extends PureComponent<Props, PanelState> {
   dynamicProps = this.props; // Used for dynamic props
   htmlGraphics = this.getHtmlGraphics();
   fieldDisplayValues: FieldDisplay[] = [];
-  panelUpdateEvent = new CustomEvent('panelupdate');
-  panelWillUnmountEvent = new CustomEvent('panelwillunmount');
   panelSize = { height: this.props.height, width: this.props.width };
+  shadowElt: HTMLDivElement | null = null;
 
   calcGroups = {
     [CalcsMutation.All]: fieldReducers.list().map(({ id }) => id),
@@ -157,7 +148,7 @@ export class HTMLPanel extends PureComponent<Props, PanelState> {
       json: codeData,
       isError,
       error,
-    } = parseJSON<OptionsInterface>(this.props.options.codeData, {
+    } = parseJSON(this.props.options.codeData, {
       namespace: 'codeData',
     });
 
@@ -168,58 +159,6 @@ export class HTMLPanel extends PureComponent<Props, PanelState> {
     });
 
     return codeData ?? {};
-  }
-
-  setHTML() {
-    const shadowContainer = this.state.shadowContainerRef.current;
-    const htmlNode = shadowContainer?.firstElementChild?.shadowRoot as HTMLNodeElement;
-    const errorObj: ErrorObj = {
-      scope: 'html',
-      isError: false,
-    };
-
-    if (shadowContainer && htmlNode) {
-      try {
-        htmlNode.onpanelupdate = () => {};
-        htmlNode.onpanelwillunmount = () => {};
-        htmlNode.dispatchEvent(this.panelUpdateEvent);
-
-        // Create a new variable to not mutate/override the current html code
-        let htmlCode = this.props.options.html;
-        const CSSCode = this.props.options.css;
-        const rootCSSCode = this.props.options.rootCSS;
-
-        if (this.props.options.SVGBaseFix && htmlCode) {
-          // Fix references to inline SVG elements when the <base> tag is in use.
-          htmlCode = SVGBaseFix(htmlCode);
-        }
-
-        const rootCSS = document.createElement('style');
-        rootCSS.textContent = rootCSSCode ?? '';
-        shadowContainer.appendChild(rootCSS);
-
-        htmlNode.innerHTML = `<style>${CSSCode ?? ''}</style>${htmlCode ? htmlCode : '<div></div>'}`;
-
-        const htmlDocument = htmlNode.children[1] as HTMLElement | (HTMLElement & SVGElement) | undefined;
-
-        if (this.props.options.overflow && htmlDocument) {
-          htmlDocument.style.overflow = this.props.options.overflow;
-        }
-
-        if (this.props.options.add100Percentage && htmlDocument) {
-          htmlDocument.setAttribute('height', '100%');
-          htmlDocument.setAttribute('width', '100%');
-          htmlDocument.style.height = '100%';
-          htmlDocument.style.width = '100%';
-        }
-      } catch (e) {
-        errorObj.isError = true;
-        errorObj.error = e;
-        console.error(`htmlNode:`, e);
-      }
-    }
-
-    this.updateError(errorObj);
   }
 
   executeScript(
@@ -315,47 +254,12 @@ export class HTMLPanel extends PureComponent<Props, PanelState> {
 
   initialize() {
     this.updateFieldDisplayValues();
-    this.addShadowRoot();
-    this.setHTML();
+    this.shadowElt = addShadowRoot(this.state.shadowContainerRef.current, {
+      centerAlignContent: this.props.options.centerAlignContent,
+    });
+
+    this.updateError(addHtml(this.state.shadowContainerRef.current, this.props.options));
     this.onInit();
-  }
-
-  createShadowRootElement() {
-    const shadowElt = document.createElement('div');
-    shadowElt.attachShadow({ mode: 'open' });
-
-    shadowElt.style.width = `100%`;
-    shadowElt.style.height = `100%`;
-    shadowElt.style.position = 'absolute';
-
-    if (this.props.options.centerAlignContent) {
-      shadowElt.style.display = 'flex';
-      shadowElt.style.justifyContent = 'center';
-      shadowElt.style.alignItems = 'center';
-    }
-
-    return shadowElt;
-  }
-
-  addShadowRoot() {
-    const shadowContainerElt = this.state.shadowContainerRef.current;
-
-    if (shadowContainerElt) {
-      while (shadowContainerElt.firstChild) {
-        shadowContainerElt.firstChild.remove();
-      }
-
-      shadowContainerElt.appendChild(this.createShadowRootElement());
-    }
-  }
-
-  // Update panelUpdate to notify a change has happened
-  panelupdate() {
-    const htmlNode = this.state.shadowContainerRef.current?.firstElementChild?.shadowRoot as HTMLNodeElement;
-    if (htmlNode && htmlNode.onpanelupdate) {
-      htmlNode.onpanelupdate();
-      htmlNode.dispatchEvent(this.panelUpdateEvent);
-    }
   }
 
   componentDidMount() {
@@ -366,7 +270,7 @@ export class HTMLPanel extends PureComponent<Props, PanelState> {
     }
 
     if (this.props.options.panelupdateOnMount) {
-      this.panelupdate();
+      triggerPanelupdate(this.shadowElt);
     }
 
     if (!_.isEqual(this.state.errors, this.errors)) {
@@ -383,12 +287,10 @@ export class HTMLPanel extends PureComponent<Props, PanelState> {
 
     if (isChanged) {
       this.initialize();
-      this.setState({
-        options: this.props.options,
-      });
+      this.setState({ options: this.props.options });
     } else {
       this.updateFieldDisplayValues();
-      this.panelupdate();
+      triggerPanelupdate(this.shadowElt);
       this.onRender();
 
       if (!_.isEqual(this.state.errors, this.errors)) {
@@ -398,9 +300,7 @@ export class HTMLPanel extends PureComponent<Props, PanelState> {
   }
 
   componentWillUnmount() {
-    const htmlNode = this.state.shadowContainerRef.current?.firstElementChild?.shadowRoot as HTMLNodeElement;
-    htmlNode.onpanelwillunmount();
-    htmlNode.dispatchEvent(this.panelWillUnmountEvent);
+    triggerPanelwillunmount(this.shadowElt);
   }
 
   updateError({ scope, isError, error }: ErrorObj) {
@@ -414,20 +314,17 @@ export class HTMLPanel extends PureComponent<Props, PanelState> {
     }
   }
 
-  shadowContainerStyle = () => {
-    const style: React.CSSProperties = {
-      width: `${this.props.width}px`,
-      height: `${this.props.height}px`,
-      position: 'absolute',
-    };
-
-    return style;
-  };
-
   render() {
     return (
       <>
-        <div ref={this.state.shadowContainerRef} style={this.shadowContainerStyle()}></div>
+        <div
+          ref={this.state.shadowContainerRef}
+          style={{
+            width: `${this.props.width}px`,
+            height: `${this.props.height}px`,
+            position: 'absolute',
+          }}
+        ></div>
         <Errors errors={this.state.errors} />
       </>
     );

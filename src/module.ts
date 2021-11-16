@@ -37,17 +37,13 @@ export const plugin = new PanelPlugin<OptionsInterface>(HTMLPanel).useFieldConfi
     .addBooleanSwitch({
       path: 'add100Percentage',
       name: 'Fit content to panel',
-      description: `
-        Adds 100% height and width attribute to the document.
-      `,
+      description: `Adds 100% height and width attribute to the first element in the HTML/SVG code.`,
       defaultValue: true,
     })
     .addBooleanSwitch({
       path: 'centerAlignContent',
       name: 'Center align content',
-      description: `
-        Vertically and horizontally aligns the content to the center.
-      `,
+      description: `Vertically and horizontally aligns the content to the center.`,
       defaultValue: true,
     })
     .addRadio({
@@ -100,7 +96,7 @@ export const plugin = new PanelPlugin<OptionsInterface>(HTMLPanel).useFieldConfi
       id: 'rootCSS',
       path: 'rootCSS',
       name: 'Root CSS',
-      description: "CSS that's loaded outside the shadowroot. Useful for font faces and imports.",
+      description: "CSS that's loaded outside the shadow root. Useful for font faces and imports.",
       editor: CodeEditorOption,
       defaultValue: '',
       settings: {
@@ -124,7 +120,7 @@ export const plugin = new PanelPlugin<OptionsInterface>(HTMLPanel).useFieldConfi
       path: 'html',
       name: 'HTML/SVG document',
       description: `
-        This is the htmlNode (can be HTML or SVG).
+        This is the htmlNode (can be HTML and/or SVG).
         It is recommended to write your code in an editor and paste the code here.
         This is to keep a copy of the code and not lose your work if the browser crashes.
     `,

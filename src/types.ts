@@ -33,3 +33,14 @@ export interface OptionsInterface {
   reduceOptions: ReduceDataOptions;
   calcsMutation: CalcsMutation;
 }
+
+export interface ErrorObj {
+  scope: string;
+  isError: boolean;
+  error?: unknown;
+}
+
+export interface HTMLNodeElement extends ShadowRoot {
+  onpanelupdate: () => void;
+  onpanelwillunmount: () => void;
+}

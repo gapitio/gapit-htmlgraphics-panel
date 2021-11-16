@@ -90,7 +90,22 @@ You can check the calcs properties with [fieldReducers](./references.md#fieldred
 ### Fit content to panel
 
 This is mostly for SVG, as it will scale the content based on the size of the panel.
-Adds 100% height and width attribute to the document.
+Adds the height and width of the first element to 100% in the HTML/SVG code.
+
+```html
+<!-- style is not needed here. It's only used to show that it overwrites the existing style as well. -->
+<div style="height: 10px">First element</div>
+<div style="height: 20px">Second element</div>
+<div style="height: 30px">Third element</div>
+```
+
+becomes
+
+```html
+<div height="100%" width="100%" style="height: 100%; width: 100%;">First element</div>
+<div style="height: 20px">Second element</div>
+<div style="height: 30px">Third element</div>
+```
 
 ### Center align content
 
@@ -106,7 +121,7 @@ Chooses what happens if content overflows outside the panel.
 
 ### Root CSS
 
-CSS that's loaded outside the shadowroot. Useful for font faces and imports.
+CSS that's loaded outside the shadow root. Useful for font faces and imports.
 
 Below code imports the [Stick No Bills](https://fonts.google.com/specimen/Stick+No+Bills) font
 
