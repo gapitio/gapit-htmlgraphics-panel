@@ -19,7 +19,9 @@ function getShadowElt({ centerAlignContent = false } = {}) {
 }
 
 export function addShadowRoot(targetElt: HTMLDivElement | null, { centerAlignContent = false } = {}) {
-  if (!targetElt) return null;
+  if (!targetElt) {
+    return null;
+  }
 
   // Remove previous shadow root
   while (targetElt.firstChild) {
