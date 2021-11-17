@@ -32,26 +32,29 @@ async function importPanelOptions(files: FileList | null, updatePanelOptions: (v
 const Spacer: React.FC = () => <div style={{ marginBottom: '6px' }}></div>;
 
 export const ImportExportOption: React.FC<Props> = ({ value, item, onChange, context }) => {
-  if (context.options) {
+  const getOptionsString = () => {
+    if (!context.options) {
+      return;
+    }
+
     const options = { ...context.options };
     delete options.importedPanelOptions;
-    const optionsString = JSON.stringify(options, null, 4);
-    value = optionsString;
-  }
+    return JSON.stringify(options, null, 4);
+  };
 
   const updatePanelOptions = (code: EditorCodeType) => {
     // Update the options dict before requesting a change
     if (code) {
       Object.assign(context.options, JSON.parse(code));
     }
-    onChange(code);
+    onChange();
   };
 
   return (
     <div>
       <Input type="file" onChange={(e) => importPanelOptions(e.currentTarget.files, updatePanelOptions)} />
       <Spacer />
-      <CodeEditor language={item.settings?.language} value={value} onChange={updatePanelOptions} />
+      <CodeEditor language={item.settings?.language} value={getOptionsString()} onChange={updatePanelOptions} />
       <Spacer />
       <Button onClick={() => downloadJsonFile(value)}>Download as JSON file</Button>
     </div>
