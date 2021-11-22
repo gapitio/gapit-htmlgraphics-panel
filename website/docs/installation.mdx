@@ -5,6 +5,25 @@ title: Installation
 
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import CodeBlock from '@theme/CodeBlock';
+import { htmlGraphics } from '/config.js';
+// Code must be a variable (or imported) or newlines doesn't work
+const SpecificDockerComposeCode = () =>
+  `version: '3'
+services:
+  grafana:
+    image: grafana/grafana
+    container_name: grafana
+    restart: always
+    networks:
+      - grafana
+    ports:
+      - 3000:3000
+    environment:
+      - GF_INSTALL_PLUGINS=${htmlGraphics.releaseUrl()} gapit-htmlgraphics-panel # v1.5.0\n
+networks:
+  grafana:
+    name: grafana`;
 
 You can install the plugin using [grafana-cli](https://grafana.com/docs/grafana/latest/administration/cli/), or by downloading the plugin manually.
 
@@ -43,9 +62,9 @@ grafana-cli plugins install gapit-htmlgraphics-panel
 
 The specific version link can be obtained by copying the asset link from [Releases](https://github.com/gapitio/gapit-htmlgraphics-panel/releases) on the GitHub project page
 
-```bash
-grafana-cli --pluginUrl https://github.com/gapitio/gapit-htmlgraphics-panel/releases/download/v1.4.0/gapit-htmlgraphics-panel-1.4.0.zip plugins install gapit-htmlgraphics-panel
-```
+<CodeBlock className="language-bash">
+  grafana-cli --pluginUrl {htmlGraphics.releaseUrl()} plugins install gapit-htmlgraphics-panel
+</CodeBlock>
 
   </TabItem>
 </Tabs>
@@ -73,9 +92,9 @@ grafana-cli plugins install gapit-htmlgraphics-panel
 
 The specific version link can be obtained by copying the asset link from [Releases](https://github.com/gapitio/gapit-htmlgraphics-panel/releases) on the GitHub project page
 
-```bash
-grafana-cli --pluginUrl https://github.com/gapitio/gapit-htmlgraphics-panel/releases/download/v1.4.0/gapit-htmlgraphics-panel-1.4.0.zip plugins install gapit-htmlgraphics-panel
-```
+<CodeBlock className="language-bash">
+  grafana-cli --pluginUrl {htmlGraphics.releaseUrl()} plugins install gapit-htmlgraphics-panel
+</CodeBlock>
 
   </TabItem>
 </Tabs>
@@ -103,9 +122,9 @@ grafana-cli.exe plugins install gapit-htmlgraphics-panel
 
 The specific version link can be obtained by copying the asset link from [Releases](https://github.com/gapitio/gapit-htmlgraphics-panel/releases) on the GitHub project page
 
-```bash
-grafana-cli.exe --pluginUrl https://github.com/gapitio/gapit-htmlgraphics-panel/releases/download/v1.4.0/gapit-htmlgraphics-panel-1.4.0.zip plugins install gapit-htmlgraphics-panel
-```
+<CodeBlock className="language-bash">
+  grafana-cli.exe --pluginUrl {htmlGraphics.releaseUrl()} plugins install gapit-htmlgraphics-panel
+</CodeBlock>
 
   </TabItem>
 </Tabs>
@@ -187,8 +206,7 @@ services:
 
 networks:
   grafana:
-    external:
-      name: grafana
+    name: grafana
 ```
 
   </TabItem>
@@ -197,25 +215,7 @@ networks:
 
 The specific version link can be obtained by copying the asset link from [Releases](https://github.com/gapitio/gapit-htmlgraphics-panel/releases) on the GitHub project page
 
-```yaml
-version: '3'
-services:
-  grafana:
-    image: grafana/grafana
-    container_name: grafana
-    restart: always
-    networks:
-      - grafana
-    ports:
-      - 3000:3000
-    environment:
-      - GF_INSTALL_PLUGINS=https://github.com/gapitio/gapit-htmlgraphics-panel/releases/download/v1.4.0/gapit-htmlgraphics-panel-1.4.0.zip;gapit-htmlgraphics-panel # v1.4.0
-
-networks:
-  grafana:
-    external:
-      name: grafana
-```
+<CodeBlock className="language-yaml">{SpecificDockerComposeCode()}</CodeBlock>
 
   </TabItem>
 </Tabs>
