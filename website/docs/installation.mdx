@@ -175,7 +175,7 @@ Expand-Archive -Path gapit-htmlgraphics-panel-<version>.zip -DestinationPath C:\
 version: '3'
 services:
   grafana:
-    image: grafana/grafana:8.1.4
+    image: grafana/grafana
     container_name: grafana
     restart: always
     networks:
@@ -201,7 +201,7 @@ The specific version link can be obtained by copying the asset link from [Releas
 version: '3'
 services:
   grafana:
-    image: grafana/grafana:8.1.4
+    image: grafana/grafana
     container_name: grafana
     restart: always
     networks:
