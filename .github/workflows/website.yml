@@ -10,6 +10,9 @@ on:
 jobs:
   gh-release:
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: './website'
     steps:
       - uses: actions/checkout@v2
       - uses: actions/setup-node@v2
@@ -28,7 +31,6 @@ jobs:
 
       - name: Install dependencies
         run: yarn install --frozen-lockfile
-        working-directory: website
 
       - name: Release to GitHub Pages
         env:
@@ -36,4 +38,3 @@ jobs:
           GIT_USER: git
         run: |
           yarn deploy
-        working-directory: website
