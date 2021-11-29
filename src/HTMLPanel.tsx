@@ -38,7 +38,7 @@ export class HTMLPanel extends PureComponent<Props, PanelState> {
   state: PanelState = {
     shadowContainerRef: React.createRef<HTMLDivElement>(),
     errors: {},
-    options: this.props.options,
+    options: { ...this.props.options },
   };
 
   errors: PanelState['errors'] = {};
@@ -287,7 +287,7 @@ export class HTMLPanel extends PureComponent<Props, PanelState> {
 
     if (isChanged) {
       this.initialize();
-      this.setState({ options: this.props.options });
+      this.setState({ options: { ...this.props.options } });
     } else {
       this.updateFieldDisplayValues();
       triggerPanelupdate(this.shadowElt);
