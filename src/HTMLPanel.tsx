@@ -283,12 +283,11 @@ export class HTMLPanel extends PureComponent<Props, PanelState> {
 
     const isChanged = !_.isEqual(this.state.options, this.props.options);
 
-    this.onInitOnResize();
-
     if (isChanged) {
       this.initialize();
       this.setState({ options: { ...this.props.options } });
     } else {
+      this.onInitOnResize();
       this.updateFieldDisplayValues();
       triggerPanelupdate(this.shadowElt);
       this.onRender();
