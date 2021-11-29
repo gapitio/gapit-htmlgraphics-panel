@@ -50,14 +50,6 @@ export class HTMLPanel extends PureComponent<Props, PanelState> {
   panelSize = { height: this.props.height, width: this.props.width };
   shadowElt: HTMLDivElement | null = null;
 
-  calcGroups = {
-    [CalcsMutation.All]: fieldReducers.list().map(({ id }) => id),
-    [CalcsMutation.Standard]: fieldReducers
-      .list()
-      .filter(({ standard }) => standard)
-      .map(({ id }) => id),
-  };
-
   getHtmlGraphics() {
     const htmlNode = this.state.shadowContainerRef.current?.firstElementChild?.shadowRoot as HTMLNodeElement;
     const codeData = this.getCodeData();
@@ -115,12 +107,9 @@ export class HTMLPanel extends PureComponent<Props, PanelState> {
   }
 
   updateFieldDisplayValues = () => {
-    const { calcsMutation, reduceOptions } = this.props.options;
+    const { calcsMutation } = this.props.options;
 
     if (calcsMutation !== CalcsMutation.None) {
-      if (calcsMutation !== CalcsMutation.Custom) {
-        reduceOptions.calcs = this.calcGroups[calcsMutation];
-      }
       this.fieldDisplayValues.splice(0, this.fieldDisplayValues.length);
       this.fieldDisplayValues.push(...this.populatedGetFieldDisplayValues());
     } else {

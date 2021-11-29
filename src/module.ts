@@ -5,34 +5,28 @@ import { CodeDataOption } from 'components/PanelOptions/CodeData';
 import { CodeEditorOption } from 'components/PanelOptions/CodeEditor';
 import { ImportExportOption } from 'components/PanelOptions/ImportExport';
 import { SelectedCalcsOption } from 'components/PanelOptions/SelectedCalcsOption';
+import { CalcsMutationOption } from 'components/PanelOptions/CalcsMutationOptions';
 
 export const plugin = new PanelPlugin<OptionsInterface>(HTMLPanel).useFieldConfig().setPanelOptions((builder) => {
   return builder
-    .addRadio({
+    .addCustomEditor({
+      id: 'calcsMutation',
       path: 'calcsMutation',
       name: 'Mutate calcs',
       description:
-        "Mutate the calcs object. Useful when getting metric values. This doesn't remove existing calcs. Calcs like max, min, diff, ETC adds all standard calcs, which means that only some custom calcs are allowed.",
-      settings: {
-        options: [
-          { value: CalcsMutation.None, label: 'No mutation' },
-          { value: CalcsMutation.Custom, label: 'Custom' },
-          { value: CalcsMutation.Standard, label: 'Standard calcs' },
-          { value: CalcsMutation.All, label: 'All calcs' },
-        ],
-      },
+        "Mutate the calcs object and returned values from fieldDisplayValues. Useful when getting metric values. This doesn't remove existing calcs. Adding two or more calcs adds the standard calcs to the calcs object. OBS! Some changes might require a page reload.",
       category: ['Value options'],
+      editor: CalcsMutationOption,
       defaultValue: CalcsMutation.Standard,
     })
     .addCustomEditor({
       id: 'reduceOptions.calcs',
       path: 'reduceOptions.calcs',
       name: 'Calcs',
-      description: 'Choose the reducer functions (calculation) to be added to the calcs object.',
+      description: 'Reducer functions (calcs) to be added to the calcs object.',
       category: ['Value options'],
       editor: SelectedCalcsOption,
       defaultValue: [ReducerID.last],
-      showIf: (options) => options.calcsMutation === CalcsMutation.Custom,
     })
     .addBooleanSwitch({
       path: 'add100Percentage',

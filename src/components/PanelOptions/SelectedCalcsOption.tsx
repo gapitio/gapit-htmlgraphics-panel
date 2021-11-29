@@ -1,26 +1,23 @@
 import React from 'react';
-import { fieldReducers, ReducerID, StandardEditorProps } from '@grafana/data';
+import { fieldReducers, SelectableValue, StandardEditorProps } from '@grafana/data';
 import { MultiSelect } from '@grafana/ui';
+import { CalcsMutation, OptionsInterface } from 'types';
+import _ from 'lodash';
 
-interface Props extends StandardEditorProps<string[]> {}
+interface Props extends StandardEditorProps<string[], any, OptionsInterface> {}
 
 export const SelectedCalcsOption: React.FC<Props> = ({ value, item, onChange, context }) => {
-  const options = fieldReducers
-    .list()
-    .filter((reducer) => reducer.reduce)
-    .map((reducer) => ({ value: reducer.id, label: reducer.name, description: reducer.description }));
+  const isCustom = context.options?.calcsMutation === CalcsMutation.Custom;
 
-  /*
-    If any of the standard calcs are selected, set the selected to an empty array.
-
-    If one of the standard calcs are selected, then all standard calcs are selected.
-    Only check against 'max' since it's one of the standard calcs.
-   */
-  if (value.includes('max')) {
-    onChange([ReducerID.last]);
-  }
-
-  return (
-    <MultiSelect value={value} onChange={(e) => onChange(e.map((e) => e.value ?? ''))} options={options}></MultiSelect>
+  const options = (isCustom ? fieldReducers.list().filter((reducer) => reducer.reduce) : fieldReducers.list()).map(
+    (reducer) => ({ value: reducer.id, label: reducer.name, description: reducer.description })
   );
+
+  const onSelectChange = (e: SelectableValue<string>[]) => {
+    if (isCustom) {
+      onChange(e.map((e) => e.value ?? ''));
+    }
+  };
+
+  return <MultiSelect value={value} onChange={onSelectChange} options={options} disabled={!isCustom}></MultiSelect>;
 };
