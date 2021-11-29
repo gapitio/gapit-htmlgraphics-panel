@@ -27,6 +27,7 @@ export const plugin = new PanelPlugin<OptionsInterface>(HTMLPanel).useFieldConfi
       category: ['Value options'],
       editor: SelectedCalcsOption,
       defaultValue: [ReducerID.last],
+      showIf: (options) => options.calcsMutation !== CalcsMutation.None,
     })
     .addBooleanSwitch({
       path: 'add100Percentage',
