@@ -13,7 +13,7 @@ export const SelectedCalcsOption: React.FC<Props> = ({ value, item, onChange, co
     (reducer) => ({ value: reducer.id, label: reducer.name, description: reducer.description })
   );
 
-  const onSelectChange = (e: SelectableValue<string>[]) => {
+  const onSelectChange = (e: Array<SelectableValue<string>>) => {
     if (isCustom) {
       onChange(e.map((e) => e.value ?? ''));
     }
