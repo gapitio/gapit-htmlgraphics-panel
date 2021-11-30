@@ -1,5 +1,20 @@
 # Change Log
 
+## v2.0.0 (2021-11-30)
+
+[Release notes v2.0.0](https://gapit-htmlgraphics-panel.gapit.io/docs/release-notes/v2.0.0/)
+
+### Features / enhancements
+
+- **Repo**: Add better calcs mutation handler [a7abb76](https://github.com/gapitio/gapit-htmlgraphics-panel/commit/a7abb76aeedb1e40bfa5253695a0e4273bc4b0d5)
+- **Repo!**: Don't save the import/export option (`importedPanelOptions`) [211e35b](https://github.com/gapitio/gapit-htmlgraphics-panel/commit/211e35b5d8e54d2a7f9863e40024ac56f8d8be7e)
+
+### Breaking changes
+
+#### Don't save the import/export option (`importedPanelOptions`)
+
+Halves the size of the saved panel options. This might have some effects on code that checks this option. The options change doesn't happen until a change/save in the import/export section is triggered.
+
 ## v1.5.0 (2021-10-28)
 
 ### Features / enhancements
