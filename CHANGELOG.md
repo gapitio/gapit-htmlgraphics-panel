@@ -1,4 +1,4 @@
-# Change Log
+# Changelog
 
 ## v2.0.0 (2021-11-30)
 
