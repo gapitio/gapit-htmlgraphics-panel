@@ -52,5 +52,10 @@ module.exports = {
       type: 'doc',
       id: 'contributing',
     },
+    {
+      type: 'category',
+      label: 'Release notes',
+      items: ['release-notes/v2.0.0'],
+    },
   ],
 };
