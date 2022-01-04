@@ -56,7 +56,7 @@ export const ImportExportOption: React.FC<Props> = ({ value, item, onChange, con
       <Spacer />
       <CodeEditor language={item.settings?.language} value={getOptionsString()} onChange={updatePanelOptions} />
       <Spacer />
-      <Button onClick={() => downloadJsonFile(value)}>Download as JSON file</Button>
+      <Button onClick={() => downloadJsonFile(getOptionsString())}>Download as JSON file</Button>
     </div>
   );
 };
