@@ -45,10 +45,10 @@ export class HTMLPanel extends PureComponent<Props, PanelState> {
   defaultErrorMessage = 'Check console for more info (ctrl+shift+j)';
   data = this.props.data; // Used for dynamic data
   dynamicProps = this.props; // Used for dynamic props
-  htmlGraphics = this.getHtmlGraphics();
   fieldDisplayValues: FieldDisplay[] = [];
   panelSize = { height: this.props.height, width: this.props.width };
   shadowElt: HTMLDivElement | null = null;
+  htmlGraphics = this.getHtmlGraphics();
 
   getHtmlGraphics() {
     const htmlNode = this.state.shadowContainerRef.current?.firstElementChild?.shadowRoot as HTMLNodeElement;
