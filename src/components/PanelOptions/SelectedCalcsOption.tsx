@@ -9,9 +9,10 @@ interface Props extends StandardEditorProps<string[], any, OptionsInterface> {}
 export const SelectedCalcsOption: React.FC<Props> = ({ value, item, onChange, context }) => {
   const isCustom = context.options?.calcsMutation === CalcsMutation.Custom;
 
-  const options = (isCustom ? fieldReducers.list().filter((reducer) => reducer.reduce) : fieldReducers.list()).map(
-    (reducer) => ({ value: reducer.id, label: reducer.name, description: reducer.description })
-  );
+  const options = (isCustom
+    ? fieldReducers.list().filter((reducer) => reducer.reduce)
+    : fieldReducers.list()
+  ).map((reducer) => ({ value: reducer.id, label: reducer.name, description: reducer.description }));
 
   const onSelectChange = (e: Array<SelectableValue<string>>) => {
     if (isCustom) {

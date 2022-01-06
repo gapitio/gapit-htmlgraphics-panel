@@ -133,11 +133,7 @@ export class HTMLPanel extends PureComponent<Props, PanelState> {
   };
 
   getCodeData() {
-    const {
-      json: codeData,
-      isError,
-      error,
-    } = parseJSON(this.props.options.codeData, {
+    const { json: codeData, isError, error } = parseJSON(this.props.options.codeData, {
       namespace: 'codeData',
     });
 
