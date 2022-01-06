@@ -1,4 +1,4 @@
-import { PanelPlugin, ReducerID } from '@grafana/data';
+import { PanelPlugin } from '@grafana/data';
 import { OptionsInterface, CalcsMutation } from 'types';
 import { HTMLPanel } from 'HTMLPanel';
 import { CodeDataOption } from 'components/PanelOptions/CodeData';
@@ -6,6 +6,7 @@ import { CodeEditorOption } from 'components/PanelOptions/CodeEditor';
 import { ImportExportOption } from 'components/PanelOptions/ImportExport';
 import { SelectedCalcsOption } from 'components/PanelOptions/SelectedCalcsOption';
 import { CalcsMutationOption } from 'components/PanelOptions/CalcsMutationOptions';
+import { calcsMutations } from 'utils/calcsMutations';
 
 export const plugin = new PanelPlugin<OptionsInterface>(HTMLPanel).useFieldConfig().setPanelOptions((builder) => {
   return builder
@@ -26,7 +27,7 @@ export const plugin = new PanelPlugin<OptionsInterface>(HTMLPanel).useFieldConfi
       description: 'Reducer functions (calcs) to be added to the calcs object.',
       category: ['Value options'],
       editor: SelectedCalcsOption,
-      defaultValue: [ReducerID.last],
+      defaultValue: calcsMutations.find(({ value }) => value === CalcsMutation.Standard)?.getReducerIDs() ?? [],
       showIf: (options) => options.calcsMutation !== CalcsMutation.None,
     })
     .addBooleanSwitch({
