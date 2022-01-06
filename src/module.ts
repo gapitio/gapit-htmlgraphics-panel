@@ -1,4 +1,4 @@
-import { PanelPlugin, ReducerID } from '@grafana/data';
+import { PanelPlugin } from '@grafana/data';
 import { OptionsInterface, CalcsMutation } from 'types';
 import { HTMLPanel } from 'HTMLPanel';
 import { CodeDataOption } from 'components/PanelOptions/CodeData';
