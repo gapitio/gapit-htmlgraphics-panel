@@ -48,12 +48,15 @@ export class HTMLPanel extends PureComponent<Props, PanelState> {
   fieldDisplayValues: FieldDisplay[] = [];
   panelSize = { height: this.props.height, width: this.props.width };
   shadowElt: HTMLDivElement | null = null;
-  htmlGraphics = this.getHtmlGraphics();
+  htmlGraphics: ReturnType<typeof this.getHtmlGraphics> | null = null;
 
-  getHtmlGraphics() {
+  getHtmlGraphics({ dynamicData = false, dynamicFieldDisplayValues = false, dynamicProps = false } = {}) {
+    const data = dynamicData ? this.data : { ...this.props.data };
+    const props = dynamicProps ? this.dynamicProps : { ...this.props };
+    const fieldDisplayValues = dynamicFieldDisplayValues ? this.fieldDisplayValues : { ...this.fieldDisplayValues };
     const htmlNode = this.state.shadowContainerRef.current?.firstElementChild?.shadowRoot as HTMLNodeElement;
     const codeData = this.getCodeData();
-    const { data, options, width, height } = this.props;
+    const { options, width, height } = this.props;
     const { theme, theme2 } = config;
 
     return {
@@ -66,11 +69,11 @@ export class HTMLPanel extends PureComponent<Props, PanelState> {
       theme2,
       getTemplateSrv,
       getLocationSrv,
-      props: this.props,
+      props,
       width,
       height,
       getFieldDisplayValues: this.populatedGetFieldDisplayValues,
-      fieldDisplayValues: this.fieldDisplayValues,
+      fieldDisplayValues,
       fieldReducers,
     };
   }
@@ -118,17 +121,19 @@ export class HTMLPanel extends PureComponent<Props, PanelState> {
   };
 
   updateDynamicReferences = () => {
+    const { dynamicData, dynamicFieldDisplayValues, dynamicProps, dynamicHtmlGraphics } = this.props.options;
+
     // Update this.data with the new data
-    if (this.props.options.dynamicData) {
+    if (dynamicData) {
       Object.assign(this.data, this.props.data);
     }
 
-    if (this.props.options.dynamicProps) {
+    if (dynamicProps) {
       Object.assign(this.dynamicProps, this.props);
     }
 
-    if (this.props.options.dynamicHtmlGraphics) {
-      Object.assign(this.htmlGraphics, this.getHtmlGraphics());
+    if (dynamicHtmlGraphics && this.htmlGraphics) {
+      Object.assign(this.htmlGraphics, this.getHtmlGraphics({ dynamicData, dynamicFieldDisplayValues, dynamicProps }));
     }
   };
 
@@ -150,35 +155,14 @@ export class HTMLPanel extends PureComponent<Props, PanelState> {
     script: string,
     { dynamicData = false, dynamicFieldDisplayValues = false, dynamicProps = false, dynamicHtmlGraphics = false } = {}
   ) {
-    const data = dynamicData ? this.data : this.props.data;
-    const props = dynamicProps ? this.dynamicProps : this.props;
-    const fieldDisplayValues = dynamicFieldDisplayValues ? this.fieldDisplayValues : _.clone(this.fieldDisplayValues);
-    const codeData = this.getCodeData();
+    const rawHtmlGraphics = this.getHtmlGraphics({ dynamicData, dynamicFieldDisplayValues, dynamicProps });
+    const { htmlNode, data, codeData, options, theme } = rawHtmlGraphics;
 
-    const htmlNode = this.state.shadowContainerRef.current?.firstElementChild?.shadowRoot as HTMLNodeElement;
-    const { options } = this.props;
-    const { theme, theme2 } = config;
+    if (dynamicHtmlGraphics) {
+      this.htmlGraphics = rawHtmlGraphics;
+    }
 
-    const htmlGraphics = dynamicHtmlGraphics
-      ? this.htmlGraphics
-      : {
-          htmlNode,
-          data,
-          customProperties: codeData,
-          codeData,
-          options,
-          theme,
-          theme2,
-          getTemplateSrv,
-          getLocationSrv,
-          props,
-          // width and height will not be dynamic even if dynamicProps is true since they are assigned to the value
-          width: props.width,
-          height: props.height,
-          getFieldDisplayValues: this.populatedGetFieldDisplayValues,
-          fieldDisplayValues,
-          fieldReducers,
-        };
+    const htmlGraphics = dynamicHtmlGraphics ? this.htmlGraphics : rawHtmlGraphics;
 
     const F = new Function(
       'htmlNode',
@@ -238,7 +222,6 @@ export class HTMLPanel extends PureComponent<Props, PanelState> {
   }
 
   initialize() {
-    this.updateFieldDisplayValues();
     this.shadowElt = addShadowRoot(this.state.shadowContainerRef.current, {
       centerAlignContent: this.props.options.centerAlignContent,
     });
@@ -248,6 +231,7 @@ export class HTMLPanel extends PureComponent<Props, PanelState> {
   }
 
   componentDidMount() {
+    this.updateFieldDisplayValues();
     this.initialize();
 
     if (this.props.options.renderOnMount) {
@@ -264,6 +248,7 @@ export class HTMLPanel extends PureComponent<Props, PanelState> {
   }
 
   componentDidUpdate() {
+    this.updateFieldDisplayValues();
     this.updateDynamicReferences();
 
     const isChanged = !_.isEqual(this.state.options, this.props.options);
@@ -273,7 +258,6 @@ export class HTMLPanel extends PureComponent<Props, PanelState> {
       this.setState({ options: { ...this.props.options } });
     } else {
       this.onInitOnResize();
-      this.updateFieldDisplayValues();
       triggerPanelupdate(this.shadowElt);
       this.onRender();
 
