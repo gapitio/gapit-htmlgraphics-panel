@@ -146,6 +146,12 @@ export const plugin = new PanelPlugin<OptionsInterface>(HTMLPanel).useFieldConfi
       },
     })
     .addBooleanSwitch({
+      path: 'dynamicHtmlGraphics',
+      name: 'Dynamic htmlGraphics',
+      description: 'Update htmlGraphics when new data is available.',
+      defaultValue: false,
+    })
+    .addBooleanSwitch({
       path: 'dynamicData',
       name: 'Dynamic data object',
       description:
@@ -153,24 +159,16 @@ export const plugin = new PanelPlugin<OptionsInterface>(HTMLPanel).useFieldConfi
       defaultValue: false,
     })
     .addBooleanSwitch({
-      path: 'dynamicHtmlGraphics',
-      name: 'Dynamic htmlGraphics',
-      description: 'Update htmlGraphics when new data is available.',
-      defaultValue: false,
-    })
-    .addBooleanSwitch({
       path: 'dynamicFieldDisplayValues',
       name: 'Dynamic fieldDisplayValues',
       description: 'Update fieldDisplayValues when new data is available.',
       defaultValue: false,
-      showIf: (options) => !options.dynamicHtmlGraphics,
     })
     .addBooleanSwitch({
       path: 'dynamicProps',
       name: 'Dynamic props',
       description: 'Update props when new data is available.',
       defaultValue: false,
-      showIf: (options) => !options.dynamicHtmlGraphics,
     })
     .addBooleanSwitch({
       path: 'panelupdateOnMount',

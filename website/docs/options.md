@@ -166,13 +166,17 @@ Run onRender when the panel is first loaded (in most cases, this should be true)
 
 Executes the code every render (when new data is available).
 
+### Dynamic htmlGraphics
+
+:::tip
+Check out [Dynamic variables](advanced/dynamic-variables.md) for more info.
+:::
+
+Update [htmlGraphics](references.md#htmlgraphics-global) when new data is available.
+
 ### Dynamic data
 
 Update the [data object](references.md#data) when new data is available. The code will not execute again, it will only update the [data object](references.md#data). This is only for onInit, onRender will update like normal.
-
-### Dynamic htmlGraphics
-
-Update [htmlGraphics](references.md#htmlgraphics-global) when new data is available.
 
 ### Dynamic fieldDisplayValues
 
