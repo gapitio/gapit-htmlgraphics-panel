@@ -1,5 +1,13 @@
 # Changelog
 
+## v2.0.1 (2022-01-10)
+
+### Bug fixes
+
+- **Repo**: Fix inconsistency with dynamic variables [#77](https://github.com/gapitio/gapit-htmlgraphics-panel/pull/77)
+- **Repo**: Fix fieldDisplayValues is undefined on panel load [#72](https://github.com/gapitio/gapit-htmlgraphics-panel/pull/72)
+- **Options**: Fix wrong default calcs value [#75](https://github.com/gapitio/gapit-htmlgraphics-panel/pull/75)
+
 ## v2.0.0 (2021-11-30)
 
 [Release notes v2.0.0](https://gapit-htmlgraphics-panel.gapit.io/docs/release-notes/v2.0.0/)
