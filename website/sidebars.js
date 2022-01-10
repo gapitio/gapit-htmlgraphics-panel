@@ -56,6 +56,10 @@ module.exports = {
     },
     {
       type: 'doc',
+      id: 'performance',
+    },
+    {
+      type: 'doc',
       id: 'projects',
     },
     {
