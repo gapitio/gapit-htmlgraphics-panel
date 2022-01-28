@@ -1,5 +1,11 @@
 # Changelog
 
+## v2.0.2 (2022-01-28)
+
+### Features / enhancements
+
+- **Repo**: Change the grafana/toolkit version to work with latest grafana version (8.3.4)
+
 ## v2.0.1 (2022-01-10)
 
 ### Bug fixes
