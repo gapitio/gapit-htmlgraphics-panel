@@ -1,5 +1,11 @@
 # Changelog
 
+## v2.0.2 (2022-01-31)
+
+### Features / enhancements
+
+- **Repo**: Update grafana packages to work with latest grafana version (8.3.4)
+
 ## v2.0.1 (2022-01-10)
 
 ### Bug fixes
