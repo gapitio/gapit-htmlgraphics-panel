@@ -20,7 +20,7 @@ services:
     ports:
       - 3000:3000
     environment:
-      - GF_INSTALL_PLUGINS=${htmlGraphics.releaseUrl()} gapit-htmlgraphics-panel # v1.5.0\n
+      - GF_INSTALL_PLUGINS=${htmlGraphics.releaseUrl()};gapit-htmlgraphics-panel # v${htmlGraphics.version}\n
 networks:
   grafana:
     name: grafana`;
