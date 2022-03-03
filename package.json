@@ -20,14 +20,14 @@
     "sign": "grafana-toolkit plugin:sign"
   },
   "dependencies": {
-    "@types/lodash": "^4.14.176",
+    "@types/lodash": "^4.14.179",
     "lodash": "^4.17.21",
     "tslib": "^2.3.1"
   },
   "devDependencies": {
-    "@grafana/data": "8.3.4",
-    "@grafana/runtime": "8.3.4",
-    "@grafana/toolkit": "8.3.4",
-    "@grafana/ui": "8.3.4"
+    "@grafana/data": "8.4.3",
+    "@grafana/runtime": "8.4.3",
+    "@grafana/toolkit": "8.4.3",
+    "@grafana/ui": "8.4.3"
   }
 }
