@@ -14,7 +14,7 @@ Because it mutates there are some stuff to be careful about. The main thing is w
 ## Example 1
 
 <details><summary>Panel json</summary>
-<p>
+<div>
 
 ```json
 {
@@ -60,7 +60,7 @@ Because it mutates there are some stuff to be careful about. The main thing is w
 }
 ```
 
-</p>
+</div>
 </details>
 
 Let's say the first time you refresh the value is 10 and the second time the value is 20.

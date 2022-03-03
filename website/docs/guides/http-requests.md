@@ -35,7 +35,7 @@ JSON API config
 URL = `https://swapi.dev/api`
 
 <details><summary>Panel json</summary>
-<p>
+<div>
 
 ```json
 {
@@ -63,7 +63,7 @@ URL = `https://swapi.dev/api`
 }
 ```
 
-</p>
+</div>
 </details>
 
 `onInit`
@@ -153,7 +153,7 @@ JSON API config
 URL = `node-red:1880`
 
 <details><summary>Node red flow</summary>
-<p>
+<div>
 
 ````json
 [
@@ -233,11 +233,11 @@ URL = `node-red:1880`
 ]
 ````
 
-</p>
+</div>
 </details>
 
 <details><summary>Panel json</summary>
-<p>
+<div>
 
 ```json
 {
@@ -265,7 +265,7 @@ URL = `node-red:1880`
 }
 ```
 
-</p>
+</div>
 </details>
 
 `onInit`
