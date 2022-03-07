@@ -8,7 +8,23 @@ import TabItem from '@theme/TabItem';
 import CodeBlock from '@theme/CodeBlock';
 import { htmlGraphics } from '/config.js';
 // Code must be a variable (or imported) or newlines doesn't work
-const SpecificDockerComposeCode = () =>
+const latestGithubReleaseDockerComposeCode = () =>
+  `version: '3'
+services:
+  grafana:
+    image: grafana/grafana
+    container_name: grafana
+    restart: always
+    networks:
+      - grafana
+    ports:
+      - 3000:3000
+    environment:
+      - GF_INSTALL_PLUGINS=${htmlGraphics.latestReleaseUrl};gapit-htmlgraphics-panel\n
+networks:
+  grafana:
+    name: grafana`;
+const specificDockerComposeCode = () =>
   `version: '3'
 services:
   grafana:
@@ -66,7 +82,8 @@ To install the latest version of the plugin, run the following command on the Gr
   groupId="version"
   defaultValue="latest"
   values={[
-    {label: 'Latest', value: 'latest'},
+    {label: 'Latest (Grafana)', value: 'latest'},
+    {label: 'Latest (Github)', value: 'latest-github'},
     {label: 'Specific version', value: 'specific'},
   ]}>
 
@@ -75,6 +92,14 @@ To install the latest version of the plugin, run the following command on the Gr
 ```bash
 grafana-cli plugins install gapit-htmlgraphics-panel
 ```
+
+  </TabItem>
+
+  <TabItem value="latest-github">
+
+<CodeBlock className="language-bash">
+  grafana-cli --pluginUrl {htmlGraphics.latestReleaseUrl} plugins install gapit-htmlgraphics-panel
+</CodeBlock>
 
   </TabItem>
 
@@ -96,7 +121,8 @@ The specific version link can be obtained by copying the asset link from [Releas
   groupId="version"
   defaultValue="latest"
   values={[
-    {label: 'Latest', value: 'latest'},
+    {label: 'Latest (Grafana)', value: 'latest'},
+    {label: 'Latest (Github)', value: 'latest-github'},
     {label: 'Specific version', value: 'specific'},
   ]}>
 
@@ -105,6 +131,14 @@ The specific version link can be obtained by copying the asset link from [Releas
 ```bash
 grafana-cli plugins install gapit-htmlgraphics-panel
 ```
+
+  </TabItem>
+
+  <TabItem value="latest-github">
+
+<CodeBlock className="language-bash">
+  grafana-cli --pluginUrl {htmlGraphics.latestReleaseUrl} plugins install gapit-htmlgraphics-panel
+</CodeBlock>
 
   </TabItem>
 
@@ -126,7 +160,8 @@ The specific version link can be obtained by copying the asset link from [Releas
   groupId="version"
   defaultValue="latest"
   values={[
-    {label: 'Latest', value: 'latest'},
+    {label: 'Latest (Grafana)', value: 'latest'},
+    {label: 'Latest (Github)', value: 'latest-github'},
     {label: 'Specific version', value: 'specific'},
   ]}>
 
@@ -135,6 +170,14 @@ The specific version link can be obtained by copying the asset link from [Releas
 ```bash
 grafana-cli.exe plugins install gapit-htmlgraphics-panel
 ```
+
+  </TabItem>
+
+  <TabItem value="latest-github">
+
+<CodeBlock className="language-bash">
+  grafana-cli.exe --pluginUrl {htmlGraphics.latestReleaseUrl} plugins install gapit-htmlgraphics-panel
+</CodeBlock>
 
   </TabItem>
 
@@ -204,7 +247,8 @@ Expand-Archive -Path gapit-htmlgraphics-panel-<version>.zip -DestinationPath C:\
   groupId="version"
   defaultValue="latest"
   values={[
-    {label: 'Latest', value: 'latest'},
+    {label: 'Latest (Grafana)', value: 'latest'},
+    {label: 'Latest (Github)', value: 'latest-github'},
     {label: 'Specific version', value: 'specific'},
   ]}>
 
@@ -231,11 +275,17 @@ networks:
 
   </TabItem>
 
+  <TabItem value="latest-github">
+
+<CodeBlock className="language-yaml">{latestGithubReleaseDockerComposeCode()}</CodeBlock>
+
+  </TabItem>
+
   <TabItem value="specific">
 
 The specific version link can be obtained by copying the asset link from [Releases](https://github.com/gapitio/gapit-htmlgraphics-panel/releases) on the GitHub project page
 
-<CodeBlock className="language-yaml">{SpecificDockerComposeCode()}</CodeBlock>
+<CodeBlock className="language-yaml">{specificDockerComposeCode()}</CodeBlock>
 
   </TabItem>
 </Tabs>
