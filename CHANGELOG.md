@@ -1,5 +1,11 @@
 # Changelog
 
+## v2.0.3 (2022-03-07)
+
+### Features / enhancements
+
+- **Repo**: Add release files without the version number [1a8b313](https://github.com/gapitio/gapit-htmlgraphics-panel/commit/1a8b313b03ee9f59edc10291a6d7ff5e5be69512)
+
 ## v2.0.2 (2022-01-31)
 
 ### Features / enhancements
