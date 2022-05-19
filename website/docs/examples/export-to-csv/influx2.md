@@ -1,28 +1,24 @@
 ---
-id: export-to-csv
-title: Export to CSV
+id: export-to-csv-influx2
+title: Export to CSV (influx2)
 ---
 
 :::info
-Huge thanks to [neshorg](https://github.com/neshorg) ([Grafana profile](https://community.grafana.com/u/neshorg/)) for the [original post](https://community.grafana.com/t/download-csv-button/38688/6?u=zuperzee).
+Check out the [Export to CSV index page](../export-to-csv/index.md) for a more detailed explanation of the approach
 :::
 
-![Example: export to CSV](../../static/gif/example-export-to-csv.gif)
+![Example: export to CSV](../../../static/gif/example-export-to-csv.gif)
 
-:::note
-Some data sources needs some tweaks to work. Please [create an issue](https://github.com/gapitio/gapit-htmlgraphics-panel/issues/new/choose) on which data sources doesn't work so it can be listed. Thanks :D
-:::
-
-This works by using the [data object](../references.md#data-global), which makes it possible to use _most_ data sources provided by Grafana.
+This works by using the [data object](../../references.md#data-global), which makes it possible to use _most_ data sources provided by Grafana.
 
 :::tip
-The query can be "hidden" by pressing the "Enable/disable query" button _(small eye icon)_. Which makes the query not run until the button is pressed.
+The query can be "hidden" by pressing the "Enable/disable query" button _(small eye icon)_. Which will disable the query (for better performance).
 :::
 
 **Remember to add a query!!!**
 
 Example query using the influx database:
-![Example: export to CSV query](../../static/img/example-export-to-csv-query.png)
+![Example: export to CSV query](../../../static/img/example-export-to-csv-query.png)
 
 `HTML/SVG`
 
