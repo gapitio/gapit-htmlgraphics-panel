@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import React, { FC, useEffect, useState } from 'react';
 import { editor } from 'monaco-editor/esm/vs/editor/editor.api';
 import { EditorLanguageType } from 'types';
 import { CodeEditor as GrafanaCodeEditor, Monaco } from '@grafana/ui';
@@ -10,27 +10,42 @@ interface Props {
 }
 
 export const CodeEditor: FC<Props> = ({ language, value, onChange }) => {
-  const editorDidMount = (editor: editor.IStandaloneCodeEditor, monaco: Monaco) => {
-    if (language === 'javascript') {
+  const [declarations, setDeclarations] = useState<string>();
+
+  const isJavascript = language === 'javascript';
+  const editorDidMount = async (_: editor.IStandaloneCodeEditor, m: Monaco) => {
+    if (declarations) {
       // Add autocompletion for panel definitions (htmlNode, codeData, data, options, ETC)
-      import('./declarations').then(({ default: _ }) => {
-        monaco.languages.typescript.javascriptDefaults.addExtraLib(_, 'HtmlGraphics/HtmlGraphics.d.ts');
-      });
+      m.languages.typescript.javascriptDefaults.addExtraLib(declarations, 'HtmlGraphics/HtmlGraphics.d.ts');
     }
   };
 
+  useEffect(() => {
+    if (isJavascript) {
+      import('./declarations')
+        .then(({ default: decl }) => {
+          setDeclarations(decl);
+        })
+        .catch(() => setDeclarations(''));
+    }
+  }, [isJavascript]);
+
   return (
     <div>
-      <GrafanaCodeEditor
-        height={'33vh'}
-        value={value ?? ''}
-        language={language ?? ''}
-        showLineNumbers={true}
-        onEditorDidMount={editorDidMount}
-        onSave={onChange}
-        onBlur={onChange}
-        monacoOptions={{ contextmenu: true }}
-      />
+      {!isJavascript || declarations || declarations === '' ? (
+        <GrafanaCodeEditor
+          height={'33vh'}
+          value={value ?? ''}
+          language={language ?? ''}
+          showLineNumbers={true}
+          onEditorDidMount={editorDidMount}
+          onSave={onChange}
+          onBlur={onChange}
+          monacoOptions={{ contextmenu: true }}
+        />
+      ) : (
+        <div style={{ height: '33vh' }}>Loading declarations...</div>
+      )}
     </div>
   );
 };
