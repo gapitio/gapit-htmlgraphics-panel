@@ -15,6 +15,7 @@ export interface OptionsInterface {
   add100Percentage: boolean;
   centerAlignContent: boolean;
   overflow: 'visible' | 'auto' | 'overlay' | 'hidden';
+  useGrafanaScrollbar: boolean;
   SVGBaseFix: boolean;
   rootCSS: EditorCodeType;
   css: EditorCodeType;
