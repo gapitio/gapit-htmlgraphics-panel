@@ -10,29 +10,38 @@ interface Props {
 }
 
 export const CodeEditor: FC<Props> = ({ language, value, onChange }) => {
-  const [declarations, setDeclarations] = useState<string>();
+  const [declarations, setDeclarations] = useState<Array<{ filePath: string; content: string }>>();
 
   const isJavascript = language === 'javascript';
   const editorDidMount = async (_: editor.IStandaloneCodeEditor, m: Monaco) => {
     if (declarations) {
-      // Add autocompletion for panel definitions (htmlNode, codeData, data, options, ETC)
-      m.languages.typescript.javascriptDefaults.addExtraLib(declarations, 'HtmlGraphics/HtmlGraphics.d.ts');
+      // Add autocompletion for panel definitions (htmlNode, htmlGraphics, data, options, ETC)
+      for (const { filePath, content } of declarations) {
+        m.languages.typescript.javascriptDefaults.addExtraLib(content, filePath);
+      }
     }
   };
 
   useEffect(() => {
     if (isJavascript) {
-      import('./declarations')
-        .then(({ default: decl }) => {
-          setDeclarations(decl);
-        })
-        .catch(() => setDeclarations(''));
+      const reqDecl = require.context('./declarations', true, /\..*\.d\.ts$/);
+
+      Promise.all(reqDecl.keys().map((key) => fetch(reqDecl(key))))
+        .then((r) => Promise.all(r.map((a) => a.text())))
+        .then((d) =>
+          setDeclarations(
+            reqDecl.keys().map((filePath, i) => ({
+              filePath: filePath.substring(2),
+              content: d[i],
+            }))
+          )
+        );
     }
   }, [isJavascript]);
 
   return (
     <div>
-      {!isJavascript || declarations || declarations === '' ? (
+      {!isJavascript || declarations ? (
         <GrafanaCodeEditor
           height={'33vh'}
           value={value ?? ''}

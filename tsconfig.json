@@ -1,9 +1,12 @@
 {
   "extends": "./node_modules/@grafana/toolkit/src/config/tsconfig.plugin.json",
-  "include": ["src"],
+  "include": ["src", "packages"],
   "compilerOptions": {
     "rootDir": "./src",
     "baseUrl": "./src",
-    "typeRoots": ["./node_modules/@types"]
+    "typeRoots": ["./packages/htmlgraphics-types", "./node_modules/@types"],
+    "paths": {
+      "@htmlgraphics-types/*": ["../packages/htmlgraphics-types/typings/*"]
+    }
   }
 }
