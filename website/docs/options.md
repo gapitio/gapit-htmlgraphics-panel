@@ -119,6 +119,10 @@ Chooses what happens if content overflows outside the panel.
 
 ![Overflow options](https://github.com/gapitio/gapit-htmlgraphics-panel/raw/879c71528a1a7360895f6b1de002b06a00f1be5b/src/img/screenshot-overflow.png)
 
+### Use Grafana scrollbar
+
+Requires [Overflow](#overflow) to be `Visible`. Wraps the [scrollbar from Grafana](https://grafana.com/docs/grafana/latest/packages_api/ui/customscrollbar/) around the ShadowRoot container.
+
 ### Root CSS
 
 CSS that's loaded outside the shadow root. Useful for font faces and imports.
