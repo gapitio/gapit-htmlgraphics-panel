@@ -70,6 +70,13 @@ export const plugin = new PanelPlugin<OptionsInterface>(HTMLPanel).useFieldConfi
       defaultValue: 'visible',
     })
     .addBooleanSwitch({
+      path: 'useGrafanaScrollbar',
+      name: 'Use Grafana scrollbar',
+      description: '',
+      defaultValue: true,
+      showIf: (options) => options.overflow === 'visible',
+    })
+    .addBooleanSwitch({
       path: 'SVGBaseFix',
       name: 'SVG base fix',
       description: 'Fixes an issue in Firefox where xlink:href needs the url to be able to find the link',
