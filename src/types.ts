@@ -14,7 +14,7 @@ export type setErrorStatusType = React.Dispatch<React.SetStateAction<boolean>>;
 export interface OptionsInterface {
   add100Percentage: boolean;
   centerAlignContent: boolean;
-  overflow: 'Visible' | 'Auto' | 'Overlay' | 'Hidden';
+  overflow: 'visible' | 'auto' | 'overlay' | 'hidden';
   SVGBaseFix: boolean;
   rootCSS: EditorCodeType;
   css: EditorCodeType;
