@@ -1,8 +1,8 @@
-import React from 'react';
+import React, { ReactNode } from 'react';
 import clsx from 'clsx';
 import styles from './HomepageFeatures.module.css';
 
-const FeatureList = [
+const featureList = [
   {
     title: 'Offline',
     description: <>No need for internet to use any of the plugins functionality.</>,
@@ -17,7 +17,7 @@ const FeatureList = [
   },
 ];
 
-function Feature({ title, description }) {
+function Feature({ title, description }: { title: ReactNode; description: ReactNode }) {
   return (
     <div className={clsx('col col--4')}>
       <div className="text--center padding-horiz--md">
@@ -33,7 +33,7 @@ export default function HomepageFeatures() {
     <section className={styles.features}>
       <div className="container">
         <div className="row">
-          {FeatureList.map((props, idx) => (
+          {featureList.map((props, idx) => (
             <Feature key={idx} {...props} />
           ))}
         </div>
