@@ -11,17 +11,17 @@ The easiest way is to use the [grafana-metric](https://www.npmjs.com/package/@ga
 
 ## Use the data object
 
-Using the [data](./../references.md#data-global) might be a little confusing at first, but it's easier once you log the data object.
+Using the [data](./../references.md#data-global) might be a little confusing initially, but it's easier once you log the data object.
 
 ```javascript
 console.log(data);
 ```
 
-Some data sources only have values
+Some data sources only have values.
 
 ![Data object (grafana)](../../static/img/data-object-grafana.png)
 
-An example on how you could get the value from the data object above
+An example on how you could get the value from the data object above.
 
 ```javascript
 const valueField = data.series[0].fields[1];
@@ -30,7 +30,7 @@ const value = valueField.values.get(length - 1);
 console.log(value);
 ```
 
-Some data sources have calcs (which is easier to work with)
+Some data sources have calcs (which is easier to work with).
 
 :::caution
 Not all data sources have calcs. Using the values is usually a safer choice.
@@ -38,7 +38,7 @@ Not all data sources have calcs. Using the values is usually a safer choice.
 
 ![Data object (influx)](../../static/img/data-object-influx.png)
 
-An example on how you could get the value from the data object above
+An example on how you could get the value from the data object above.
 
 ```javascript
 const value = data.series[0].fields[1].state.calcs.last;
@@ -54,7 +54,7 @@ const value = valueField.values.get(length - 1);
 console.log(value);
 ```
 
-With some checks to make sure the data exists and as a function
+With some checks to make sure the data exists and as a function.
 
 ```javascript
 function getMetric(seriesName) {

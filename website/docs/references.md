@@ -7,7 +7,7 @@ title: References
 All references are in htmlGraphics, but not every reference is global.
 :::
 
-The plugin makes several references to the HTML/SVG document and Grafana in the execution context of onRender and onInit functions/javascripts. Below are details for each. Remember, you can always use the [developer console](https://developers.google.com/web/tools/chrome-devtools/console) (ctrl+shift+j) and [console.log()](https://developer.mozilla.org/en-US/docs/Web/API/Console/log).
+The plugin makes several references to the HTML/SVG document and Grafana in the execution context of onRender and onInit functions/javascript. Below are details for each. Remember, you can always use the [developer console](https://developers.google.com/web/tools/chrome-devtools/console) (ctrl+shift+j) and [console.log()](https://developer.mozilla.org/en-US/docs/Web/API/Console/log).
 
 ```javascript
 // Log this in onRender or onInit, and look at developer console (ctrl+shift+j).
@@ -108,7 +108,7 @@ console.log(htmlGraphics.height);
 
 ### getFieldDisplayValues
 
-This is the same command that is used for mutating calcs in the Value options [Mutate calcs](./options.md#mutate-calcs).
+This is the same command which is used for mutating calcs in the Value options [Mutate calcs](./options.md#mutate-calcs).
 
 This command returns a list of the values specified in the reduceOptions.
 

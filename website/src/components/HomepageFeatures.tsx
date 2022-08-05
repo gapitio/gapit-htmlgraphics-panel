@@ -5,11 +5,11 @@ import styles from './HomepageFeatures.module.css';
 const featureList = [
   {
     title: 'Offline',
-    description: <>No need for internet to use any of the plugins functionality.</>,
+    description: <>All of the functionality of the plugin works without internet connection.</>,
   },
   {
     title: 'Creativity',
-    description: <>Create anything on your mind. Most things are possible with this plugin.</>,
+    description: <>Create anything. Most things are possible with this plugin.</>,
   },
   {
     title: 'Metric sensitive',

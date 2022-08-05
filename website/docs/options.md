@@ -12,12 +12,14 @@ Reducer id and calcs are sometimes referred to as the same thing. Calcs here are
 :::
 
 :::caution
-This doesn't remove existing calcs. It only adds to it. Changing from "All calcs" to "No mutation" will show all calcs until "Refresh dashboard" button is clicked. _The data object needs to be updated to remove "previous" calcs_
+Mutate calcs doesn't remove existing calcs added by Grafana. It only adds to it.
+
+Changing from "All calcs" to "No mutation" will show all calcs until the dashboard is refreshed. _The data object needs to be updated to remove "previous" calcs_
 :::
 
-Some data sources doesn't add the desired calc (some doesn't add calcs at all), which in some cases makes it harder to get the desired value from this plugin.
+This option is useful because some data sources don't add the desired calcs (some don't add calcs at all), which sometimes makes it harder to get the desired value from this plugin.
 
-Calcs like max, min, diff, ETC adds all standard calcs, which means that only some custom calcs are allowed.
+Calcs like max, min, diff, ETC are added with any calcs, which means that only some custom calcs are allowed.
 
 You can check the calcs properties with [fieldReducers](./references.md#fieldreducers).
 
@@ -89,7 +91,7 @@ You can check the calcs properties with [fieldReducers](./references.md#fieldred
 
 ### Fit content to panel
 
-This is mostly for SVG, as it will scale the content based on the size of the panel.
+It's mainly for SVG, as it will scale the content based on the panel size.
 Adds the height and width of the first element to 100% in the HTML/SVG code.
 
 ```html
@@ -115,7 +117,7 @@ Adds "display: flex; justify-content: center; align-items: center" to the shadow
 ### Overflow
 
 Chooses what happens if content overflows outside the panel.
-"Fit content to panel" is recommended to turn on with some of these options, as some of these won't work without it.
+"Fit content to panel" is recommended to turn on with some of these options, as some won't work without it.
 
 ![Overflow options](https://github.com/gapitio/gapit-htmlgraphics-panel/raw/879c71528a1a7360895f6b1de002b06a00f1be5b/src/img/screenshot-overflow.png)
 
@@ -125,7 +127,7 @@ Requires [Overflow](#overflow) to be `Visible`. Wraps the [scrollbar from Grafan
 
 ### Root CSS
 
-CSS that's loaded outside the shadow root. Useful for font faces and imports.
+CSS loaded outside the shadow root. Useful for font faces and imports.
 
 Below code imports the [Stick No Bills](https://fonts.google.com/specimen/Stick+No+Bills) font
 
@@ -148,7 +150,7 @@ The font can be used inside the `CSS` code.
 ### CSS
 
 The style which can be used to style the HTML/SVG document.
-Gets added next to the html document.
+Gets added before to the HTML/SVG document.
 
 ```html
 #shadow-root
@@ -176,23 +178,23 @@ Executes the code every render (when new data is available).
 Check out [Dynamic variables](advanced/dynamic-variables.md) for more info.
 :::
 
-Update [htmlGraphics](references.md#htmlgraphics-global) when new data is available.
+Updates [htmlGraphics](references.md#htmlgraphics-global) when new data is available.
 
 ### Dynamic data
 
-Update the [data object](references.md#data) when new data is available. The code will not execute again, it will only update the [data object](references.md#data). This is only for onInit, onRender will update like normal.
+Updates the [data object](references.md#data) when new data is available. The code will not execute again. it will only update the [data object](references.md#data). Dynamic data is only for onInit, onRender will update like normal.
 
 ### Dynamic fieldDisplayValues
 
-Update [fieldDisplayValues](references.md#fielddisplayvalues) when new data is available.
+Updates [fieldDisplayValues](references.md#fielddisplayvalues) when new data is available.
 
 ### Dynamic props
 
 :::caution
-Only values under `htmlGraphics.props` becomes dynamic. Internally the `htmlGraphics.width` comes from props, but it does not become dynamic, because it's mapped to the int value.
+Only values under `htmlGraphics.props` becomes dynamic. Internally the `htmlGraphics.width` comes from props, but it does not become dynamic because it's mapped to the int value.
 :::
 
-Update [props](references.md#props) when new data is available.
+Updates [props](references.md#props) when new data is available.
 
 ### Trigger panelupdate when mounted
 
@@ -204,7 +206,7 @@ Trigger the panelupdate event (htmlNode.onpanelupdate) when the panel is first l
 This doesn't trigger any cleanup or [onpanelwillunmount](references.md#panelwillunmount-event). It will only trigger `onInit`.
 :::
 
-Trigger the `onInit` code when the panels width/height changes.
+Trigger the `onInit` code when the panels' width/height changes.
 
 Without `onInitOnResize`
 
@@ -244,7 +246,7 @@ htmlNode.onpanelupdate = () => {
   if (isPanelSizeUpdate) {
     updateValueText();
 
-    // Update the previous stored values with the new height and witdth
+    // Update the previously stored values with the new height and witdth
     updateStoredPanelSize();
   }
 };
@@ -290,13 +292,13 @@ Exiting and entering edit mode may cause it break, but pressing f5 fixes it.
 Custom properties can be used to easily change values when multiple people are working on it. E.g.
 
 - Change the range of a color.
-- Toggle between showcase and production mode, to show how it would look if there were values there.
+- Toggle between showcase and production mode to show how it would look if there were values.
 - Toggle between themes.
 - Increase the max value of a bar.
 
-Having a json file sort of as a configuration file makes it much easier to copy a panel and change some values in the json file instead of going through the javascript code for it.
+Having a json file sort of as a configuration file makes it much easier to copy a panel and change some values in the json file instead of going through the javascript code.
 
-Think of this scenario: You have three dashboards with similar graphics. The only difference is a value range. You can create one code for all three panels, and have a configuration file (Custom properties) with the ranges. Also makes it much easier to change later on (bugs, changes and additions) when the code is similar on all the panels.
+Think of this scenario: You have three dashboards with similar graphics. The only difference is a value range. You can create one code for all three panels and have a configuration file (Custom properties) with the ranges. It also makes it much easier to change later on (bugs, changes, and additions) when the code is similar on all the panels.
 
 ### Edit as JSON
 
@@ -308,4 +310,4 @@ Import a file with the file picker _(a file can be dragged to it)_ or paste the 
 
 All the options and code can be easily copied _(exported)_ or imported with this.
 
-The bundlers generate a panel-options.json file which makes it pretty easy to copy the generated code into the panel.
+The bundlers generate a panel-options.json file, making it easy to copy the generated code into the panel.
