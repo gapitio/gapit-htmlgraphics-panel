@@ -4,7 +4,7 @@ import { MultiSelect } from '@grafana/ui';
 import { CalcsMutation, OptionsInterface } from 'types';
 import _ from 'lodash';
 
-interface Props extends StandardEditorProps<string[], any, OptionsInterface> {}
+interface Props extends StandardEditorProps<string[], Record<string, never>, OptionsInterface> {}
 
 export const SelectedCalcsOption: React.FC<Props> = ({ value, item, onChange, context }) => {
   const isCustom = context.options?.calcsMutation === CalcsMutation.Custom;
@@ -19,5 +19,5 @@ export const SelectedCalcsOption: React.FC<Props> = ({ value, item, onChange, co
     }
   };
 
-  return <MultiSelect value={value} onChange={onSelectChange} options={options} disabled={!isCustom}></MultiSelect>;
+  return <MultiSelect value={value} onChange={onSelectChange} options={options} disabled={!isCustom} />;
 };

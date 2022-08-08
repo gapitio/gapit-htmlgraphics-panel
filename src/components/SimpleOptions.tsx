@@ -19,7 +19,7 @@ export const BooleanOption = ({ dict, update, itemKey }: SimpleOptionProps) => {
         dict[itemKey] = !dict[itemKey];
         update();
       }}
-    ></Switch>
+    />
   );
 };
 
@@ -32,7 +32,7 @@ export const NumberOption = ({ dict, update, itemKey }: SimpleOptionProps) => {
         update();
       }}
       type={'number'}
-    ></Input>
+    />
   );
 };
 
@@ -45,7 +45,7 @@ export const StringOption = ({ dict, update, itemKey }: SimpleOptionProps) => {
         update();
       }}
       type={'string'}
-    ></Input>
+    />
   );
 };
 
@@ -53,9 +53,7 @@ export const ArrayOption = ({ dict, update, itemKey }: SimpleOptionProps) => {
   return (
     <ControlledCollapse collapsible={true} label={`Click to toggle (items: ${dict[itemKey].length})`}>
       {dict[itemKey].map((_value: string, index: number) => {
-        return (
-          <SimpleOption key={`${itemKey}-${index}`} dict={dict[itemKey]} update={update} itemKey={index}></SimpleOption>
-        );
+        return <SimpleOption key={`${itemKey}-${index}`} dict={dict[itemKey]} update={update} itemKey={index} />;
       })}
     </ControlledCollapse>
   );
@@ -64,7 +62,7 @@ export const ArrayOption = ({ dict, update, itemKey }: SimpleOptionProps) => {
 export const ObjectOption = ({ dict, update, itemKey }: SimpleOptionProps) => {
   return (
     <ControlledCollapse collapsible={true} label={`Click to toggle (items: ${Object.keys(dict[itemKey]).length})`}>
-      <SimpleOptions dict={dict[itemKey]} update={update}></SimpleOptions>
+      <SimpleOptions dict={dict[itemKey]} update={update} />
     </ControlledCollapse>
   );
 };
@@ -97,7 +95,7 @@ export const SimpleOptions = ({ dict, update }: SimpleOptionsProps) => {
         return (
           <div key={`${itemKey}-${index}`}>
             <Label>{itemKey}</Label>
-            <SimpleOption dict={dict} update={update} itemKey={itemKey}></SimpleOption>
+            <SimpleOption dict={dict} update={update} itemKey={itemKey} />
             {/* Add a newline between each options */}
             {Object.keys(dict).length > index + 1 ? <br /> : null}
           </div>

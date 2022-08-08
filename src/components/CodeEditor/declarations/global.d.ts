@@ -18,7 +18,7 @@ declare global {
    */
   const htmlNode: HTMLNode;
   const codeData: JSONType;
-  const customProperties: JSONType;
+  const customProperties: typeof codeData;
   const data: PanelData;
   const options: OptionsInterface;
   const theme: GrafanaTheme;

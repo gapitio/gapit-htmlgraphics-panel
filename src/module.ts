@@ -1,5 +1,5 @@
 import { PanelPlugin } from '@grafana/data';
-import { OptionsInterface, CalcsMutation } from 'types';
+import { OptionsInterface, CalcsMutation, EditorLanguage, CodeEditorOptionSettings } from 'types';
 import { HTMLPanel } from 'HTMLPanel';
 import { CodeDataOption } from 'components/PanelOptions/CodeData';
 import { CodeEditorOption } from 'components/PanelOptions/CodeEditor';
@@ -10,7 +10,7 @@ import { calcsMutations } from 'utils/calcsMutations';
 
 export const plugin = new PanelPlugin<OptionsInterface>(HTMLPanel).useFieldConfig().setPanelOptions((builder) => {
   return builder
-    .addCustomEditor({
+    .addCustomEditor<Record<string, never>, CalcsMutation>({
       id: 'calcsMutation',
       path: 'calcsMutation',
       name: 'Mutate calcs',
@@ -20,7 +20,7 @@ export const plugin = new PanelPlugin<OptionsInterface>(HTMLPanel).useFieldConfi
       editor: CalcsMutationOption,
       defaultValue: CalcsMutation.Standard,
     })
-    .addCustomEditor({
+    .addCustomEditor<Record<string, never>, string[]>({
       id: 'reduceOptions.calcs',
       path: 'reduceOptions.calcs',
       name: 'Calcs',
@@ -83,7 +83,7 @@ export const plugin = new PanelPlugin<OptionsInterface>(HTMLPanel).useFieldConfi
       defaultValue: true,
       category: ['Polyfill'],
     })
-    .addCustomEditor({
+    .addCustomEditor<CodeEditorOptionSettings, string>({
       id: 'codeData',
       path: 'codeData',
       name: 'Custom properties',
@@ -92,10 +92,10 @@ export const plugin = new PanelPlugin<OptionsInterface>(HTMLPanel).useFieldConfi
       category: ['Custom properties'],
       defaultValue: '{\n  "text": "Random text"\n}',
       settings: {
-        language: 'json',
+        language: EditorLanguage.Json,
       },
     })
-    .addCustomEditor({
+    .addCustomEditor<CodeEditorOptionSettings, string>({
       id: 'rootCSS',
       path: 'rootCSS',
       name: 'Root CSS',
@@ -103,10 +103,10 @@ export const plugin = new PanelPlugin<OptionsInterface>(HTMLPanel).useFieldConfi
       editor: CodeEditorOption,
       defaultValue: '',
       settings: {
-        language: 'css',
+        language: EditorLanguage.Css,
       },
     })
-    .addCustomEditor({
+    .addCustomEditor<CodeEditorOptionSettings, string>({
       id: 'css',
       path: 'css',
       name: 'CSS',
@@ -115,10 +115,10 @@ export const plugin = new PanelPlugin<OptionsInterface>(HTMLPanel).useFieldConfi
       defaultValue:
         '* {\n  font-family: Open Sans;\n}\n\n.box {\n  border: solid #555 2px;\n  border-radius: 10px;\n  padding: 10px 20px;\n}\n',
       settings: {
-        language: 'css',
+        language: EditorLanguage.Css,
       },
     })
-    .addCustomEditor({
+    .addCustomEditor<CodeEditorOptionSettings, string>({
       id: 'html',
       path: 'html',
       name: 'HTML/SVG document',
@@ -131,7 +131,7 @@ export const plugin = new PanelPlugin<OptionsInterface>(HTMLPanel).useFieldConfi
       defaultValue:
         '<div style="text-align: center;">\n  <div class="box" id="htmlgraphics-text"></div>\n  <br />\n  <div class="box" id="htmlgraphics-value"></div>\n</div>\n',
       settings: {
-        language: 'html',
+        language: EditorLanguage.Html,
       },
     })
     .addBooleanSwitch({
@@ -140,7 +140,7 @@ export const plugin = new PanelPlugin<OptionsInterface>(HTMLPanel).useFieldConfi
       description: 'Run onRender when the panel is first loaded (in most cases, this should be true)',
       defaultValue: true,
     })
-    .addCustomEditor({
+    .addCustomEditor<CodeEditorOptionSettings, string>({
       id: 'onRender',
       path: 'onRender',
       name: 'onRender',
@@ -149,7 +149,7 @@ export const plugin = new PanelPlugin<OptionsInterface>(HTMLPanel).useFieldConfi
       defaultValue:
         '// Sets the value from the first series on every refresh\nconst htmlgraphicsValue = htmlNode.getElementById(\'htmlgraphics-value\');\n\nif (htmlgraphicsValue) {\n  const valueField = data.series[0]?.fields[1];\n  if (valueField) {\n    const length = valueField.values.length;\n    htmlgraphicsValue.textContent = valueField.values.get(length - 1);\n  } else {\n    htmlgraphicsValue.textContent = "No data"\n  }\n}\n',
       settings: {
-        language: 'javascript',
+        language: EditorLanguage.Javascript,
       },
     })
     .addBooleanSwitch({
@@ -190,7 +190,7 @@ export const plugin = new PanelPlugin<OptionsInterface>(HTMLPanel).useFieldConfi
       description: 'Trigger the onInit code when the panels width/height changes.',
       defaultValue: false,
     })
-    .addCustomEditor({
+    .addCustomEditor<CodeEditorOptionSettings, string>({
       id: 'onInit',
       path: 'onInit',
       name: 'onInit',
@@ -200,10 +200,11 @@ export const plugin = new PanelPlugin<OptionsInterface>(HTMLPanel).useFieldConfi
       defaultValue:
         "// Sets the text from customProperties\nconst htmlgraphicsText = htmlNode.getElementById('htmlgraphics-text');\n\nif (htmlgraphicsText) {\n  htmlgraphicsText.textContent = customProperties.text;\n\n  // Change the text color based on the theme\n  if (theme.isDark) {\n    htmlgraphicsText.style.color = 'green';\n  } else {\n    htmlgraphicsText.style.color = 'red';\n  }\n}\n",
       settings: {
-        language: 'javascript',
+        language: EditorLanguage.Javascript,
+        useHtmlGraphicsDeclarations: true,
       },
     })
-    .addCustomEditor({
+    .addCustomEditor<CodeEditorOptionSettings, string>({
       id: 'importedPanelOptions',
       path: 'importedPanelOptions',
       name: 'Panel options',
@@ -211,7 +212,7 @@ export const plugin = new PanelPlugin<OptionsInterface>(HTMLPanel).useFieldConfi
       editor: ImportExportOption,
       category: ['Import/export'],
       settings: {
-        language: 'json',
+        language: EditorLanguage.Json,
       },
     });
 });

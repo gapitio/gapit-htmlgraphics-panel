@@ -1,29 +1,28 @@
 import React, { FC, useEffect, useState } from 'react';
 import { editor } from 'monaco-editor/esm/vs/editor/editor.api';
-import { EditorLanguageType } from 'types';
+import { CodeEditorOptionSettings, OptionsInterface } from 'types';
 import { CodeEditor as GrafanaCodeEditor, Monaco } from '@grafana/ui';
+import { StandardEditorContext } from '@grafana/data';
 
 interface Props {
-  language: EditorLanguageType;
+  settings?: CodeEditorOptionSettings;
   value: string | undefined;
-  onChange: (value?: string) => void;
+  context: StandardEditorContext<OptionsInterface, any>;
+  onChange: (value: string) => void;
 }
 
-export const CodeEditor: FC<Props> = ({ language, value, onChange }) => {
+export const CodeEditor: FC<Props> = ({ settings, value, context, onChange }) => {
   const [declarations, setDeclarations] = useState<Array<{ filePath: string; content: string }>>();
 
-  const isJavascript = language === 'javascript';
   const editorDidMount = async (_: editor.IStandaloneCodeEditor, m: Monaco) => {
     if (declarations) {
       // Add autocompletion for panel definitions (htmlNode, htmlGraphics, data, options, ETC)
-      for (const { filePath, content } of declarations) {
-        m.languages.typescript.javascriptDefaults.addExtraLib(content, filePath);
-      }
+      m.languages.typescript.javascriptDefaults.setExtraLibs(declarations);
     }
   };
 
   useEffect(() => {
-    if (isJavascript) {
+    if (settings?.useHtmlGraphicsDeclarations) {
       const reqDecl = require.context('./declarations', true, /\..*\.d\.ts$/);
 
       Promise.all(reqDecl.keys().map((key) => fetch(reqDecl(key))))
@@ -31,21 +30,21 @@ export const CodeEditor: FC<Props> = ({ language, value, onChange }) => {
         .then((d) =>
           setDeclarations(
             reqDecl.keys().map((filePath, i) => ({
-              filePath: filePath.substring(2),
+              filePath: filePath.substring(2), // Remove ./
               content: d[i],
             }))
           )
         );
     }
-  }, [isJavascript]);
+  }, [settings?.useHtmlGraphicsDeclarations]);
 
   return (
     <div>
-      {!isJavascript || declarations ? (
+      {!settings?.useHtmlGraphicsDeclarations || declarations ? (
         <GrafanaCodeEditor
           height={'33vh'}
           value={value ?? ''}
-          language={language ?? ''}
+          language={settings?.language ?? ''}
           showLineNumbers={true}
           onEditorDidMount={editorDidMount}
           onSave={onChange}

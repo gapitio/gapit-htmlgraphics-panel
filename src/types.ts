@@ -1,5 +1,11 @@
 import { ReduceDataOptions } from '@grafana/data';
 
+export type JSONObject = {
+  [key in string]: JSONValue;
+};
+export type JSONValue = string | number | boolean | null | JSONObject | JSONValue[];
+export type JSONType = JSONObject | JSONValue[];
+
 export const enum CalcsMutation {
   All = 'all',
   Standard = 'standard',
@@ -7,9 +13,17 @@ export const enum CalcsMutation {
   None = 'none',
 }
 
-export type EditorCodeType = string | undefined;
-export type EditorLanguageType = 'javascript' | 'html' | 'json' | undefined;
-export type setErrorStatusType = React.Dispatch<React.SetStateAction<boolean>>;
+export const enum EditorLanguage {
+  Javascript = 'javascript',
+  Html = 'html',
+  Json = 'json',
+  Css = 'css',
+}
+
+export interface CodeEditorOptionSettings {
+  language: EditorLanguage;
+  useHtmlGraphicsDeclarations?: boolean;
+}
 
 export interface OptionsInterface {
   add100Percentage: boolean;
@@ -17,20 +31,20 @@ export interface OptionsInterface {
   overflow: 'visible' | 'auto' | 'overlay' | 'hidden';
   useGrafanaScrollbar: boolean;
   SVGBaseFix: boolean;
-  rootCSS: EditorCodeType;
-  css: EditorCodeType;
-  html: EditorCodeType;
+  rootCSS: string;
+  css: string;
+  html: string;
   renderOnMount: boolean;
   panelupdateOnMount: boolean;
-  onRender: EditorCodeType;
+  onRender: string;
   dynamicData: boolean;
   dynamicFieldDisplayValues: boolean;
   dynamicProps: boolean;
   dynamicHtmlGraphics: boolean;
   onInitOnResize: boolean;
-  onInit: EditorCodeType;
-  codeData: EditorCodeType;
-  importedPanelOptions: EditorCodeType;
+  onInit: string;
+  codeData: string;
+  importedPanelOptions: string;
   reduceOptions: ReduceDataOptions;
   calcsMutation: CalcsMutation;
 }
