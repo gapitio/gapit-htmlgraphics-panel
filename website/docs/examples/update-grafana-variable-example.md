@@ -32,13 +32,21 @@ const buttonElt = htmlNode.querySelector('button');
   https://grafana.com/docs/grafana/latest/developers/plugins/add-support-for-variables/
 */
 function updateGrafanaVariable(variableName, value) {
-  getLocationSrv().update({
+  htmlGraphics.locationService.partial(
+    {
+      [`var-${variableName}`]: value,
+    },
+    true // replace: true tells Grafana to update the current URL state, rather than creating a new history entry.
+  );
+
+  // Old method using getLocationSrv
+  /* getLocationSrv().update({
     query: {
       [`var-${variableName}`]: value,
     },
     partial: true, // partial: true makes the update only affect the query parameters listed in query, and leaves the other query parameters unchanged.
     replace: true, // replace: true tells Grafana to update the current URL state, rather than creating a new history entry.
-  });
+  }); */
 }
 
 function getGrafanaVariableValue(variable) {
