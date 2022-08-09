@@ -74,12 +74,25 @@ Same as [getTemplateSrv](#gettemplatesrv-global)
 console.log(htmlGraphics.getTemplateSrv());
 ```
 
-### getLocationSrv
+### ~~getLocationSrv~~
+
+_Deprecated in favor of [locationService](#locationservice)_
 
 Same as [getLocationSrv](#getlocationsrv-global)
 
 ```javascript
 console.log(htmlGraphics.getLocationSrv());
+```
+
+### locationService
+
+```javascript
+htmlGraphics.locationService.partial(
+  {
+    'var-randomVariable': 'randomValue',
+  },
+  true // replace: true tells Grafana to update the current URL state, rather than creating a new history entry.
+);
 ```
 
 ### props
@@ -284,7 +297,9 @@ Used to retrieve the [TemplateSrv](https://grafana.com/docs/grafana/latest/packa
 getTemplateSrv().replace(`$randomVariable`);
 ```
 
-## getLocationSrv (global)
+## ~~getLocationSrv (global)~~
+
+_Deprecated in favor of [locationService](#locationservice)_
 
 Used to retrieve the [LocationSrv](https://grafana.com/docs/grafana/latest/packages_api/runtime/locationsrv/) that can be used to update the template variables.
 

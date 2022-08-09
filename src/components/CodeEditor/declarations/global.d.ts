@@ -7,7 +7,11 @@ import {
   PanelProps,
   Registry,
 } from '@grafana/data';
-import { getLocationSrv as getLocationSrvType, getTemplateSrv as getTemplateSrvType } from '@grafana/runtime';
+import {
+  getLocationSrv as getLocationSrvType,
+  getTemplateSrv as getTemplateSrvType,
+  LocationService,
+} from '@grafana/runtime';
 import { HTMLNode, JSONType, OptionsInterface, PopulatedGetFieldDisplayValuesOptions } from './index';
 
 declare global {
@@ -40,6 +44,7 @@ declare global {
     theme2: GrafanaTheme2;
     getTemplateSrv: typeof getTemplateSrv;
     getLocationSrv: typeof getLocationSrv;
+    locationService: LocationService;
     props: PanelProps<OptionsInterface>;
     width: number;
     height: number;
