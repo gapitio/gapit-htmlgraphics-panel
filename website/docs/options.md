@@ -175,7 +175,7 @@ Executes the code every render (when new data is available).
 ### Dynamic htmlGraphics
 
 :::tip
-Check out [Dynamic variables](advanced/dynamic-variables.md) for more info.
+Check out [Dynamic variables](advanced/dynamic-variables.mdx) for more info.
 :::
 
 Updates [htmlGraphics](references.md#htmlgraphics-global) when new data is available.
