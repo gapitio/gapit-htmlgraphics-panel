@@ -1,5 +1,13 @@
 # Changelog
 
+## v2.1.0 (2022-08-09)
+
+### Features / enhancements
+
+- **Options**: Add release files without the version number [#111](https://github.com/gapitio/gapit-htmlgraphics-panel/pull/111)
+- **Declarations**: More accurate declarations [#113](https://github.com/gapitio/gapit-htmlgraphics-panel/pull/113)
+- **Repo**: Add locationService [#117](https://github.com/gapitio/gapit-htmlgraphics-panel/pull/117)
+
 ## v2.0.3 (2022-03-07)
 
 ### Features / enhancements
