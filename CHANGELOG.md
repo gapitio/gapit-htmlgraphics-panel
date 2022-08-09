@@ -4,7 +4,7 @@
 
 ### Features / enhancements
 
-- **Options**: Add release files without the version number [#111](https://github.com/gapitio/gapit-htmlgraphics-panel/pull/111)
+- **Options**: Add Grafana scrollbar [#111](https://github.com/gapitio/gapit-htmlgraphics-panel/pull/111)
 - **Declarations**: More accurate declarations [#113](https://github.com/gapitio/gapit-htmlgraphics-panel/pull/113)
 - **Repo**: Add locationService [#117](https://github.com/gapitio/gapit-htmlgraphics-panel/pull/117)
 
