@@ -5,6 +5,7 @@ import Link from '@docusaurus/Link';
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
 import styles from './index.module.css';
 import HomepageFeatures from '../components/HomepageFeatures';
+import { NewRelease } from '../components/NewRelease';
 
 function HomepageHeader() {
   const { siteConfig } = useDocusaurusContext();
@@ -28,6 +29,7 @@ export default function Home(): JSX.Element {
     <Layout title={`Home`} description="Grafana panel for displaying metric sensitive HTML or SVG graphics.">
       <HomepageHeader />
       <main>
+        <NewRelease />
         <HomepageFeatures />
       </main>
     </Layout>
