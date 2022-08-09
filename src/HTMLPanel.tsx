@@ -6,7 +6,7 @@ import {
   GetFieldDisplayValuesOptions,
   PanelProps,
 } from '@grafana/data';
-import { config, getTemplateSrv, getLocationSrv } from '@grafana/runtime';
+import { config, getTemplateSrv, getLocationSrv, locationService } from '@grafana/runtime';
 import { OptionsInterface, CalcsMutation, ErrorObj, HTMLNodeElement } from 'types';
 import 'fonts.scss';
 import { parseJSON } from 'utils/parseJSON';
@@ -70,6 +70,7 @@ export class HTMLPanel extends PureComponent<Props, PanelState> {
       theme2,
       getTemplateSrv,
       getLocationSrv,
+      locationService,
       props,
       width,
       height,

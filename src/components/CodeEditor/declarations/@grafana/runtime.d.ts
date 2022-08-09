@@ -1,4 +1,5 @@
 import { VariableModel, ScopedVars, TimeRange, UrlQueryMap } from './data';
+import * as H from 'history';
 
 /**
  * @public
@@ -94,3 +95,22 @@ export declare const setTemplateSrv: (instance: TemplateSrv) => void;
  * @public
  */
 export declare const getTemplateSrv: () => TemplateSrv;
+
+/**
+ * @public
+ * A wrapper to help work with browser location and history
+ */
+export interface LocationService {
+  partial: (query: Record<string, any>, replace?: boolean) => void;
+  push: (location: H.Path | H.LocationDescriptor<any>) => void;
+  replace: (location: H.Path | H.LocationDescriptor<any>) => void;
+  reload: () => void;
+  getLocation: () => H.Location;
+  getHistory: () => H.History;
+  getSearch: () => URLSearchParams;
+  getSearchObject: () => UrlQueryMap;
+  /**
+   * This is from the old LocationSrv interface
+   * @deprecated use partial, push or replace instead */
+  update: (update: LocationUpdate) => void;
+}
