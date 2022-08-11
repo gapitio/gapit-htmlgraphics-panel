@@ -87,7 +87,7 @@ export const plugin = new PanelPlugin<OptionsInterface>(HTMLPanel).useFieldConfi
       id: 'codeData',
       path: 'codeData',
       name: 'Custom properties',
-      description: 'This is the customProperties (codeData), which can be accessed by onInit and onRender',
+      description: 'CustomProperties (codeData) which can be accessed by onInit and onRender',
       editor: CodeDataOption,
       category: ['Custom properties'],
       defaultValue: '{\n  "text": "Random text"\n}',
@@ -144,7 +144,7 @@ export const plugin = new PanelPlugin<OptionsInterface>(HTMLPanel).useFieldConfi
       id: 'onRender',
       path: 'onRender',
       name: 'onRender',
-      description: `On render code is executed whenever new data is available (htmlNode, customProperties/codeData, data, options, theme, getTemplateSrv, getLocationSrv)`,
+      description: `The onRender code is executed whenever new data is available (htmlNode, customProperties/codeData, data, options, theme, getTemplateSrv, getLocationSrv, htmlGraphics)`,
       editor: CodeEditorOption,
       defaultValue:
         '// Sets the value from the first series on every refresh\nconst htmlgraphicsValue = htmlNode.getElementById(\'htmlgraphics-value\');\n\nif (htmlgraphicsValue) {\n  const valueField = data.series[0]?.fields[1];\n  if (valueField) {\n    const length = valueField.values.length;\n    htmlgraphicsValue.textContent = valueField.values.get(length - 1);\n  } else {\n    htmlgraphicsValue.textContent = "No data"\n  }\n}\n',
@@ -153,36 +153,36 @@ export const plugin = new PanelPlugin<OptionsInterface>(HTMLPanel).useFieldConfi
       },
     })
     .addBooleanSwitch({
-      path: 'dynamicHtmlGraphics',
-      name: 'Dynamic htmlGraphics',
-      description: 'Update htmlGraphics when new data is available.',
-      defaultValue: false,
-    })
-    .addBooleanSwitch({
-      path: 'dynamicData',
-      name: 'Dynamic data object',
-      description:
-        'Update the data object when new data is available. The code will not execute again, it will only update the data object. This is only for onInit, onRender will update like normal.',
-      defaultValue: false,
-    })
-    .addBooleanSwitch({
-      path: 'dynamicFieldDisplayValues',
-      name: 'Dynamic fieldDisplayValues',
-      description: 'Update fieldDisplayValues when new data is available.',
-      defaultValue: false,
-    })
-    .addBooleanSwitch({
-      path: 'dynamicProps',
-      name: 'Dynamic props',
-      description: 'Update props when new data is available.',
-      defaultValue: false,
-    })
-    .addBooleanSwitch({
       path: 'panelupdateOnMount',
       name: 'Trigger panelupdate when mounted',
       description:
         'Trigger the panelupdate event (htmlNode.onpanelupdate) when the panel is first loaded (in most cases, this should be true)',
       defaultValue: true,
+    })
+    .addBooleanSwitch({
+      path: 'dynamicHtmlGraphics',
+      name: 'Dynamic htmlGraphics (onInit)',
+      description: 'Update the onInit htmlGraphics object when new data is available.',
+      defaultValue: false,
+    })
+    .addBooleanSwitch({
+      path: 'dynamicData',
+      name: 'Dynamic data object (onInit)',
+      description:
+        'Update the onInit data object when new data is available. The onInit code will not execute again, it will only update the data object.',
+      defaultValue: false,
+    })
+    .addBooleanSwitch({
+      path: 'dynamicFieldDisplayValues',
+      name: 'Dynamic fieldDisplayValues (onInit)',
+      description: 'Update the onInit fieldDisplayValues object when new data is available.',
+      defaultValue: false,
+    })
+    .addBooleanSwitch({
+      path: 'dynamicProps',
+      name: 'Dynamic props (onInit)',
+      description: 'Update the onInit props object when new data is available.',
+      defaultValue: false,
     })
     .addBooleanSwitch({
       path: 'onInitOnResize',
@@ -195,7 +195,7 @@ export const plugin = new PanelPlugin<OptionsInterface>(HTMLPanel).useFieldConfi
       path: 'onInit',
       name: 'onInit',
       description:
-        'On init code is executed when the panel loads (htmlNode, customProperties/codeData, data, options, theme, getTemplateSrv, getLocationSrv)',
+        'The onInit code is executed when the panel loads (htmlNode, customProperties/codeData, data, options, theme, getTemplateSrv, getLocationSrv, htmlGraphics)',
       editor: CodeEditorOption,
       defaultValue:
         "// Sets the text from customProperties\nconst htmlgraphicsText = htmlNode.getElementById('htmlgraphics-text');\n\nif (htmlgraphicsText) {\n  htmlgraphicsText.textContent = customProperties.text;\n\n  // Change the text color based on the theme\n  if (theme.isDark) {\n    htmlgraphicsText.style.color = 'green';\n  } else {\n    htmlgraphicsText.style.color = 'red';\n  }\n}\n",
@@ -208,7 +208,7 @@ export const plugin = new PanelPlugin<OptionsInterface>(HTMLPanel).useFieldConfi
       id: 'importedPanelOptions',
       path: 'importedPanelOptions',
       name: 'Panel options',
-      description: 'Easily copy all options to a different panel which uses the gapit-htmlgraphics-panel.',
+      description: 'Easily copy all options to a panel which uses the HTMLGraphics panel (gapit-htmlgraphics-panel).',
       editor: ImportExportOption,
       category: ['Import/export'],
       settings: {
