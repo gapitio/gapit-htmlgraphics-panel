@@ -34,7 +34,13 @@ export interface OptionsInterface {
 }
 
 export interface HTMLNode extends ShadowRoot {
+  /**
+   * Triggers when new data is available (like onRender).
+   */
   onpanelupdate: () => void;
+  /**
+   * Triggers when the panel will unmount [componentWillUnmount](https://reactjs.org/docs/react-component.html#componentwillunmount).
+   */
   onpanelwillunmount: () => void;
 }
 
