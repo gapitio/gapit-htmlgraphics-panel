@@ -1,5 +1,11 @@
 # Changelog
 
+## v2.1.1 (2022-08-11)
+
+### Features / enhancements
+
+- **Declarations**: Add missing declaration descriptions [301e69a](https://github.com/gapitio/gapit-htmlgraphics-panel/commit/301e69a862a4eb5621690732932620a4e25968e3)
+
 ## v2.1.0 (2022-08-09)
 
 ### Features / enhancements
