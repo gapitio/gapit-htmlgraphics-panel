@@ -25,25 +25,5 @@ module.exports.getWebpackConfig = (config, options) => {
     },
   });
 
-  // Workaround for https://github.com/grafana/grafana/issues/52923
-  config.module.rules.push(
-    {
-      test: /\.(png|jpe?g|gif|svg)$/,
-      type: 'asset/resource',
-      generator: {
-        publicPath: `public/plugins/${pluginJson.id}/img/`,
-        outputPath: 'img/',
-      },
-    },
-    {
-      test: /\.(woff|woff2|eot|ttf|otf)(\?v=\d+\.\d+\.\d+)?$/,
-      type: 'asset/resource',
-      generator: {
-        publicPath: `public/plugins/${pluginJson.id}/fonts/`,
-        outputPath: 'fonts/',
-      },
-    }
-  );
-
   return config;
 };

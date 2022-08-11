@@ -25,10 +25,10 @@
     "tslib": "^2.4.0"
   },
   "devDependencies": {
-    "@grafana/data": "9.0.6",
-    "@grafana/runtime": "9.0.6",
-    "@grafana/toolkit": "9.0.6",
-    "@grafana/ui": "9.0.6",
+    "@grafana/data": "9.0.7",
+    "@grafana/runtime": "9.0.7",
+    "@grafana/toolkit": "9.0.7",
+    "@grafana/ui": "9.0.7",
     "@types/react": "^17.0.48",
     "@types/webpack-env": "^1.17.0"
   }
