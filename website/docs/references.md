@@ -217,7 +217,7 @@ console.log(customProperties.something); // true
 codeData is here for backwards compatibility. Please use customProperties instead.
 :::
 
-Same as [customProperties](#customProperties-global)
+Same as [customProperties](#customproperties-global)
 
 `Custom properties`
 
