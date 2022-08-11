@@ -20,71 +20,150 @@ An object (dict) containing all the variables.
 
 ### htmlNode
 
-Same as [htmlNode](#htmlnode-global)
+The [ShadowRoot](https://developer.mozilla.org/en-US/docs/Web/API/ShadowRoot) which contains the elements added in the HTML/SVG document (works similarly to document).
+
+Used to get elements and their properties.
 
 ```javascript
-console.log(htmlGraphics.htmlNode);
+const randomTextElt = htmlGraphics.htmlNode.querySelector('#random-text-elt');
+randomTextElt.textContent = 'Something';
+randomTextElt.style.fill = '#08f';
 ```
 
 ### data
 
-Same as [data](#data-global)
+The [PanelData interface](https://grafana.com/docs/grafana/latest/packages_api/data/paneldata/) passed into the panel by Grafana.
+
+Can be used to retrieve metric values.
 
 ```javascript
-console.log(htmlGraphics.data);
+// Used in onRender as it updates every time new data is available
+const getMetricByName = (metricName, noDataValue = 'No data') => {
+  const filteredSeries = htmlGraphics.data.series.filter((series) => series.name == metricName);
+  if (filteredSeries.length > 0) {
+    return filteredSeries[0].fields[1].state.calcs.last;
+  }
+  return noDataValue;
+};
+
+getMetricByName('random-metric-name');
 ```
 
 ### customProperties
 
-Same as [customProperties](#customproperties-global)
+The parsed json object _(also available as a JSON string in options.codeData)_ from the Custom properties option _(named codeData in the options for backwards compatibility)_.
+
+Used to get the json object values.
+
+`Custom properties`
+
+```json
+{
+  "something": true
+}
+```
 
 ```javascript
-console.log(htmlGraphics.customProperties);
+// onRender or onInit
+
+console.log(htmlGraphics.customProperties.something); // true
 ```
 
 ### codeData
 
-Same as [codeData](#codedata-global)
+:::caution
+codeData is deprecated. Use customProperties instead.
+:::
+
+Same as [customProperties](#customproperties-global)
+
+`Custom properties`
+
+```json
+{
+  "something": true
+}
+```
 
 ```javascript
-console.log(htmlGraphics.codeData);
+// onRender or onInit
+
+console.log(htmlGraphics.codeData.something); // true
 ```
 
 ### options
 
-Same as [options](#options-global)
+The options object.
 
 ```javascript
 console.log(htmlGraphics.options);
+
+// Looks something like this, when logged in the console.
+
+{
+  SVGBaseFix: true,
+  add100Percentage: true,
+  centerAlignContent: true,
+  codeData: "{\"randomKey\": \"randomValue\"}",
+  css: undefined,
+  html: undefined,
+  onInit: "console.log(options)",
+  onRender: undefined,
+  ...
+}
 ```
 
 ### theme
 
-Same as [theme](#theme-global)
+The [GrafanaTheme](https://grafana.com/docs/grafana/latest/packages_api/data/grafanatheme/) object. It stores the current theme (light/dark), colors used by grafana, ETC.
+
+Very useful when you're making a dark mode and light mode.
 
 ```javascript
-console.log(htmlGraphics.theme);
+const darkTheme = () => {
+  ...
+};
+
+if (htmlGraphics.theme.isDark) {
+  darkTheme();
+}
+```
+
+### theme2
+
+The new [GrafanaTheme2](https://grafana.com/docs/grafana/latest/packages_api/data/grafanatheme2/) object introduced in Grafana v8. It stores the current theme (light/dark), colors used by grafana, ETC.
+
+```javascript
+console.log(htmlGraphics.theme2);
 ```
 
 ### getTemplateSrv
 
-Same as [getTemplateSrv](#gettemplatesrv-global)
+Used to retrieve the [TemplateSrv](https://grafana.com/docs/grafana/latest/packages_api/runtime/templatesrv/) that can be used to fetch available template variables.
 
 ```javascript
-console.log(htmlGraphics.getTemplateSrv());
+htmlGraphics.getTemplateSrv().replace(`$randomVariable`);
 ```
 
 ### ~~getLocationSrv~~
 
 _Deprecated in favor of [locationService](#locationservice)_
 
-Same as [getLocationSrv](#getlocationsrv-global)
+Used to retrieve the [LocationSrv](https://grafana.com/docs/grafana/latest/packages_api/runtime/locationsrv/) that can be used to update the template variables.
 
 ```javascript
-console.log(htmlGraphics.getLocationSrv());
+htmlGraphics.getLocationSrv().update({
+  query: {
+    'var-randomVariable': 'randomValue',
+  },
+  partial: true,
+  replace: false,
+});
 ```
 
 ### locationService
+
+A wrapper to help work with browser location and history
 
 ```javascript
 htmlGraphics.locationService.partial(
@@ -143,7 +222,9 @@ console.log(htmlGraphics.fieldDisplayValues);
 
 ### fieldReducers
 
-A list of the reducers. Useful for checking the calcs properties.
+A list of the reducers.
+
+Useful for checking the calcs properties.
 
 ```js
 console.log(htmlGraphics.fieldReducers);
@@ -153,7 +234,7 @@ console.log(htmlGraphics.fieldReducers);
 
 ## htmlNode (global)
 
-The [shadow root](https://developer.mozilla.org/en-US/docs/Web/API/ShadowRoot) which contains the elements added in the HTML/SVG document (works similarly to document).
+The [ShadowRoot](https://developer.mozilla.org/en-US/docs/Web/API/ShadowRoot) which contains the elements added in the HTML/SVG document (works similarly to document).
 
 Used to get elements and their properties.
 
@@ -165,7 +246,7 @@ randomTextElt.style.fill = '#08f';
 
 ### panelupdate event
 
-`panelupdate` will trigger when new data is available (like onRender).
+`panelupdate` triggers when new data is available (like onRender).
 
 ```js
 function onPanelUpdate() {
@@ -180,7 +261,7 @@ Because of the panelupdate event, frameworks like [React](https://reactjs.org/),
 
 ### panelwillunmount event
 
-`panelwillunmount` will trigger when the panel will unmount <https://reactjs.org/docs/react-component.html#componentwillunmount>.
+`panelwillunmount` triggers when the panel will unmount [componentWillUnmount](https://reactjs.org/docs/react-component.html#componentwillunmount).
 
 ```js
 function onPanelWillUnmount() {
@@ -214,7 +295,7 @@ console.log(customProperties.something); // true
 ## codeData (global)
 
 :::caution
-codeData is here for backwards compatibility. Please use customProperties instead.
+codeData is deprecated. Use customProperties instead.
 :::
 
 Same as [customProperties](#customproperties-global)
@@ -235,7 +316,7 @@ console.log(codeData.something); // true
 
 ## data (global)
 
-The [PanelData interface](https://grafana.com/docs/grafana/latest/packages_api/data/paneldata/) passed in to the panel by Grafana. It is used to get the values from the DataFrame.
+The [PanelData interface](https://grafana.com/docs/grafana/latest/packages_api/data/paneldata/) passed into the panel by Grafana.
 
 Can be used to retrieve metric values.
 
@@ -254,7 +335,7 @@ getMetricByName('random-metric-name');
 
 ## options (global)
 
-The options object that can be edited in the edit menu. All the options are stored in the object (onRender, htmlNode, ETC).
+The options object.
 
 ```javascript
 console.log(options);
@@ -269,13 +350,14 @@ console.log(options);
   css: undefined,
   html: undefined,
   onInit: "console.log(options)",
-  onRender: undefined
+  onRender: undefined,
+  ...
 }
 ```
 
 ## theme (global)
 
-The [GrafanaTheme](https://grafana.com/docs/grafana/latest/packages_api/data/grafanatheme/) interface. It stores the current theme (light/dark), colors used by grafana, ETC.
+The [GrafanaTheme](https://grafana.com/docs/grafana/latest/packages_api/data/grafanatheme/) object. It stores the current theme (light/dark), colors used by grafana, ETC.
 
 Very useful when you're making a dark mode and light mode.
 
