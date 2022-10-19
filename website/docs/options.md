@@ -123,7 +123,7 @@ Chooses what happens if content overflows outside the panel.
 
 ### Use Grafana scrollbar
 
-Requires [Overflow](#overflow) to be `Visible`. Wraps the [scrollbar from Grafana](https://grafana.com/docs/grafana/latest/packages_api/ui/customscrollbar/) around the ShadowRoot container.
+Requires [Overflow](#overflow) to be `Visible`. Wraps the [scrollbar from Grafana](https://grafana.com/docs/grafana/v9.1/packages_api/ui/customscrollbar/) around the ShadowRoot container.
 
 ### Root CSS
 

@@ -35,7 +35,7 @@ The code requires the query to be sent, where to send the query, converting the 
 
 ## Query to be sent
 
-The query and most of the additional data can be obtained from [DataQueryRequest interface `data.request.targets`](https://grafana.com/docs/grafana/latest/packages_api/data/dataqueryrequest/).
+The query and most of the additional data can be obtained from [DataQueryRequest interface `data.request.targets`](https://grafana.com/docs/grafana/v9.1/packages_api/data/dataqueryrequest/).
 
 ```js
 const [{ query, refId, datasource }] = data.request.targets;
@@ -44,11 +44,11 @@ const { from, to } = data.timeRange;
 
 ## Where to send the query
 
-Most data sources use [/api/datasources/proxy/:datasourceId/\*](https://grafana.com/docs/grafana/latest/http_api/data_source/#data-source-proxy-calls), [/api/ds/query](https://grafana.com/docs/grafana/latest/http_api/data_source/#data-source-proxy-calls) and the deprecated [/api/tsdb/query](https://grafana.com/docs/grafana/latest/http_api/data_source/#query-a-data-source-by-id).
+Most data sources use [/api/datasources/proxy/:datasourceId/\*](https://grafana.com/docs/grafana/v9.1/http_api/data_source/#data-source-proxy-calls), [/api/ds/query](https://grafana.com/docs/grafana/v9.1/http_api/data_source/#data-source-proxy-calls) and the deprecated [/api/tsdb/query](https://grafana.com/docs/grafana/v9.1/http_api/data_source/#query-a-data-source-by-id).
 
 The approach is usually the same for the APIs, but data sources require different data.
 
-Using the [/api/ds/query](https://grafana.com/docs/grafana/latest/http_api/data_source/#data-source-proxy-calls)
+Using the [/api/ds/query](https://grafana.com/docs/grafana/v9.1/http_api/data_source/#data-source-proxy-calls)
 
 ```js
 const { from, to } = data.timeRange;
