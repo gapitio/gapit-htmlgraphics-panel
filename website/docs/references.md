@@ -214,7 +214,7 @@ console.log(htmlGraphics.getFieldDisplayValues({ reduceOptions: { calcs: ['last'
 
 ### fieldDisplayValues
 
-[Mutate calcs](./options.md#mutate-calcs) uses [getFieldDisplayValues](#getFieldDisplayValues) to mutate the calcs and this is the returned values.
+[Mutate calcs](./options.md#mutate-calcs) uses [getFieldDisplayValues](#getfielddisplayvalues) to mutate the calcs and this is the returned values.
 
 ```js
 console.log(htmlGraphics.fieldDisplayValues);
