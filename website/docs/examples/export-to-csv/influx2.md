@@ -101,7 +101,7 @@ btn.onclick = () => {
     queries: [
       {
         datasource,
-        query,
+        query: htmlGraphics.props.replaceVariables(query),
         refId,
         intervalMs: 0,
         maxDataPoints: 1e9, // 1E9 = 1_000_000_000 (Max allowed 1E20)
