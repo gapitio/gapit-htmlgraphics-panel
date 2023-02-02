@@ -7,7 +7,7 @@
 [![GitHub all releases](https://img.shields.io/github/downloads/gapitio/gapit-htmlgraphics-panel/total?logo=github)](https://github.com/gapitio/gapit-htmlgraphics-panel)
 
 [![GitHub Repo stars](https://img.shields.io/github/stars/gapitio/gapit-htmlgraphics-panel?color=brightgreen&logo=github)](https://github.com/gapitio/gapit-htmlgraphics-panel)
-[![GitHub Workflow Status](https://img.shields.io/github/workflow/status/gapitio/gapit-htmlgraphics-panel/Release?label=Release&logo=Github)](https://github.com/gapitio/gapit-htmlgraphics-panel/releases)
+[![GitHub Workflow Status](https://img.shields.io/github/actions/workflow/status/gapitio/gapit-htmlgraphics-panel/release.yml?label=Release&logo=Github)](https://github.com/gapitio/gapit-htmlgraphics-panel/releases)
 [![License](https://img.shields.io/github/license/gapitio/gapit-htmlgraphics-panel)](https://github.com/gapitio/gapit-htmlgraphics-panel/blob/master/LICENSE)
 [![PRs welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](https://github.com/gapitio/gapit-htmlgraphics-panel/pulls)
 
