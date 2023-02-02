@@ -19,15 +19,17 @@
     "watch": "grafana-toolkit plugin:dev --watch",
     "sign": "grafana-toolkit plugin:sign"
   },
-  "devDependencies": {
-    "@grafana/data": "9.0.7",
-    "@grafana/runtime": "9.0.7",
-    "@grafana/toolkit": "9.0.7",
-    "@grafana/ui": "9.0.7",
-    "@types/lodash": "^4.14.182",
-    "@types/react": "^17.0.48",
-    "@types/webpack-env": "^1.17.0",
+  "dependencies": {
+    "@grafana/data": "9.3.6",
+    "@grafana/runtime": "9.3.6",
     "lodash": "^4.17.21",
-    "tslib": "^2.4.0"
+    "tslib": "^2.5.0"
+  },
+  "devDependencies": {
+    "@grafana/toolkit": "9.3.6",
+    "@grafana/ui": "9.3.6",
+    "@types/lodash": "^4.14.191",
+    "@types/react": "^17.0.53",
+    "@types/webpack-env": "^1.18.0"
   }
 }
