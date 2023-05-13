@@ -30,7 +30,7 @@ declare global {
    */
   const customProperties: typeof codeData;
   /**
-   * The [PanelData interface](https://grafana.com/docs/grafana/latest/packages_api/data/paneldata/) passed into the panel by Grafana.
+   * The PanelData interface passed into the panel by Grafana.
    */
   const data: PanelData;
   /**
@@ -38,7 +38,7 @@ declare global {
    */
   const options: OptionsInterface;
   /**
-   * The [GrafanaTheme](https://grafana.com/docs/grafana/latest/packages_api/data/grafanatheme/) object. It stores the current theme (light/dark), colors used by grafana, ETC.
+   * The GrafanaTheme object. It stores the current theme (light/dark), colors used by grafana, ETC.
    */
   const theme: GrafanaTheme;
   /**
@@ -71,7 +71,7 @@ declare global {
      */
     customProperties: typeof customProperties;
     /**
-     * The [PanelData interface](https://grafana.com/docs/grafana/latest/packages_api/data/paneldata/) passed into the panel by Grafana.
+     * The PanelData interface passed into the panel by Grafana.
      */
     data: typeof data;
     /**
@@ -79,11 +79,11 @@ declare global {
      */
     options: typeof options;
     /**
-     * The [GrafanaTheme](https://grafana.com/docs/grafana/latest/packages_api/data/grafanatheme/) object. It stores the current theme (light/dark), colors used by grafana, ETC.
+     * The GrafanaTheme object. It stores the current theme (light/dark), colors used by grafana, ETC.
      */
     theme: typeof theme;
     /**
-     * The new [GrafanaTheme2](https://grafana.com/docs/grafana/latest/packages_api/data/grafanatheme2/) object introduced in Grafana v8. It stores the current theme (light/dark), colors used by grafana, ETC.
+     * The new GrafanaTheme2 object introduced in Grafana v8. It stores the current theme (light/dark), colors used by grafana, ETC.
      */
     theme2: GrafanaTheme2;
     /**
@@ -104,7 +104,7 @@ declare global {
      */
     locationService: LocationService;
     /**
-     * Containing all the props from the panel [PanelProps](https://grafana.com/docs/grafana/latest/packages_api/data/panelprops/).
+     * Containing all the props from the panel PanelProps.
      */
     props: PanelProps<OptionsInterface>;
     /**

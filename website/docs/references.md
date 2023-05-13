@@ -32,7 +32,7 @@ randomTextElt.style.fill = '#08f';
 
 ### data
 
-The [PanelData interface](https://grafana.com/docs/grafana/v9.1/packages_api/data/paneldata/) passed into the panel by Grafana.
+The PanelData interface passed into the panel by Grafana.
 
 Can be used to retrieve metric values.
 
@@ -115,7 +115,7 @@ console.log(htmlGraphics.options);
 
 ### theme
 
-The [GrafanaTheme](https://grafana.com/docs/grafana/v9.1/packages_api/data/grafanatheme/) object. It stores the current theme (light/dark), colors used by grafana, ETC.
+The GrafanaTheme object. It stores the current theme (light/dark), colors used by grafana, ETC.
 
 Very useful when you're making a dark mode and light mode.
 
@@ -131,7 +131,7 @@ if (htmlGraphics.theme.isDark) {
 
 ### theme2
 
-The new [GrafanaTheme2](https://grafana.com/docs/grafana/v9.1/packages_api/data/grafanatheme2/) object introduced in Grafana v8. It stores the current theme (light/dark), colors used by grafana, ETC.
+The new GrafanaTheme2 object introduced in Grafana v8. It stores the current theme (light/dark), colors used by grafana, ETC.
 
 ```javascript
 console.log(htmlGraphics.theme2);
@@ -139,7 +139,7 @@ console.log(htmlGraphics.theme2);
 
 ### getTemplateSrv
 
-Used to retrieve the [TemplateSrv](https://grafana.com/docs/grafana/v9.1/packages_api/runtime/templatesrv/) that can be used to fetch available template variables.
+Used to retrieve the TemplateSrv that can be used to fetch available template variables.
 
 ```javascript
 htmlGraphics.getTemplateSrv().replace(`$randomVariable`);
@@ -149,7 +149,7 @@ htmlGraphics.getTemplateSrv().replace(`$randomVariable`);
 
 _Deprecated in favor of [locationService](#locationservice)_
 
-Used to retrieve the [LocationSrv](https://grafana.com/docs/grafana/v9.1/packages_api/runtime/locationsrv/) that can be used to update the template variables.
+Used to retrieve the LocationSrv that can be used to update the template variables.
 
 ```javascript
 htmlGraphics.getLocationSrv().update({
@@ -176,7 +176,7 @@ htmlGraphics.locationService.partial(
 
 ### props
 
-Containing all the props from the panel [panelprops](https://grafana.com/docs/grafana/v9.1/packages_api/data/panelprops/)
+Containing all the props from the panel PanelProps
 
 ```javascript
 console.log(htmlGraphics.props);
@@ -316,7 +316,7 @@ console.log(codeData.something); // true
 
 ## data (global)
 
-The [PanelData interface](https://grafana.com/docs/grafana/v9.1/packages_api/data/paneldata/) passed into the panel by Grafana.
+The PanelData interface passed into the panel by Grafana.
 
 Can be used to retrieve metric values.
 
@@ -357,7 +357,7 @@ console.log(options);
 
 ## theme (global)
 
-The [GrafanaTheme](https://grafana.com/docs/grafana/v9.1/packages_api/data/grafanatheme/) object. It stores the current theme (light/dark), colors used by grafana, ETC.
+The GrafanaTheme object. It stores the current theme (light/dark), colors used by grafana, ETC.
 
 Very useful when you're making a dark mode and light mode.
 
@@ -373,7 +373,7 @@ if (theme.isDark) {
 
 ## getTemplateSrv (global)
 
-Used to retrieve the [TemplateSrv](https://grafana.com/docs/grafana/v9.1/packages_api/runtime/templatesrv/) that can be used to fetch available template variables.
+Used to retrieve the TemplateSrv that can be used to fetch available template variables.
 
 ```javascript
 getTemplateSrv().replace(`$randomVariable`);
@@ -383,7 +383,7 @@ getTemplateSrv().replace(`$randomVariable`);
 
 _Deprecated in favor of [locationService](#locationservice)_
 
-Used to retrieve the [LocationSrv](https://grafana.com/docs/grafana/v9.1/packages_api/runtime/locationsrv/) that can be used to update the template variables.
+Used to retrieve the LocationSrv that can be used to update the template variables.
 
 ```javascript
 getLocationSrv().update({
