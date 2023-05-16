@@ -35,7 +35,7 @@ The code requires the query to be sent, where to send the query, converting the 
 
 ## Query to be sent
 
-The query and most of the additional data can be obtained from [DataQueryRequest interface `data.request.targets`](https://grafana.com/docs/grafana/v9.1/packages_api/data/dataqueryrequest/).
+The query and most of the additional data can be obtained from DataQueryRequest interface `data.request.targets`.
 
 ```js
 const [{ query, refId, datasource }] = data.request.targets;
