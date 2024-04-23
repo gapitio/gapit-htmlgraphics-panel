@@ -1120,7 +1120,7 @@ export declare enum LoadingState {
   Error = 'Error',
 }
 export declare const preferredVisualizationTypes: readonly ['graph', 'table', 'logs', 'trace', 'nodeGraph'];
-export declare type PreferredVisualisationType = typeof preferredVisualizationTypes[number];
+export declare type PreferredVisualisationType = (typeof preferredVisualizationTypes)[number];
 /**
  * @public
  */
