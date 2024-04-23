@@ -1,5 +1,6 @@
 {
   "extends": "./.config/.eslintrc",
+  "ignorePatterns": ["/website"],
   "overrides": [
     {
       "files": ["src/components/CodeEditor/declarations/**/*.ts"],
