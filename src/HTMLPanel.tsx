@@ -58,6 +58,7 @@ export class HTMLPanel extends PureComponent<Props, PanelState> {
     const htmlNode = this.state.shadowContainerRef.current?.firstElementChild?.shadowRoot as HTMLNodeElement;
     const codeData = this.getCodeData();
     const { options, width, height } = this.props;
+    // eslint-disable-next-line deprecation/deprecation
     const { theme, theme2 } = config;
 
     return {
@@ -182,6 +183,7 @@ export class HTMLPanel extends PureComponent<Props, PanelState> {
       'htmlGraphics',
       script
     );
+    // eslint-disable-next-line deprecation/deprecation
     F(htmlNode, data, codeData, codeData, options, theme, getTemplateSrv, getLocationSrv, htmlGraphics);
   }
 

@@ -1,5 +1,9 @@
 # Development guide
 
+This plugin uses [@grafana/create-plugin](https://grafana.com/developers/plugin-tools/).
+
+Below are just some very basic steps to get starting with the development environment, but there is a guide of how to setup the development environment from Grafana: <https://grafana.com/developers/plugin-tools/get-started/set-up-development-environment>.
+
 1. Install dependencies
 
    ```BASH
@@ -22,4 +26,10 @@
 
    ```BASH
    yarn build
+   ```
+
+4. Start the dev server:
+
+   ```BASH
+   yarn server
    ```
