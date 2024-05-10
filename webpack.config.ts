@@ -6,28 +6,6 @@ import path from 'path';
 
 const htmlGraphicsDeclarationsPath = path.resolve(__dirname, 'src/components/CodeEditor/declarations');
 
-/**
- * @type {import("@grafana/toolkit/src/config").CustomWebpackConfigurationGetter}
- */
-module.exports.getWebpackConfig = (config, options) => {
-  // Don't compile the declarations with babel (removes the types).
-  config.module.rules[0].exclude = [/node_modules/, htmlGraphicsDeclarationsPath];
-
-  // Compile the declarations using asset/resource
-  config.module.rules.push({
-    test: /\.d\.ts?$/,
-    type: 'asset/resource',
-    resource: [htmlGraphicsDeclarationsPath],
-    generator: {
-      publicPath: `public/plugins/${pluginJson.id}/declarations/`,
-      outputPath: 'declarations/',
-      filename: '[hash].d.ts',
-    },
-  });
-
-  return config;
-};
-
 const config = async (env): Promise<Configuration> => {
   const baseConfig = await grafanaConfig(env);
 
