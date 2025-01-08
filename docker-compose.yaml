@@ -1,16 +1,15 @@
-version: '3.0'
-
 services:
   grafana:
     user: root
     container_name: 'gapit-htmlgraphics-panel'
 
-    platform: 'linux/amd64'
     build:
       context: ./.config
       args:
         grafana_image: ${GRAFANA_IMAGE:-grafana-enterprise}
-        grafana_version: ${GRAFANA_VERSION:-10.3.3}
+        grafana_version: ${GRAFANA_VERSION:-11.3.2}
+        development: ${DEVELOPMENT:-false}
+        anonymous_auth_enabled: ${ANONYMOUS_AUTH_ENABLED:-true}
     ports:
       - 3000:3000/tcp
     volumes:
