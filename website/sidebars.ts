@@ -1,3 +1,7 @@
+import type { SidebarsConfig } from '@docusaurus/plugin-content-docs';
+
+// This runs in Node.js - Don't use client-side code here (browser APIs, JSX...)
+
 /**
  * Creating a sidebar enables you to:
  - create an ordered group of docs
@@ -9,7 +13,7 @@
  Create as many sidebars as you want.
  */
 
-module.exports = {
+const sidebars: SidebarsConfig = {
   docsSidebar: [
     {
       type: 'category',
@@ -73,3 +77,5 @@ module.exports = {
     },
   ],
 };
+
+export default sidebars;

@@ -280,8 +280,8 @@ Executes when the panel loads
 ### SVG base fix
 
 Fixes an issue in Firefox where xlink:href needs the url to be able to find the link.
-<https://stackoverflow.com/a/18265336>
-<https://www.w3.org/TR/SVG/linking.html>
+https://stackoverflow.com/a/18265336
+https://www.w3.org/TR/SVG/linking.html
 
 :::caution
 Exiting and entering edit mode may cause it break, but pressing f5 fixes it.

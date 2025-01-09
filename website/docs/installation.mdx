@@ -6,43 +6,10 @@ title: Installation
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
 import CodeBlock from '@theme/CodeBlock';
-import { htmlGraphics } from '/config.js';
-// Code must be a variable (or imported) or newlines doesn't work
-const latestGithubReleaseDockerComposeCode = () =>
-  `version: '3'
-services:
-  grafana:
-    image: grafana/grafana
-    container_name: grafana
-    restart: always
-    networks:
-      - grafana
-    ports:
-      - 3000:3000
-    environment:
-      - GF_INSTALL_PLUGINS=${htmlGraphics.latestReleaseUrl};gapit-htmlgraphics-panel\n
-networks:
-  grafana:
-    name: grafana`;
-const specificDockerComposeCode = () =>
-  `version: '3'
-services:
-  grafana:
-    image: grafana/grafana
-    container_name: grafana
-    restart: always
-    networks:
-      - grafana
-    ports:
-      - 3000:3000
-    environment:
-      - GF_INSTALL_PLUGINS=${htmlGraphics.releaseUrl()};gapit-htmlgraphics-panel # v${htmlGraphics.version}\n
-networks:
-  grafana:
-    name: grafana`;
+import { htmlGraphics } from '@site/config.js';
 
 :::info
-For a more detailed explaination on how to install plugins, check out <https://grafana.com/docs/grafana/v9.1/plugins/installation/>
+For a more detailed explaination on how to install plugins, check out https://grafana.com/docs/grafana/v9.1/plugins/installation/
 :::
 
 ## Install using the plugin catalog
@@ -52,7 +19,7 @@ Plugin catalog came out in v8.0 of Grafana.
 :::
 
 :::info
-More information about plugin catalog <https://grafana.com/docs/grafana/v9.1/plugins/catalog/>
+More information about plugin catalog https://grafana.com/docs/grafana/v9.1/plugins/catalog/
 :::
 
 Configuration > Plugins > HTML Graphics
@@ -62,7 +29,7 @@ Configuration > Plugins > HTML Graphics
 ## Install using grafana-cli
 
 :::info
-More information about grafana-cli <https://grafana.com/docs/grafana/v9.1/administration/cli/>
+More information about grafana-cli https://grafana.com/docs/grafana/v9.1/administration/cli/
 :::
 
 To install the latest version of the plugin, run the following command on the Grafana server:
@@ -277,7 +244,23 @@ networks:
 
   <TabItem value="latest-github">
 
-<CodeBlock className="language-yaml">{latestGithubReleaseDockerComposeCode()}</CodeBlock>
+<CodeBlock className="language-yaml">
+{`version: '3'
+services:
+  grafana:
+    image: grafana/grafana
+    container_name: grafana
+    restart: always
+    networks:
+      - grafana
+    ports:
+      - 3000:3000
+    environment:
+      - GF_INSTALL_PLUGINS=${htmlGraphics.latestReleaseUrl};gapit-htmlgraphics-panel\n
+networks:
+  grafana:
+    name: grafana`}
+</CodeBlock>
 
   </TabItem>
 
@@ -285,7 +268,23 @@ networks:
 
 The specific version link can be obtained by copying the asset link from [Releases](https://github.com/gapitio/gapit-htmlgraphics-panel/releases) on the GitHub project page
 
-<CodeBlock className="language-yaml">{specificDockerComposeCode()}</CodeBlock>
+<CodeBlock className="language-yaml">
+{`version: '3'
+services:
+  grafana:
+    image: grafana/grafana
+    container_name: grafana
+    restart: always
+    networks:
+      - grafana
+    ports:
+      - 3000:3000
+    environment:
+      - GF_INSTALL_PLUGINS=${htmlGraphics.releaseUrl()};gapit-htmlgraphics-panel # v${htmlGraphics.version}\n
+networks:
+  grafana:
+    name: grafana`}
+</CodeBlock>
 
   </TabItem>
 </Tabs>
