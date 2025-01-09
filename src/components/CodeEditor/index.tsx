@@ -1,7 +1,6 @@
 import React, { FC, useEffect, useState } from 'react';
-import { editor } from 'monaco-editor/esm/vs/editor/editor.api';
 import { CodeEditorOptionSettings, OptionsInterface } from 'types';
-import { CodeEditor as GrafanaCodeEditor, Monaco } from '@grafana/ui';
+import { CodeEditor as GrafanaCodeEditor, Monaco, MonacoEditor } from '@grafana/ui';
 import { StandardEditorContext } from '@grafana/data';
 
 interface Props {
@@ -14,7 +13,7 @@ interface Props {
 export const CodeEditor: FC<Props> = ({ settings, value, context, onChange }) => {
   const [declarations, setDeclarations] = useState<Array<{ filePath: string; content: string }>>();
 
-  const editorDidMount = async (_: editor.IStandaloneCodeEditor, m: Monaco) => {
+  const editorDidMount = async (_: MonacoEditor, m: Monaco) => {
     if (declarations) {
       // Add autocompletion for panel definitions (htmlNode, htmlGraphics, data, options, ETC)
       m.languages.typescript.javascriptDefaults.setExtraLibs(declarations);
