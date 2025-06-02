@@ -13,8 +13,8 @@
   "license": "MIT",
   "author": "Gapit",
   "scripts": {
-    "build": "webpack -c ./webpack.config.ts --env production",
-    "dev": "webpack -w -c ./webpack.config.ts --env development",
+    "build": "webpack -c ./.config/webpack/webpack.config.ts --env production",
+    "dev": "webpack -w -c ./.config/webpack/webpack.config.ts --env development",
     "lint": "eslint --cache --ignore-path ./.gitignore --ext .js,.jsx,.ts,.tsx .",
     "lint:fix": "pnpm run lint --fix && prettier --write --list-different .",
     "server": "docker compose up --build",
@@ -25,10 +25,10 @@
   },
   "dependencies": {
     "@emotion/css": "11.10.6",
-    "@grafana/data": "^11.3.2",
-    "@grafana/runtime": "^11.3.2",
-    "@grafana/schema": "^11.3.2",
-    "@grafana/ui": "^11.3.2",
+    "@grafana/data": "^11.5.3",
+    "@grafana/runtime": "^11.5.3",
+    "@grafana/schema": "^11.5.3",
+    "@grafana/ui": "^11.5.3",
     "lodash": "^4.17.21",
     "react": "18.2.0",
     "react-dom": "18.2.0",
@@ -89,5 +89,5 @@
       "protobufjs"
     ]
   },
-  "packageManager": "pnpm@10.0.0+sha512.b8fef5494bd3fe4cbd4edabd0745df2ee5be3e4b0b8b08fa643aa3e4c6702ccc0f00d68fa8a8c9858a735a0032485a44990ed2810526c875e416f001b17df12b"
+  "packageManager": "pnpm@10.11.0"
 }
