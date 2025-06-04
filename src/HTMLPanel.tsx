@@ -16,7 +16,8 @@ import { addShadowRoot } from 'utils/addShadowRoot';
 import { triggerPanelupdate } from 'utils/events/panelupdate';
 import { triggerPanelwillunmount } from 'utils/events/panelwillunmount';
 import { addHtml } from 'utils/addHtml';
-import { CustomScrollbar } from '@grafana/ui';
+import { CustomScrollbar, ScrollContainer } from '@grafana/ui';
+import semver from 'semver';
 
 interface Props extends PanelProps<OptionsInterface> {}
 interface PanelState {
@@ -301,9 +302,16 @@ export class HTMLPanel extends PureComponent<Props, PanelState> {
       <>
         <div style={{ position: 'absolute', width: `${width}px`, height: `${height}px` }}>
           {useGrafanaScrollbar && overflow === 'visible' ? (
-            <CustomScrollbar autoHeightMin={'100%'}>
-              <div ref={this.state.shadowContainerRef} />
-            </CustomScrollbar>
+            semver.lt(config.buildInfo.version, '11.5.0') ? (
+              // eslint-disable-next-line deprecation/deprecation
+              <CustomScrollbar autoHeightMin={'100%'}>
+                <div ref={this.state.shadowContainerRef} />
+              </CustomScrollbar>
+            ) : (
+              <ScrollContainer minHeight={'100%'} showScrollIndicators>
+                <div ref={this.state.shadowContainerRef} />
+              </ScrollContainer>
+            )
           ) : (
             <div ref={this.state.shadowContainerRef} />
           )}
