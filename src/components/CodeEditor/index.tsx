@@ -11,36 +11,35 @@ interface Props {
 }
 
 export const CodeEditor: FC<Props> = ({ settings, value, context, onChange }) => {
-  const [declarations, setDeclarations] = useState<Array<{ filePath: string; content: string }>>();
   const [monaco, setMonaco] = useState<Monaco>();
 
   const editorDidMount = async (_: MonacoEditor, m: Monaco) => {
     setMonaco(m);
-    if (declarations) {
-      // Add autocompletion for panel definitions (htmlNode, htmlGraphics, data, options, ETC)
-      m.languages.typescript.javascriptDefaults.setExtraLibs(declarations);
-    }
   };
 
   useEffect(() => {
-    if (settings?.useHtmlGraphicsDeclarations) {
+    if (monaco && settings?.useHtmlGraphicsDeclarations) {
       const reqDecl = require.context('./declarations', true, /\..*\.d\.ts$/);
 
       Promise.all(reqDecl.keys().map((key) => fetch(reqDecl(key))))
         .then((r) => Promise.all(r.map((a) => a.text())))
-        .then((d) =>
-          setDeclarations(
-            reqDecl.keys().map((filePath, i) => ({
-              filePath: filePath.substring(2), // Remove ./
-              content: d[i],
-            }))
-          )
-        );
+        .then((d) => {
+          const extraLibs = monaco.languages.typescript.javascriptDefaults.getExtraLibs();
+          reqDecl.keys().forEach((filePath, i) => {
+            const truncatedPath = filePath.substring(2); // Remove ./
+            if (truncatedPath in extraLibs) {
+              // Don't add a declaration if it already exists
+              // Makes it so customProperties isn't overwritten :D
+              return;
+            }
+            monaco.languages.typescript.javascriptDefaults.addExtraLib(d[i], truncatedPath);
+          });
+        });
     }
-  }, [settings?.useHtmlGraphicsDeclarations]);
+  }, [monaco, settings?.useHtmlGraphicsDeclarations]);
 
   useEffect(() => {
-    if (!monaco || context.options?.codeData === undefined || !settings?.useHtmlGraphicsDeclarations === true) {
+    if (!monaco || context.options?.codeData === undefined || !settings?.useHtmlGraphicsDeclarations) {
       return;
     }
 
@@ -58,24 +57,20 @@ export const CodeEditor: FC<Props> = ({ settings, value, context, onChange }) =>
 
     const content = createCustomPropertiesType(context.options.codeData);
     monaco.languages.typescript.javascriptDefaults.addExtraLib(content, 'customProperties.d.ts');
-  }, [context, monaco, settings]);
+  }, [monaco, settings?.useHtmlGraphicsDeclarations, context.options?.codeData]);
 
   return (
     <div>
-      {!settings?.useHtmlGraphicsDeclarations || declarations ? (
-        <GrafanaCodeEditor
-          height={'33vh'}
-          value={value ?? ''}
-          language={settings?.language ?? ''}
-          showLineNumbers={true}
-          onEditorDidMount={editorDidMount}
-          onSave={onChange}
-          onBlur={onChange}
-          monacoOptions={{ contextmenu: true }}
-        />
-      ) : (
-        <div style={{ height: '33vh' }}>Loading declarations...</div>
-      )}
+      <GrafanaCodeEditor
+        height={'33vh'}
+        value={value ?? ''}
+        language={settings?.language ?? ''}
+        showLineNumbers={true}
+        onEditorDidMount={editorDidMount}
+        onSave={onChange}
+        onBlur={onChange}
+        monacoOptions={{ contextmenu: true }}
+      />
     </div>
   );
 };
