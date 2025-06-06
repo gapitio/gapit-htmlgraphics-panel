@@ -12,7 +12,8 @@ import {
   getTemplateSrv as getTemplateSrvType,
   LocationService,
 } from '@grafana/runtime';
-import { HTMLNode, JSONType, OptionsInterface, PopulatedGetFieldDisplayValuesOptions } from './index';
+import { HTMLNode, OptionsInterface, PopulatedGetFieldDisplayValuesOptions } from './index';
+import type { CustomProperties } from './customProperties';
 
 declare global {
   /**
@@ -24,11 +25,11 @@ declare global {
    *
    * @deprecated in favor of {@link customProperties}
    */
-  const codeData: JSONType;
+  const codeData: CustomProperties;
   /**
    * The parsed JSON object from the Custom properties option.
    */
-  const customProperties: typeof codeData;
+  const customProperties: CustomProperties;
   /**
    * The PanelData interface passed into the panel by Grafana.
    */

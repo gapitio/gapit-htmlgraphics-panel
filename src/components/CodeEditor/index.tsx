@@ -12,8 +12,10 @@ interface Props {
 
 export const CodeEditor: FC<Props> = ({ settings, value, context, onChange }) => {
   const [declarations, setDeclarations] = useState<Array<{ filePath: string; content: string }>>();
+  const [monaco, setMonaco] = useState<Monaco>();
 
   const editorDidMount = async (_: MonacoEditor, m: Monaco) => {
+    setMonaco(m);
     if (declarations) {
       // Add autocompletion for panel definitions (htmlNode, htmlGraphics, data, options, ETC)
       m.languages.typescript.javascriptDefaults.setExtraLibs(declarations);
@@ -36,6 +38,27 @@ export const CodeEditor: FC<Props> = ({ settings, value, context, onChange }) =>
         );
     }
   }, [settings?.useHtmlGraphicsDeclarations]);
+
+  useEffect(() => {
+    if (!monaco || context.options?.codeData === undefined || !settings?.useHtmlGraphicsDeclarations === true) {
+      return;
+    }
+
+    const createCustomPropertiesType = (json: string) => {
+      try {
+        return (
+          `const customProperties = ${JSON.stringify(JSON.parse(json))} as const;\n` +
+          'export type CustomProperties = typeof customProperties;'
+        );
+      } catch (e) {
+        // If parsing fails the customProperties/codeData will be an empty object/dict
+        return 'export type CustomProperties = {};';
+      }
+    };
+
+    const content = createCustomPropertiesType(context.options.codeData);
+    monaco.languages.typescript.javascriptDefaults.addExtraLib(content, 'customProperties.d.ts');
+  }, [context, monaco, settings]);
 
   return (
     <div>

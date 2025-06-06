@@ -44,12 +44,6 @@ export interface HTMLNode extends ShadowRoot {
   onpanelwillunmount: () => void;
 }
 
-export type JSONObject = {
-  [key in string]: JSONValue;
-};
-export type JSONValue = string | number | boolean | null | JSONObject | JSONValue[];
-export type JSONType = JSONObject | JSONValue[];
-
 export interface PopulatedGetFieldDisplayValuesOptions {
   series?: GetFieldDisplayValuesOptions['data'];
   reduceOptions?: GetFieldDisplayValuesOptions['reduceOptions'];
