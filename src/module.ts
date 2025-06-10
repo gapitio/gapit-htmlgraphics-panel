@@ -9,6 +9,16 @@ import { CalcsMutationOption } from 'components/PanelOptions/CalcsMutationOption
 import { calcsMutations } from 'utils/calcsMutations';
 
 export const plugin = new PanelPlugin<OptionsInterface>(HTMLPanel).useFieldConfig().setPanelOptions((builder) => {
+  const htmlGraphicsDeclarationState: {
+    enabled: true;
+    declarationsLoaded: boolean;
+    handlingCustomPropertiesUpdate: boolean;
+  } = {
+    enabled: true,
+    declarationsLoaded: false,
+    handlingCustomPropertiesUpdate: false,
+  };
+
   {
     const category = ['Value options'];
     builder
@@ -167,6 +177,7 @@ export const plugin = new PanelPlugin<OptionsInterface>(HTMLPanel).useFieldConfi
           '// Sets the value from the first series on every refresh\nconst htmlgraphicsValue = htmlNode.getElementById(\'htmlgraphics-value\');\n\nif (htmlgraphicsValue) {\n  const valueField = data.series[0]?.fields[1];\n  if (valueField) {\n    const length = valueField.values.length;\n    htmlgraphicsValue.textContent = valueField.values.get(length - 1);\n  } else {\n    htmlgraphicsValue.textContent = "No data"\n  }\n}\n',
         settings: {
           language: EditorLanguage.Javascript,
+          htmlGraphicsDeclarationState,
         },
       });
   }
@@ -230,7 +241,7 @@ export const plugin = new PanelPlugin<OptionsInterface>(HTMLPanel).useFieldConfi
           "// Sets the text from customProperties\nconst htmlgraphicsText = htmlNode.getElementById('htmlgraphics-text');\n\nif (htmlgraphicsText) {\n  htmlgraphicsText.textContent = customProperties.text;\n\n  // Change the text color based on the theme\n  if (theme.isDark) {\n    htmlgraphicsText.style.color = 'green';\n  } else {\n    htmlgraphicsText.style.color = 'red';\n  }\n}\n",
         settings: {
           language: EditorLanguage.Javascript,
-          useHtmlGraphicsDeclarations: true,
+          htmlGraphicsDeclarationState,
         },
       });
   }

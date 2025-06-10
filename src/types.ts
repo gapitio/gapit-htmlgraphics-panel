@@ -22,7 +22,11 @@ export const enum EditorLanguage {
 
 export interface CodeEditorOptionSettings {
   language: EditorLanguage;
-  useHtmlGraphicsDeclarations?: boolean;
+  htmlGraphicsDeclarationState?: {
+    enabled: true;
+    declarationsLoaded: boolean;
+    handlingCustomPropertiesUpdate: boolean;
+  };
 }
 
 export interface OptionsInterface {
