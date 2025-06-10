@@ -18,29 +18,52 @@ export const CodeEditor: FC<Props> = ({ settings, value, context, onChange }) =>
   };
 
   useEffect(() => {
-    if (monaco && settings?.useHtmlGraphicsDeclarations) {
-      const reqDecl = require.context('./declarations', true, /\..*\.d\.ts$/);
-
-      Promise.all(reqDecl.keys().map((key) => fetch(reqDecl(key))))
-        .then((r) => Promise.all(r.map((a) => a.text())))
-        .then((d) => {
-          const extraLibs = monaco.languages.typescript.javascriptDefaults.getExtraLibs();
-          reqDecl.keys().forEach((filePath, i) => {
-            const truncatedPath = filePath.substring(2); // Remove ./
-            if (truncatedPath in extraLibs) {
-              // Don't add a declaration if it already exists
-              // Makes it so customProperties isn't overwritten :D
-              return;
-            }
-            monaco.languages.typescript.javascriptDefaults.addExtraLib(d[i], truncatedPath);
-          });
-        });
+    if (!monaco || !settings?.htmlGraphicsDeclarationState?.enabled) {
+      return;
     }
-  }, [monaco, settings?.useHtmlGraphicsDeclarations]);
+
+    if (settings.htmlGraphicsDeclarationState.declarationsLoaded) {
+      // onInit and onRender would normally both load the declarations,
+      // but this makes only one of them load the declarations
+      return;
+    } else {
+      settings.htmlGraphicsDeclarationState.declarationsLoaded = true;
+    }
+
+    const reqDecl = require.context('./declarations', true, /\..*\.d\.ts$/);
+
+    // Only load declarations that are not already loaded
+    const loadedDeclarations = Object.keys(monaco.languages.typescript.javascriptDefaults.getExtraLibs());
+    const unloadedDeclarations = reqDecl.keys().filter((filePath) => {
+      const truncatedPath = filePath.substring(2); // Remove ./
+      return !loadedDeclarations.includes(truncatedPath);
+    });
+
+    Promise.all(unloadedDeclarations.map((key) => fetch(reqDecl(key))))
+      .then((r) => Promise.all(r.map((a) => a.text())))
+      .then((d) => {
+        const extraLibs = monaco.languages.typescript.javascriptDefaults.getExtraLibs();
+        unloadedDeclarations.forEach((filePath, i) => {
+          const truncatedPath = filePath.substring(2); // Remove ./
+          if (truncatedPath in extraLibs) {
+            // Don't add a declaration if it already exists
+            // Makes it so customProperties isn't overwritten :D
+            return;
+          }
+          monaco.languages.typescript.javascriptDefaults.addExtraLib(d[i], truncatedPath);
+        });
+      });
+  }, [monaco, settings?.htmlGraphicsDeclarationState]);
 
   useEffect(() => {
-    if (!monaco || context.options?.codeData === undefined || !settings?.useHtmlGraphicsDeclarations) {
+    if (!monaco || context.options?.codeData === undefined || !settings?.htmlGraphicsDeclarationState?.enabled) {
       return;
+    }
+
+    if (settings.htmlGraphicsDeclarationState.handlingCustomPropertiesUpdate) {
+      return;
+    } else {
+      settings.htmlGraphicsDeclarationState.handlingCustomPropertiesUpdate = true;
     }
 
     const createCustomPropertiesType = (json: string) => {
@@ -57,7 +80,13 @@ export const CodeEditor: FC<Props> = ({ settings, value, context, onChange }) =>
 
     const content = createCustomPropertiesType(context.options.codeData);
     monaco.languages.typescript.javascriptDefaults.addExtraLib(content, 'customProperties.d.ts');
-  }, [monaco, settings?.useHtmlGraphicsDeclarations, context.options?.codeData]);
+    return () => {
+      if (!settings.htmlGraphicsDeclarationState) {
+        return;
+      }
+      settings.htmlGraphicsDeclarationState.handlingCustomPropertiesUpdate = false;
+    };
+  }, [monaco, settings?.htmlGraphicsDeclarationState, context.options?.codeData]);
 
   return (
     <div>
