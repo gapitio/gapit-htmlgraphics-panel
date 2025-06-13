@@ -15,6 +15,38 @@ const BAR_HEIGHT = 24;
 const BAR_BORDER_SIZE = 1; // The bar only has a bottom border
 const EDITOR_HEIGHT_OFFSET = EDITOR_BORDER_SIZE + BAR_HEIGHT + BAR_BORDER_SIZE; // 27px
 
+function getShrinkIcon(editorHeight: number | undefined) {
+  if (editorHeight === undefined) {
+    return 'arrow-up';
+  }
+  if (editorHeight === 64) {
+    return 'arrow-left';
+  }
+  if (editorHeight < 64) {
+    return 'arrow-down';
+  }
+  if (Math.round(window.innerHeight * 0.33) < Math.round(editorHeight + EDITOR_HEIGHT_OFFSET)) {
+    return 'angle-double-up';
+  }
+  return 'arrow-up';
+}
+
+function getExpandIcon(editorHeight: number | undefined) {
+  if (editorHeight === undefined) {
+    return 'arrow-down';
+  }
+  if (Math.round(window.innerHeight * 0.33) === Math.round(editorHeight + EDITOR_HEIGHT_OFFSET)) {
+    return 'arrow-left';
+  }
+  if (Math.round(window.innerHeight * 0.33) < Math.round(editorHeight + EDITOR_HEIGHT_OFFSET)) {
+    return 'arrow-up';
+  }
+  if (editorHeight < 64) {
+    return 'angle-double-down';
+  }
+  return 'arrow-down';
+}
+
 export const CodeEditor: FC<Props> = ({ settings, value, context, onChange }) => {
   const [monaco, setMonaco] = useState<Monaco>();
   const [editor, setEditor] = useState<MonacoEditor>();
@@ -27,6 +59,12 @@ export const CodeEditor: FC<Props> = ({ settings, value, context, onChange }) =>
     setMonaco(m);
     setEditor(e);
   };
+
+  const shrinkIcon = getShrinkIcon(editorHeight);
+  const expandIcon = getExpandIcon(editorHeight);
+
+  console.log(shrinkIcon);
+  console.log(expandIcon);
 
   useLayoutEffect(() => {
     if (!containerRef.current) {
@@ -178,24 +216,14 @@ export const CodeEditor: FC<Props> = ({ settings, value, context, onChange }) =>
           <IconButton
             aria-label="Shrink"
             tooltip="Shrink (64px)"
-            name={
-              editorHeight && editorHeight === 64
-                ? 'arrow-right'
-                : editorHeight && editorHeight < 64
-                ? 'arrow-down'
-                : 'arrow-up'
-            }
+            name={shrinkIcon}
             size="md"
             onClick={() => actuallySetContainerHeight(`${EDITOR_HEIGHT_OFFSET + 64}px`)}
           />
           <IconButton
             aria-label="Expand"
             tooltip="Expand (33vh)"
-            name={
-              editorHeight && editorHeight < 64
-                ? 'angle-double-down'
-                : 'arrow-down'
-            }
+            name={expandIcon}
             size="md"
             onClick={() => actuallySetContainerHeight('33vh')}
           />
