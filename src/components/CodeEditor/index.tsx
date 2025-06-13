@@ -1,6 +1,6 @@
 import React, { FC, useEffect, useLayoutEffect, useState, useRef } from 'react';
 import { CodeEditorOptionSettings, OptionsInterface } from 'types';
-import { CodeEditor as GrafanaCodeEditor, Monaco, MonacoEditor } from '@grafana/ui';
+import { CodeEditor as GrafanaCodeEditor, IconButton, Monaco, MonacoEditor, Text, useTheme2 } from '@grafana/ui';
 import { StandardEditorContext } from '@grafana/data';
 
 interface Props {
@@ -10,10 +10,17 @@ interface Props {
   onChange: (value: string) => void;
 }
 
+const EDITOR_BORDER_SIZE = 2; // Grafana has a 1px border on the editor container
+const BAR_HEIGHT = 24;
+const BAR_BORDER_SIZE = 1; // The bar only has a bottom border
+const EDITOR_HEIGHT_OFFSET = EDITOR_BORDER_SIZE + BAR_HEIGHT + BAR_BORDER_SIZE; // 27px
+
 export const CodeEditor: FC<Props> = ({ settings, value, context, onChange }) => {
   const [monaco, setMonaco] = useState<Monaco>();
   const [editor, setEditor] = useState<MonacoEditor>();
+  const [editorHeight, setEditorHeight] = useState<number>();
   const containerRef = useRef<HTMLDivElement>(null);
+  const theme = useTheme2();
 
   const editorDidMount = async (e: MonacoEditor, m: Monaco) => {
     e.layout();
@@ -32,12 +39,14 @@ export const CodeEditor: FC<Props> = ({ settings, value, context, onChange }) =>
         return;
       }
       const entry = entries[0];
+      const editorHeight2 = entry.contentRect.height - EDITOR_HEIGHT_OFFSET;
+
+      setEditorHeight(editorHeight2);
 
       if (editor) {
-        const borderSize = 2; // Grafana has a 1px border on the editor container
         editor.layout({
-          height: entry.contentRect.height - borderSize,
-          width: entry.contentRect.width - borderSize,
+          height: editorHeight2,
+          width: entry.contentRect.width - EDITOR_BORDER_SIZE,
         });
       }
     });
@@ -120,8 +129,26 @@ export const CodeEditor: FC<Props> = ({ settings, value, context, onChange }) =>
     };
   }, [monaco, settings?.htmlGraphicsDeclarationState, context.options?.codeData]);
 
+  const actuallySetContainerHeight = (height: string) => {
+    if (!containerRef.current) {
+      return;
+    }
+    containerRef.current.style.height = height;
+  };
+
   return (
-    <div ref={containerRef} style={{ resize: 'vertical', overflow: 'hidden', height: '33vh' }}>
+    <div
+      ref={containerRef}
+      style={{
+        resize: 'vertical',
+        overflow: 'hidden',
+        height: `${EDITOR_HEIGHT_OFFSET + 64}px`, // 27px + 64px = 91px
+        minHeight: '32px',
+        display: 'flex',
+        flexDirection: 'column',
+        justifyContent: 'space-between',
+      }}
+    >
       <GrafanaCodeEditor
         value={value ?? ''}
         language={settings?.language ?? ''}
@@ -131,6 +158,49 @@ export const CodeEditor: FC<Props> = ({ settings, value, context, onChange }) =>
         onBlur={onChange}
         monacoOptions={{ contextmenu: true, automaticLayout: false }}
       />
+      <div
+        style={{
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'end',
+          paddingRight: '14px',
+          gap: '8px',
+          border: `1px solid ${theme.colors.border.weak}`,
+          borderTop: 'none',
+        }}
+      >
+        <Text variant="bodySmall">
+          {editorHeight === 5 ? '(min) ' : ''}
+          {editorHeight === 64 ? '(default) ' : ''}
+          {editorHeight !== undefined ? editorHeight.toFixed() + 'px' : ''}
+        </Text>
+        <div style={{ height: '24px', display: 'flex', gap: '4px' }}>
+          <IconButton
+            aria-label="Shrink"
+            tooltip="Shrink (64px)"
+            name={
+              editorHeight && editorHeight === 64
+                ? 'arrow-right'
+                : editorHeight && editorHeight < 64
+                ? 'arrow-down'
+                : 'arrow-up'
+            }
+            size="md"
+            onClick={() => actuallySetContainerHeight(`${EDITOR_HEIGHT_OFFSET + 64}px`)}
+          />
+          <IconButton
+            aria-label="Expand"
+            tooltip="Expand (33vh)"
+            name={
+              editorHeight && editorHeight < 64
+                ? 'angle-double-down'
+                : 'arrow-down'
+            }
+            size="md"
+            onClick={() => actuallySetContainerHeight('33vh')}
+          />
+        </div>
+      </div>
     </div>
   );
 };
