@@ -1,7 +1,9 @@
-import React, { FC, useEffect, useState } from 'react';
+import React, { FC, useEffect, useLayoutEffect, useState, useRef, type RefObject } from 'react';
 import { CodeEditorOptionSettings, OptionsInterface } from 'types';
-import { CodeEditor as GrafanaCodeEditor, Monaco, MonacoEditor } from '@grafana/ui';
-import { StandardEditorContext } from '@grafana/data';
+import { CodeEditor as GrafanaCodeEditor, Monaco, MonacoEditor, useStyles2 } from '@grafana/ui';
+import { StandardEditorContext, type GrafanaTheme2 } from '@grafana/data';
+import { HeightControllerBar } from './HeightControllerBar';
+import { css } from '@emotion/css';
 
 interface Props {
   settings?: CodeEditorOptionSettings;
@@ -10,24 +12,63 @@ interface Props {
   onChange: (value: string) => void;
 }
 
-export const CodeEditor: FC<Props> = ({ settings, value, context, onChange }) => {
-  const [monaco, setMonaco] = useState<Monaco>();
+const EDITOR_BORDER_SIZE = 2; // Grafana has a 1px border on the editor container
+const BAR_HEIGHT = 24;
+const BAR_BORDER_SIZE = 1; // The bar only has a bottom border
+const EDITOR_HEIGHT_OFFSET = EDITOR_BORDER_SIZE + BAR_HEIGHT + BAR_BORDER_SIZE; // 2px + 24px + 1px = 27px
 
-  const editorDidMount = async (_: MonacoEditor, m: Monaco) => {
-    setMonaco(m);
-  };
+function useSizeController(containerRef: RefObject<HTMLDivElement>, editor: MonacoEditor | undefined) {
+  const [containerSize, setContainerSize] = useState<{ height: number; width: number }>();
+  const [editorSize, setEditorSize] = useState<{ height: number; width: number }>();
 
-  useEffect(() => {
-    if (!monaco || !settings?.htmlGraphicsDeclarationState?.enabled) {
+  useLayoutEffect(() => {
+    if (!containerRef.current) {
       return;
     }
 
-    if (settings.htmlGraphicsDeclarationState.declarationsLoaded) {
+    const resizeObserver = new ResizeObserver((entries) => {
+      if (entries.length !== 1) {
+        return;
+      }
+      const entry = entries[0];
+
+      const editorHeight = entry.contentRect.height - EDITOR_HEIGHT_OFFSET;
+      const editorWidth = entry.contentRect.width - EDITOR_BORDER_SIZE;
+
+      setContainerSize({ height: entry.contentRect.height, width: entry.contentRect.width });
+      setEditorSize({ height: editorHeight, width: editorWidth });
+
+      if (editor) {
+        editor.layout({ height: editorHeight, width: editorWidth });
+      }
+    });
+
+    resizeObserver.observe(containerRef.current);
+
+    return () => {
+      resizeObserver.disconnect();
+    };
+  }, [containerRef, editor]);
+
+  return { containerSize, editorSize };
+}
+
+function useTypeDeclarationUpdater(
+  monaco: Monaco | undefined,
+  htmlGraphicsDeclarationState: CodeEditorOptionSettings['htmlGraphicsDeclarationState'] | undefined,
+  codeData: string | undefined
+) {
+  useEffect(() => {
+    if (!monaco || !htmlGraphicsDeclarationState?.enabled) {
+      return;
+    }
+
+    if (htmlGraphicsDeclarationState.declarationsLoaded) {
       // onInit and onRender would normally both load the declarations,
       // but this makes only one of them load the declarations
       return;
     } else {
-      settings.htmlGraphicsDeclarationState.declarationsLoaded = true;
+      htmlGraphicsDeclarationState.declarationsLoaded = true;
     }
 
     const reqDecl = require.context('./declarations', true, /\..*\.d\.ts$/);
@@ -53,17 +94,17 @@ export const CodeEditor: FC<Props> = ({ settings, value, context, onChange }) =>
           monaco.languages.typescript.javascriptDefaults.addExtraLib(d[i], truncatedPath);
         });
       });
-  }, [monaco, settings?.htmlGraphicsDeclarationState]);
+  }, [monaco, htmlGraphicsDeclarationState]);
 
   useEffect(() => {
-    if (!monaco || context.options?.codeData === undefined || !settings?.htmlGraphicsDeclarationState?.enabled) {
+    if (!monaco || codeData === undefined || !htmlGraphicsDeclarationState?.enabled) {
       return;
     }
 
-    if (settings.htmlGraphicsDeclarationState.handlingCustomPropertiesUpdate) {
+    if (htmlGraphicsDeclarationState.handlingCustomPropertiesUpdate) {
       return;
     } else {
-      settings.htmlGraphicsDeclarationState.handlingCustomPropertiesUpdate = true;
+      htmlGraphicsDeclarationState.handlingCustomPropertiesUpdate = true;
     }
 
     const createCustomPropertiesType = (json: string) => {
@@ -78,28 +119,67 @@ export const CodeEditor: FC<Props> = ({ settings, value, context, onChange }) =>
       }
     };
 
-    const content = createCustomPropertiesType(context.options.codeData);
+    const content = createCustomPropertiesType(codeData);
     monaco.languages.typescript.javascriptDefaults.addExtraLib(content, 'customProperties.d.ts');
     return () => {
-      if (!settings.htmlGraphicsDeclarationState) {
+      if (!htmlGraphicsDeclarationState) {
         return;
       }
-      settings.htmlGraphicsDeclarationState.handlingCustomPropertiesUpdate = false;
+      htmlGraphicsDeclarationState.handlingCustomPropertiesUpdate = false;
     };
-  }, [monaco, settings?.htmlGraphicsDeclarationState, context.options?.codeData]);
+  }, [monaco, htmlGraphicsDeclarationState, codeData]);
+}
+
+export const CodeEditor: FC<Props> = ({ settings, value, context, onChange }) => {
+  const styles = useStyles2(
+    getStyles,
+    `${64 + EDITOR_HEIGHT_OFFSET}px` //  // 64px + 27px = 91px
+  );
+
+  const [monaco, setMonaco] = useState<Monaco>();
+  const [editor, setEditor] = useState<MonacoEditor>();
+
+  const containerRef = useRef<HTMLDivElement>(null);
+
+  const { containerSize, editorSize } = useSizeController(containerRef, editor);
+  useTypeDeclarationUpdater(monaco, settings?.htmlGraphicsDeclarationState, context.options?.codeData);
+
+  const editorDidMount = async (e: MonacoEditor, m: Monaco) => {
+    e.layout();
+    setMonaco(m);
+    setEditor(e);
+  };
 
   return (
-    <div>
+    <div ref={containerRef} className={styles.container}>
       <GrafanaCodeEditor
-        height={'33vh'}
         value={value ?? ''}
         language={settings?.language ?? ''}
         showLineNumbers={true}
         onEditorDidMount={editorDidMount}
         onSave={onChange}
         onBlur={onChange}
-        monacoOptions={{ contextmenu: true }}
+        monacoOptions={{ contextmenu: true, automaticLayout: false }}
+      />
+      <HeightControllerBar
+        containerRef={containerRef}
+        editorHeight={editorSize && editorSize.height}
+        containerHeight={containerSize && containerSize.height}
       />
     </div>
   );
 };
+
+function getStyles(_theme: GrafanaTheme2, defaultHeight: string) {
+  return {
+    container: css`
+      resize: vertical;
+      overflow: hidden;
+      height: ${defaultHeight};
+      min-height: 32px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    `,
+  };
+}
