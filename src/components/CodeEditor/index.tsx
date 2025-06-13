@@ -1,4 +1,4 @@
-import React, { FC, useEffect, useState } from 'react';
+import React, { FC, useEffect, useLayoutEffect, useState, useRef } from 'react';
 import { CodeEditorOptionSettings, OptionsInterface } from 'types';
 import { CodeEditor as GrafanaCodeEditor, Monaco, MonacoEditor } from '@grafana/ui';
 import { StandardEditorContext } from '@grafana/data';
@@ -12,10 +12,42 @@ interface Props {
 
 export const CodeEditor: FC<Props> = ({ settings, value, context, onChange }) => {
   const [monaco, setMonaco] = useState<Monaco>();
+  const [editor, setEditor] = useState<MonacoEditor>();
+  const containerRef = useRef<HTMLDivElement>(null);
 
-  const editorDidMount = async (_: MonacoEditor, m: Monaco) => {
+  const editorDidMount = async (e: MonacoEditor, m: Monaco) => {
+    e.layout();
     setMonaco(m);
+    setEditor(e);
   };
+
+  useLayoutEffect(() => {
+    if (!containerRef.current) {
+      return;
+    }
+
+    // Ensure the container is sized correctly
+    const resizeObserver = new ResizeObserver((entries) => {
+      if (entries.length !== 1) {
+        return;
+      }
+      const entry = entries[0];
+
+      if (editor) {
+        const borderSize = 2; // Grafana has a 1px border on the editor container
+        editor.layout({
+          height: entry.contentRect.height - borderSize,
+          width: entry.contentRect.width - borderSize,
+        });
+      }
+    });
+
+    resizeObserver.observe(containerRef.current);
+
+    return () => {
+      resizeObserver.disconnect();
+    };
+  }, [editor]);
 
   useEffect(() => {
     if (!monaco || !settings?.htmlGraphicsDeclarationState?.enabled) {
@@ -89,16 +121,15 @@ export const CodeEditor: FC<Props> = ({ settings, value, context, onChange }) =>
   }, [monaco, settings?.htmlGraphicsDeclarationState, context.options?.codeData]);
 
   return (
-    <div>
+    <div ref={containerRef} style={{ resize: 'vertical', overflow: 'hidden', height: '33vh' }}>
       <GrafanaCodeEditor
-        height={'33vh'}
         value={value ?? ''}
         language={settings?.language ?? ''}
         showLineNumbers={true}
         onEditorDidMount={editorDidMount}
         onSave={onChange}
         onBlur={onChange}
-        monacoOptions={{ contextmenu: true }}
+        monacoOptions={{ contextmenu: true, automaticLayout: false }}
       />
     </div>
   );
