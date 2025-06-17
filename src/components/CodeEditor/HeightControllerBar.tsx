@@ -69,7 +69,7 @@ export function HeightControllerBar({
 
   return (
     <div className={styles.bar}>
-      <Tooltip content={'Height of the code editor'}>
+      <Tooltip content={'Height of the code editor'} placement="bottom">
         <div>
           <span>
             {editorHeight === 5 ? '(min) ' : ''}
@@ -82,6 +82,7 @@ export function HeightControllerBar({
         <IconButton
           aria-label="Set editor height to 64px"
           tooltip="Set editor height to 64px"
+          tooltipPlacement="bottom"
           name={shrinkIcon}
           size="md"
           onClick={() => actuallySetContainerHeight(`${64 + editorHeightOffset}px`)}
@@ -89,6 +90,7 @@ export function HeightControllerBar({
         <IconButton
           aria-label="Set editor height to 33vh"
           tooltip={`Set editor height to 33vh (${viewHeight33InPx - editorHeightOffset}px)`}
+          tooltipPlacement="bottom"
           name={expandIcon}
           size="md"
           onClick={() => actuallySetContainerHeight('33vh')}
