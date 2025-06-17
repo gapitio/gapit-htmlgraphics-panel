@@ -131,10 +131,7 @@ function useTypeDeclarationUpdater(
 }
 
 export const CodeEditor: FC<Props> = ({ settings, value, context, onChange }) => {
-  const styles = useStyles2(
-    getStyles,
-    `${64 + EDITOR_HEIGHT_OFFSET}px` //  // 64px + 27px = 91px
-  );
+  const styles = useStyles2(getStyles);
 
   const [monaco, setMonaco] = useState<Monaco>();
   const [editor, setEditor] = useState<MonacoEditor>();
@@ -151,7 +148,13 @@ export const CodeEditor: FC<Props> = ({ settings, value, context, onChange }) =>
   };
 
   return (
-    <div ref={containerRef} className={styles.container}>
+    <div
+      ref={containerRef}
+      className={styles.container}
+      style={{
+        height: `${64 + EDITOR_HEIGHT_OFFSET}px`, // 64px + 27px = 91px
+      }}
+    >
       <GrafanaCodeEditor
         value={value ?? ''}
         language={settings?.language ?? ''}
@@ -170,12 +173,11 @@ export const CodeEditor: FC<Props> = ({ settings, value, context, onChange }) =>
   );
 };
 
-function getStyles(_theme: GrafanaTheme2, defaultHeight: string) {
+function getStyles(_theme: GrafanaTheme2) {
   return {
     container: css`
       resize: vertical;
       overflow: hidden;
-      height: ${defaultHeight};
       min-height: 32px;
       display: flex;
       flex-direction: column;
