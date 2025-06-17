@@ -78,7 +78,7 @@ export function HeightControllerBar({
           </span>
         </div>
       </Tooltip>
-      <div className={styles.heightText}>
+      <div className={styles.heightButtons}>
         <IconButton
           aria-label="Set editor height to 64px"
           tooltip="Set editor height to 64px"
@@ -109,9 +109,10 @@ function getStyles(theme: GrafanaTheme2) {
       border: 1px solid ${theme.colors.border.weak};
       border-top: none;
     `,
-    heightText: css`
+    heightButtons: css`
       height: 24px;
       display: flex;
+      align-items: center;
       gap: 4px;
     `,
   };
