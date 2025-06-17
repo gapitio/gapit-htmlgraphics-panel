@@ -4,6 +4,7 @@ import { CodeEditor as GrafanaCodeEditor, Monaco, MonacoEditor, useStyles2 } fro
 import { StandardEditorContext, type GrafanaTheme2 } from '@grafana/data';
 import { HeightControllerBar } from './HeightControllerBar';
 import { css } from '@emotion/css';
+import { CONTAINER_DEFAULT_HEIGHT, CONTAINER_MIN_HEIGHT, EDITOR_BORDER_SIZE, EDITOR_HEIGHT_OFFSET } from './constants';
 
 interface Props {
   settings?: CodeEditorOptionSettings;
@@ -11,11 +12,6 @@ interface Props {
   context: StandardEditorContext<OptionsInterface, any>;
   onChange: (value: string) => void;
 }
-
-const EDITOR_BORDER_SIZE = 2; // Grafana has a 1px border on the editor container
-const BAR_HEIGHT = 24;
-const BAR_BORDER_SIZE = 1; // The bar only has a bottom border
-const EDITOR_HEIGHT_OFFSET = EDITOR_BORDER_SIZE + BAR_HEIGHT + BAR_BORDER_SIZE; // 2px + 24px + 1px = 27px
 
 function useSizeController(containerRef: RefObject<HTMLDivElement>, editor: MonacoEditor | undefined) {
   const [containerSize, setContainerSize] = useState<{ height: number; width: number }>();
@@ -152,7 +148,7 @@ export const CodeEditor: FC<Props> = ({ settings, value, context, onChange }) =>
       ref={containerRef}
       className={styles.container}
       style={{
-        height: `${64 + EDITOR_HEIGHT_OFFSET}px`, // 64px + 27px = 91px
+        height: `${CONTAINER_DEFAULT_HEIGHT}px`,
       }}
     >
       <GrafanaCodeEditor
@@ -178,7 +174,7 @@ function getStyles(_theme: GrafanaTheme2) {
     container: css`
       resize: vertical;
       overflow: hidden;
-      min-height: 32px;
+      min-height: ${CONTAINER_MIN_HEIGHT}px;
       display: flex;
       flex-direction: column;
       justify-content: space-between;

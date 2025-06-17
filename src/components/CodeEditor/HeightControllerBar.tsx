@@ -2,6 +2,7 @@ import React, { useEffect, type RefObject } from 'react';
 import { css } from '@emotion/css';
 import { IconButton, useStyles2 } from '@grafana/ui';
 import type { GrafanaTheme2 } from '@grafana/data';
+import { CONTAINER_DEFAULT_HEIGHT, EDITOR_DEFAULT_HEIGHT, EDITOR_HEIGHT_OFFSET, EDITOR_MIN_HEIGHT } from './constants';
 
 function getShrinkIcon(
   editorHeight: number | undefined,
@@ -11,10 +12,10 @@ function getShrinkIcon(
   if (editorHeight === undefined || containerHeight === undefined) {
     return 'arrow-up';
   }
-  if (editorHeight === 64) {
+  if (editorHeight === EDITOR_DEFAULT_HEIGHT) {
     return 'arrow-left';
   }
-  if (editorHeight < 64) {
+  if (editorHeight < EDITOR_DEFAULT_HEIGHT) {
     return 'arrow-down';
   }
   if (viewHeight33InPx < Math.round(containerHeight)) {
@@ -37,7 +38,7 @@ function getExpandIcon(
   if (viewHeight33InPx < Math.round(containerHeight)) {
     return 'arrow-up';
   }
-  if (editorHeight < 64) {
+  if (editorHeight < EDITOR_DEFAULT_HEIGHT) {
     return 'angle-double-down';
   }
   return 'arrow-down';
@@ -55,7 +56,6 @@ export function HeightControllerBar({
   const styles = useStyles2(getStyles);
 
   const viewHeight33InPx = Math.round(window.innerHeight * 0.33);
-  const editorHeightOffset = (containerHeight && editorHeight && containerHeight - editorHeight) ?? 0;
 
   const shrinkIcon = getShrinkIcon(editorHeight, containerHeight, viewHeight33InPx);
   const expandIcon = getExpandIcon(editorHeight, containerHeight, viewHeight33InPx);
@@ -72,16 +72,16 @@ export function HeightControllerBar({
       <div className={styles.heightButtons}>
         {editorHeight !== undefined && <HeightText editorHeight={editorHeight} />}
         <IconButton
-          aria-label="Set editor height to 64px"
-          tooltip="Set editor height to 64px"
+          aria-label={`Set editor height to ${EDITOR_DEFAULT_HEIGHT}px`}
+          tooltip={`Set editor height to ${EDITOR_DEFAULT_HEIGHT}px`}
           tooltipPlacement="bottom"
           name={shrinkIcon}
           size="md"
-          onClick={() => actuallySetContainerHeight(`${64 + editorHeightOffset}px`)}
+          onClick={() => actuallySetContainerHeight(`${CONTAINER_DEFAULT_HEIGHT}px`)}
         />
         <IconButton
           aria-label="Set editor height to 33vh"
-          tooltip={`Set editor height to 33vh (${viewHeight33InPx - editorHeightOffset}px)`}
+          tooltip={`Set editor height to 33vh (${viewHeight33InPx - EDITOR_HEIGHT_OFFSET}px)`}
           tooltipPlacement="bottom"
           name={expandIcon}
           size="md"
@@ -120,8 +120,8 @@ function HeightText({ editorHeight }: { editorHeight: number | undefined }) {
   return (
     <div style={{ display: show ? 'block' : 'none' }}>
       <span>
-        {editorHeight === 5 ? '(min) ' : ''}
-        {editorHeight === 64 ? '(default) ' : ''}
+        {editorHeight === EDITOR_MIN_HEIGHT ? '(min) ' : ''}
+        {editorHeight === EDITOR_DEFAULT_HEIGHT ? '(default) ' : ''}
         {editorHeight !== undefined ? editorHeight.toFixed() + 'px' : ''}
       </span>
     </div>
