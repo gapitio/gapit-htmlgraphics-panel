@@ -1,6 +1,6 @@
 import React, { type RefObject } from 'react';
 import { css } from '@emotion/css';
-import { IconButton, Text, Tooltip, useStyles2 } from '@grafana/ui';
+import { IconButton, Tooltip, useStyles2 } from '@grafana/ui';
 import type { GrafanaTheme2 } from '@grafana/data';
 
 function getShrinkIcon(
@@ -71,11 +71,11 @@ export function HeightControllerBar({
     <div className={styles.bar}>
       <Tooltip content={'Height of the code editor'}>
         <div>
-          <Text variant="bodySmall">
+          <span>
             {editorHeight === 5 ? '(min) ' : ''}
             {editorHeight === 64 ? '(default) ' : ''}
             {editorHeight !== undefined ? editorHeight.toFixed() + 'px' : ''}
-          </Text>
+          </span>
         </div>
       </Tooltip>
       <div className={styles.heightText}>
