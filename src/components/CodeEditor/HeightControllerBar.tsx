@@ -1,6 +1,6 @@
-import React, { type RefObject } from 'react';
+import React, { useEffect, type RefObject } from 'react';
 import { css } from '@emotion/css';
-import { IconButton, Tooltip, useStyles2 } from '@grafana/ui';
+import { IconButton, useStyles2 } from '@grafana/ui';
 import type { GrafanaTheme2 } from '@grafana/data';
 
 function getShrinkIcon(
@@ -69,16 +69,8 @@ export function HeightControllerBar({
 
   return (
     <div className={styles.bar}>
-      <Tooltip content={'Height of the code editor'} placement="bottom">
-        <div>
-          <span>
-            {editorHeight === 5 ? '(min) ' : ''}
-            {editorHeight === 64 ? '(default) ' : ''}
-            {editorHeight !== undefined ? editorHeight.toFixed() + 'px' : ''}
-          </span>
-        </div>
-      </Tooltip>
       <div className={styles.heightButtons}>
+        {editorHeight !== undefined && <HeightText editorHeight={editorHeight} />}
         <IconButton
           aria-label="Set editor height to 64px"
           tooltip="Set editor height to 64px"
@@ -96,6 +88,42 @@ export function HeightControllerBar({
           onClick={() => actuallySetContainerHeight('33vh')}
         />
       </div>
+    </div>
+  );
+}
+
+function HeightText({ editorHeight }: { editorHeight: number | undefined }) {
+  const [show, setShow] = React.useState(false);
+  const mounted = React.useRef(false);
+
+  useEffect(() => {
+    if (!mounted.current) {
+      return;
+    }
+
+    setShow(true);
+
+    const timeout = setTimeout(() => {
+      setShow(false);
+    }, 1000);
+
+    return () => clearTimeout(timeout);
+  }, [editorHeight]);
+
+  useEffect(() => {
+    mounted.current = true;
+    return () => {
+      mounted.current = false;
+    };
+  }, []);
+
+  return (
+    <div style={{ display: show ? 'block' : 'none' }}>
+      <span>
+        {editorHeight === 5 ? '(min) ' : ''}
+        {editorHeight === 64 ? '(default) ' : ''}
+        {editorHeight !== undefined ? editorHeight.toFixed() + 'px' : ''}
+      </span>
     </div>
   );
 }
