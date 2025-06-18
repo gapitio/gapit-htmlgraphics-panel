@@ -1,5 +1,20 @@
 # Changelog
 
+## v2.2.0 (2025-06-18)
+
+### Features / enhancements
+
+- **Repo**: Migrate to grafana create plugin [#188](https://github.com/gapitio/gapit-htmlgraphics-panel/pull/188), [41062ec](https://github.com/gapitio/gapit-htmlgraphics-panel/commit/41062ec1880f7d3ec9cb25bf6246768b07c58c9f)
+- **Repo**: Add new scroll container [#200](https://github.com/gapitio/gapit-htmlgraphics-panel/pull/200)
+- **Declarations**: Dynamically update type declarations [#202](https://github.com/gapitio/gapit-htmlgraphics-panel/pull/202)
+- **Code editor**: Don't wait for declarations to load editor [#203](https://github.com/gapitio/gapit-htmlgraphics-panel/pull/203)
+- **Code editor**: Add adjustable height for the code editor [#206](https://github.com/gapitio/gapit-htmlgraphics-panel/pull/206)
+
+### Bug fixes
+
+- **Readme**: Fix broken badge links [eb18ff6](https://github.com/gapitio/gapit-htmlgraphics-panel/commit/eb18ff6ca0d3df2f11143fb92114c5f1af5e4dcf), [25eff4f](https://github.com/gapitio/gapit-htmlgraphics-panel/commit/25eff4fb0a77173ec9e2383337827be392c33486)
+- **Declarations**: Load declarations with onRender [#204](https://github.com/gapitio/gapit-htmlgraphics-panel/pull/204)
+
 ## v2.1.1 (2022-08-11)
 
 ### Features / enhancements
