@@ -5,6 +5,7 @@ import { StandardEditorContext, type GrafanaTheme2 } from '@grafana/data';
 import { HeightControllerBar } from './HeightControllerBar';
 import { css } from '@emotion/css';
 import { CONTAINER_DEFAULT_HEIGHT, CONTAINER_MIN_HEIGHT, EDITOR_BORDER_SIZE, EDITOR_HEIGHT_OFFSET } from './constants';
+import { declarationPaths } from './declarationPaths';
 
 interface Props {
   settings?: CodeEditorOptionSettings;
@@ -67,29 +68,29 @@ function useTypeDeclarationUpdater(
       htmlGraphicsDeclarationState.declarationsLoaded = true;
     }
 
-    const reqDecl = require.context('./declarations', true, /\..*\.d\.ts$/);
-
     // Only load declarations that are not already loaded
     const loadedDeclarations = Object.keys(monaco.languages.typescript.javascriptDefaults.getExtraLibs());
-    const unloadedDeclarations = reqDecl.keys().filter((filePath) => {
-      const truncatedPath = filePath.substring(2); // Remove ./
-      return !loadedDeclarations.includes(truncatedPath);
-    });
+    const unloadedDeclarationPaths = declarationPaths.filter(
+      ({ declarationImportPath }) => !loadedDeclarations.includes(declarationImportPath)
+    );
 
-    Promise.all(unloadedDeclarations.map((key) => fetch(reqDecl(key))))
-      .then((r) => Promise.all(r.map((a) => a.text())))
-      .then((d) => {
-        const extraLibs = monaco.languages.typescript.javascriptDefaults.getExtraLibs();
-        unloadedDeclarations.forEach((filePath, i) => {
-          const truncatedPath = filePath.substring(2); // Remove ./
-          if (truncatedPath in extraLibs) {
-            // Don't add a declaration if it already exists
-            // Makes it so customProperties isn't overwritten :D
-            return;
-          }
-          monaco.languages.typescript.javascriptDefaults.addExtraLib(d[i], truncatedPath);
-        });
-      });
+    Promise.all(
+      unloadedDeclarationPaths.map(({ declarationFilePath, declarationImportPath }) =>
+        fetch(declarationFilePath)
+          .then((response) => response.text())
+          .then((declarationContent) => ({ declarationContent, declarationImportPath }))
+      )
+    ).then((declarationPaths) => {
+      const extraLibs = monaco.languages.typescript.javascriptDefaults.getExtraLibs();
+      for (const { declarationContent, declarationImportPath } of declarationPaths) {
+        if (declarationImportPath in extraLibs) {
+          // Don't add a declaration if it already exists
+          // Makes it so customProperties isn't overwritten :D
+          continue;
+        }
+        monaco.languages.typescript.javascriptDefaults.addExtraLib(declarationContent, declarationImportPath);
+      }
+    });
   }, [monaco, htmlGraphicsDeclarationState]);
 
   useEffect(() => {
