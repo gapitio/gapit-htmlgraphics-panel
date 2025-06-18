@@ -42,7 +42,7 @@
       },
       {
         "name": "MIT License",
-        "url": "https://github.com/gapitio/gapit-htmlgraphics-panel/blob/master/LICENSE"
+        "url": "https://github.com/gapitio/gapit-htmlgraphics-panel/blob/main/LICENSE"
       }
     ],
     "version": "%VERSION%",
