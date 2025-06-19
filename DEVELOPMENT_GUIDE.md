@@ -29,3 +29,27 @@ Below are just some very basic steps to get starting with the development enviro
    GRAFANA_IMAGE=grafana GRAFANA_VERSION=8.2.0 pnpm run server
    GRAFANA_IMAGE=grafana-enterprise GRAFANA_VERSION=11.5.3 pnpm run server
    ```
+
+## Website
+
+The website is built with [Docusaurus](https://docusaurus.io/). To run the website locally, you can use the following commands:
+
+1. Go to the website directory:
+
+   ```sh
+   cd website
+   ```
+
+2. Install dependencies:
+
+   ```sh
+   pnpm install
+   ```
+
+3. Start the website in development mode:
+
+   ```sh
+   pnpm start
+   ```
+
+Most of the website content is in the `website/docs` directory.
