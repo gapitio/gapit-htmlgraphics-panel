@@ -6,30 +6,26 @@ Below are just some very basic steps to get starting with the development enviro
 
 1. Install dependencies
 
-   ```BASH
-   yarn install
+   ```sh
+   pnpm install
    ```
 
 2. Build plugin in development mode or run in watch mode
 
-   ```BASH
-   yarn dev
+   ```sh
+   pnpm run dev
    ```
 
-   or
+3. Start the Grafana dev server on <http://localhost:3000>:
 
-   ```BASH
-   yarn watch
+   ```sh
+   pnpm run server
    ```
 
-3. Build plugin in production mode
+   The base image and version can be configured with the `GRAFANA_IMAGE` and `GRAFANA_VERSION` environment variables:
 
-   ```BASH
-   yarn build
-   ```
-
-4. Start the dev server:
-
-   ```BASH
-   yarn server
+   ```sh
+   GRAFANA_IMAGE=grafana GRAFANA_VERSION=12.0.1 pnpm run server
+   GRAFANA_IMAGE=grafana GRAFANA_VERSION=8.2.0 pnpm run server
+   GRAFANA_IMAGE=grafana-enterprise GRAFANA_VERSION=11.5.3 pnpm run server
    ```
