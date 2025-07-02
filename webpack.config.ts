@@ -1,7 +1,6 @@
 import type { Configuration } from 'webpack';
 import { merge } from 'webpack-merge';
 import grafanaConfig from './.config/webpack/webpack.config';
-import pluginJson from './src/plugin.json';
 import path from 'path';
 
 const htmlGraphicsDeclarationsPath = path.resolve(__dirname, 'src/components/CodeEditor/declarations');
@@ -34,9 +33,7 @@ const config = async (env): Promise<Configuration> => {
           type: 'asset/resource',
           resource: [htmlGraphicsDeclarationsPath],
           generator: {
-            publicPath: `public/plugins/${pluginJson.id}/declarations/`,
-            outputPath: 'declarations/',
-            filename: '[hash].d.ts',
+            filename: 'declarations/[hash].d.ts',
           },
         },
       ],
