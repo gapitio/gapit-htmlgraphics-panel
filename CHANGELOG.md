@@ -1,5 +1,11 @@
 # Changelog
 
+## v2.2.1 (2025-07-02)
+
+### Features / enhancements
+
+- **Repo**: Add open sans font license to the output dist [39e949b](https://github.com/gapitio/gapit-htmlgraphics-panel/commit/39e949b6349974d8b1b48c4adc1e27d53212f35a)
+
 ## v2.2.0 (2025-06-18)
 
 ### Features / enhancements
