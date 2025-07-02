@@ -4,6 +4,7 @@ import grafanaConfig from './.config/webpack/webpack.config';
 import path from 'path';
 
 const htmlGraphicsDeclarationsPath = path.resolve(__dirname, 'src/components/CodeEditor/declarations');
+const fontsPath = path.resolve(__dirname, 'src/fonts');
 
 const config = async (env): Promise<Configuration> => {
   const baseConfig = await grafanaConfig(env);
@@ -34,6 +35,14 @@ const config = async (env): Promise<Configuration> => {
           resource: [htmlGraphicsDeclarationsPath],
           generator: {
             filename: 'declarations/[hash].d.ts',
+          },
+        },
+        {
+          test: /\.(woff|woff2|eot|ttf|otf)(\?v=\d+\.\d+\.\d+)?$/,
+          type: 'asset/resource',
+          resource: [fontsPath],
+          generator: {
+            filename: 'fonts/[name]+[hash][ext]',
           },
         },
       ],
