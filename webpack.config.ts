@@ -38,6 +38,14 @@ const config = async (env): Promise<Configuration> => {
           },
         },
         {
+          test: /\.txt$/,
+          type: 'asset/resource',
+          resource: [fontsPath],
+          generator: {
+            filename: 'fonts/[name]+[hash][ext]',
+          },
+        },
+        {
           test: /\.(woff|woff2|eot|ttf|otf)(\?v=\d+\.\d+\.\d+)?$/,
           type: 'asset/resource',
           resource: [fontsPath],

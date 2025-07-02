@@ -9,6 +9,7 @@ import {
 import { config, getTemplateSrv, getLocationSrv, locationService } from '@grafana/runtime';
 import { OptionsInterface, CalcsMutation, ErrorObj, HTMLNodeElement } from 'types';
 import 'fonts.scss';
+import 'fonts/OFL.txt';
 import { parseJSON } from 'utils/parseJSON';
 import _ from 'lodash';
 import { Errors } from 'components/Errors';
