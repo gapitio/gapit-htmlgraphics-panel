@@ -14,7 +14,9 @@ permissions: read-all
 jobs:
   release:
     permissions:
+      id-token: write
       contents: write
+      attestations: write
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -23,3 +25,4 @@ jobs:
           # see https://grafana.com/developers/plugin-tools/publish-a-plugin/sign-a-plugin#generate-an-access-policy-token to generate it
           # save the value in your repository secrets
           policy_token: ${{ secrets.GRAFANA_ACCESS_POLICY_TOKEN }}
+          attestation: true
