@@ -78,6 +78,9 @@ importers:
       '@types/react':
         specifier: ^17.0.53
         version: 17.0.83
+      '@types/semver':
+        specifier: ^7.7.1
+        version: 7.7.1
       '@types/testing-library__jest-dom':
         specifier: 5.14.8
         version: 5.14.8
@@ -1181,6 +1184,9 @@ packages:
 
   '@types/scheduler@0.16.8':
     resolution: {integrity: sha512-WZLiwShhwLRmeV6zH+GkbOFT6Z6VklCItrDioxUnv+u4Ll+8vKeFySoFyK/0ctcRpOmwAicELfmys1sDc/Rw+A==}
+
+  '@types/semver@7.7.1':
+    resolution: {integrity: sha512-FmgJfu+MOcQ370SD0ev7EI8TlCAfKYU+B4m5T3yXc1CiRN94g/SZPtsCkk506aUDtlMnFZvasDwHHUcZUEaYuA==}
 
   '@types/sizzle@2.3.9':
     resolution: {integrity: sha512-xzLEyKB50yqCUPUJkIsrVvoWNfFUbIZI+RspLWt8u+tIW/BetMBZtgV2LY/2o+tYH8dRvQ+eoPf3NdhQCcLE2w==}
@@ -6041,6 +6047,8 @@ snapshots:
       csstype: 3.1.3
 
   '@types/scheduler@0.16.8': {}
+
+  '@types/semver@7.7.1': {}
 
   '@types/sizzle@2.3.9': {}
 
