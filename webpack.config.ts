@@ -1,12 +1,12 @@
 import type { Configuration } from 'webpack';
 import { merge } from 'webpack-merge';
-import grafanaConfig from './.config/webpack/webpack.config';
+import grafanaConfig, { type Env } from './.config/webpack/webpack.config';
 import path from 'path';
 
 const htmlGraphicsDeclarationsPath = path.resolve(__dirname, 'src/components/CodeEditor/declarations');
 const fontsPath = path.resolve(__dirname, 'src/fonts');
 
-const config = async (env): Promise<Configuration> => {
+const config = async (env: Env): Promise<Configuration> => {
   const baseConfig = await grafanaConfig(env);
 
   if (baseConfig.module?.rules) {
