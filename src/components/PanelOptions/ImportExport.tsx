@@ -2,7 +2,7 @@ import React from 'react';
 import { StandardEditorProps } from '@grafana/data';
 import { CodeEditorOptionSettings } from 'types';
 import { CodeEditor } from 'components/CodeEditor';
-import { Button, Input } from '@grafana/ui';
+import { Button, FileUpload } from '@grafana/ui';
 import { exportFile, contentType } from 'utils/exportFile';
 import { readFile } from 'utils/readFile';
 
@@ -48,7 +48,7 @@ export const ImportExportOption: React.FC<Props> = ({ value, item, onChange, con
 
   return (
     <div>
-      <Input type="file" onChange={(e) => importPanelOptions(e.currentTarget.files)} />
+      <FileUpload onFileUpload={(e) => importPanelOptions(e.currentTarget.files)} showFileName accept=".json" />
       <Spacer />
       <CodeEditor settings={item.settings} value={getOptionsString()} context={context} onChange={updatePanelOptions} />
       <Spacer />
