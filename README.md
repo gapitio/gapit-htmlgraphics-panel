@@ -1,15 +1,13 @@
 # HTML graphics
 
-[![Marketplace](https://img.shields.io/badge/dynamic/json?logo=grafana&color=F47A20&label=marketplace&prefix=v&query=%24.version&url=https%3A%2F%2Fgrafana.com%2Fapi%2Fplugins%2Fgapit-htmlgraphics-panel)](https://grafana.com/grafana/plugins/gapit-htmlgraphics-panel)
-[![Downloads](https://img.shields.io/badge/dynamic/json?logo=grafana&color=F47A20&label=downloads&query=%24.downloads&url=https%3A%2F%2Fgrafana.com%2Fapi%2Fplugins%2Fgapit-htmlgraphics-panel)](https://grafana.com/grafana/plugins/gapit-htmlgraphics-panel)
+[![Grafana marketplace](https://img.shields.io/badge/dynamic/json?url=https%3A%2F%2Fgrafana.com%2Fapi%2Fplugins%2Fgapit-htmlgraphics-panel&query=%24.version&prefix=v&style=flat&logo=grafana&label=marketplace&color=F46800)](https://grafana.com/grafana/plugins/gapit-htmlgraphics-panel)
+[![Grafana downloads](https://img.shields.io/badge/dynamic/json?url=https%3A%2F%2Fgrafana.com%2Fapi%2Fplugins%2Fgapit-htmlgraphics-panel&query=%24.downloads&style=flat&logo=grafana&label=downloads&color=F46800)](https://grafana.com/grafana/plugins/gapit-htmlgraphics-panel)
 
-[![GitHub release (latest by date)](https://img.shields.io/github/v/release/gapitio/gapit-htmlgraphics-panel?color=brightgreen&logo=github&label=latest)](https://github.com/gapitio/gapit-htmlgraphics-panel)
-[![GitHub all releases](https://img.shields.io/github/downloads/gapitio/gapit-htmlgraphics-panel/total?logo=github)](https://github.com/gapitio/gapit-htmlgraphics-panel)
-
-[![GitHub Repo stars](https://img.shields.io/github/stars/gapitio/gapit-htmlgraphics-panel?style=flat)](https://github.com/gapitio/gapit-htmlgraphics-panel)
-[![GitHub Workflow Status](https://img.shields.io/github/actions/workflow/status/gapitio/gapit-htmlgraphics-panel/release.yml?label=Release&logo=Github)](https://github.com/gapitio/gapit-htmlgraphics-panel/releases)
-[![License](https://img.shields.io/github/license/gapitio/gapit-htmlgraphics-panel)](https://github.com/gapitio/gapit-htmlgraphics-panel/blob/main/LICENSE)
-[![PRs welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](https://github.com/gapitio/gapit-htmlgraphics-panel/pulls)
+[![GitHub release (latest by date)](https://img.shields.io/github/v/release/gapitio/gapit-htmlgraphics-panel?style=flat&logo=github&color=008c14)](https://github.com/gapitio/gapit-htmlgraphics-panel)
+[![GitHub downloads](https://img.shields.io/github/downloads/gapitio/gapit-htmlgraphics-panel/total?style=flat&logo=github&color=008c14)](https://github.com/gapitio/gapit-htmlgraphics-panel)
+[![GitHub repo stars](https://img.shields.io/github/stars/gapitio/gapit-htmlgraphics-panel?style=flat&logo=github&color=008c14)](https://github.com/gapitio/gapit-htmlgraphics-panel)
+[![GitHub release build status](https://img.shields.io/github/actions/workflow/status/gapitio/gapit-htmlgraphics-panel/release.yml?style=flat&logo=github&label=release&color=008c14)](https://github.com/gapitio/gapit-htmlgraphics-panel/actions/workflows/release.yml)
+[![License](https://img.shields.io/github/license/gapitio/gapit-htmlgraphics-panel?style=flat&color=007ec6)](https://github.com/gapitio/gapit-htmlgraphics-panel/blob/main/LICENSE)
 
 Grafana panel for displaying metric sensitive HTML and SVG graphics.
 
