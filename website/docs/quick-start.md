@@ -4,14 +4,14 @@ title: Quick start
 ---
 
 :::tip
-It is recommended to use a code editor like [Visual Studio Code](https://code.visualstudio.com/) or [Atom](https://atom.io/) to have it saved on your computer in case of the browser crashes or freezes.
+It is recommended to use a code editor like [Visual Studio Code](https://code.visualstudio.com/) to have it saved on your computer in case of the browser crashes or freezes.
 :::
 
 To update the panel, press `ctrl+s` inside the code editor or click outside the code editor. The panel will only save if there are new changes.
 
 1. Create a graphical drawing in HTML or SVG.
    :::tip
-   Using a vector graphics software like [Inkscape](https://inkscape.org/) and [Adobe Illustrator](https://www.adobe.com/products/illustrator.html) makes creating graphics a lot easier.
+   Using a vector graphics software like [Inkscape](https://inkscape.org/) and [Figma](https://www.figma.com/) makes creating graphics a lot easier.
    :::
 2. Create a new panel and select HTML Graphics in the visualizations tab.
 3. Paste the HTML/SVG code into the HTML/SVG document code editor.
