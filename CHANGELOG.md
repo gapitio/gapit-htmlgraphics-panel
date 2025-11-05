@@ -1,5 +1,15 @@
 # Changelog
 
+## v2.2.2 (2025-11-05)
+
+### Features / enhancements
+
+- **Build**: Add provenance attestation for builds [#208](https://github.com/gapitio/gapit-htmlgraphics-panel/pull/208)
+
+### Bug fixes
+
+- **UI**: Replace small file upload button [#210](https://github.com/gapitio/gapit-htmlgraphics-panel/pull/210)
+
 ## v2.2.1 (2025-07-02)
 
 ### Features / enhancements
