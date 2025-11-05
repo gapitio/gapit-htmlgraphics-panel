@@ -8,7 +8,7 @@
 
 ### Bug fixes
 
-- **UI**: Replace small file upload button [#210](https://github.com/gapitio/gapit-htmlgraphics-panel/pull/210)
+- **UI**: Fix small file upload button [#210](https://github.com/gapitio/gapit-htmlgraphics-panel/pull/210) [#211](https://github.com/gapitio/gapit-htmlgraphics-panel/pull/210)
 
 ## v2.2.1 (2025-07-02)
 
