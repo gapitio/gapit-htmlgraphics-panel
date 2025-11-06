@@ -1,0 +1,135 @@
+{
+  "annotations": {
+    "list": [
+      {
+        "builtIn": 1,
+        "datasource": {
+          "uid": "-- Grafana --"
+        },
+        "enable": true,
+        "hide": true,
+        "iconColor": "rgba(0, 211, 255, 1)",
+        "name": "Annotations & Alerts",
+        "target": {
+          "limit": 100,
+          "matchAny": false,
+          "tags": [],
+          "type": "dashboard"
+        },
+        "type": "dashboard"
+      }
+    ]
+  },
+  "editable": true,
+  "fiscalYearStartMonth": 0,
+  "graphTooltip": 0,
+  "id": 1,
+  "links": [],
+  "panels": [
+    {
+      "datasource": {
+        "type": "testdata",
+        "uid": "trlxrdZVk"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": 0
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 9,
+        "w": 12,
+        "x": 0,
+        "y": 0
+      },
+      "id": 2,
+      "options": {
+        "SVGBaseFix": true,
+        "add100Percentage": true,
+        "calcsMutation": "standard",
+        "centerAlignContent": true,
+        "codeData": "{\n  \"text\": \"Random text\"\n}",
+        "css": "div {\n  /*\n    The Open Sans font is imported by the plugin,\n    and is formatted as woff2, which means that it only supports modern browsers.\n\n    If you want to support older browser, try using system fonts.\n    A good blog about system fonts https://bitsofco.de/the-new-system-font-stack/\n\n    The Open Sans font used - https://fonts.google.com/specimen/Open+Sans\n    Browser support for woff2 - https://caniuse.com/#feat=woff2\n  */\n  font-family: 'Open Sans';\n}\n",
+        "dynamicData": false,
+        "dynamicFieldDisplayValues": false,
+        "dynamicHtmlGraphics": false,
+        "dynamicProps": false,
+        "html": "<div>\n  <!--\n    Currently, light (300), regular (400), semi bold (600), and bold (800) is imported.\n\n    Font weight - https://developer.mozilla.org/en-US/docs/Web/CSS/font-weight\n   -->\n  <span style=\"font-weight: 300\">Open Sans - Light</span>\n  <br />\n  <span style=\"font-weight: 400\">Open Sans - Normal</span>\n  <br />\n  <span style=\"font-weight: 600\">Open Sans - Semi bold</span>\n  <br />\n  <span style=\"font-weight: 800\">Open Sans - Bold</span>\n</div>",
+        "onInit": "",
+        "onInitOnResize": true,
+        "onRender": "",
+        "overflow": "visible",
+        "panelupdateOnMount": true,
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull",
+            "last",
+            "first",
+            "firstNotNull",
+            "min",
+            "max",
+            "mean",
+            "sum",
+            "count",
+            "range",
+            "delta",
+            "step",
+            "diff",
+            "logmin",
+            "allIsZero",
+            "allIsNull",
+            "diffperc"
+          ]
+        },
+        "renderOnMount": true,
+        "rootCSS": "",
+        "useGrafanaScrollbar": true
+      },
+      "pluginVersion": "2.2.2",
+      "targets": [
+        {
+          "datasource": {
+            "type": "testdata",
+            "uid": "trlxrdZVk"
+          },
+          "refId": "A"
+        }
+      ],
+      "title": "Panel Title",
+      "type": "gapit-htmlgraphics-panel"
+    }
+  ],
+  "preload": false,
+  "refresh": "",
+  "schemaVersion": 42,
+  "tags": [],
+  "templating": {
+    "list": []
+  },
+  "time": {
+    "from": "now-6h",
+    "to": "now"
+  },
+  "timepicker": {},
+  "timezone": "",
+  "title": "Fonts overview",
+  "uid": "aSuyonDHk",
+  "version": 1
+}
