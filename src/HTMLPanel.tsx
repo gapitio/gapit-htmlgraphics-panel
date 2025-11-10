@@ -8,8 +8,6 @@ import {
 } from '@grafana/data';
 import { config, getTemplateSrv, getLocationSrv, locationService } from '@grafana/runtime';
 import { OptionsInterface, CalcsMutation, ErrorObj, HTMLNodeElement } from 'types';
-import 'fonts.scss';
-import 'fonts/OFL.txt';
 import { parseJSON } from 'utils/parseJSON';
 import _ from 'lodash';
 import { Errors } from 'components/Errors';
@@ -19,6 +17,7 @@ import { triggerPanelwillunmount } from 'utils/events/panelwillunmount';
 import { addHtml } from 'utils/addHtml';
 import { CustomScrollbar, ScrollContainer } from '@grafana/ui';
 import semver from 'semver';
+import './registerFonts';
 
 interface Props extends PanelProps<OptionsInterface> {}
 interface PanelState {
