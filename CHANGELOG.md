@@ -1,5 +1,11 @@
 # Changelog
 
+## v2.2.3 (2025-11-12)
+
+### Bug fixes
+
+- **Repo**: Don't use direct css imports [#212](https://github.com/gapitio/gapit-htmlgraphics-panel/pull/212)
+
 ## v2.2.2 (2025-11-05)
 
 ### Features / enhancements
