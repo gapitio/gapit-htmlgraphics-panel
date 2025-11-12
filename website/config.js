@@ -1,5 +1,5 @@
 module.exports.htmlGraphics = {
-  version: '2.2.2',
+  version: '2.2.3',
   latestReleaseUrl:
     'https://github.com/gapitio/gapit-htmlgraphics-panel/releases/latest/download/gapit-htmlgraphics-panel.zip',
   releaseUrl: function () {
